@@ -1,0 +1,882 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta charset="utf-8">
+<title>Anchor Bay DECA Study Lab</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+@font-face{font-family:"Montserrat";src:url("fonts/Montserrat-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("fonts/Montserrat-500.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("fonts/Montserrat-700.woff2") format("woff2");font-weight:700;font-display:swap}
+:root{
+  --bg:#ffffff;--surface:#fafafa;--surface2:#f1f1f2;--fg:#111111;--muted:#5f5f63;--rule:#dedee0;
+  --red:#cc0000;--red-hover:#b00000;--red-press:#990000;--red-tint:#fbe6e6;--on-red:#ffffff;
+  --good:#1d7a46;--good-tint:#e5f3eb;--bad:#cc0000;--bad-tint:#fbe6e6;--grey:#999999;
+}
+@media (prefers-color-scheme:dark){:root[data-theme="auto-dark"]{
+  --bg:#121213;--surface:#1b1b1d;--surface2:#242427;--fg:#f2f2f3;--muted:#a9a9ae;--rule:#333337;
+  --red:#e01e1e;--red-hover:#f03a3a;--red-press:#c00000;--red-tint:#3a1414;--on-red:#ffffff;
+  --good:#4cc283;--good-tint:#15301f;--bad:#ff5a5a;--bad-tint:#3a1414;--grey:#8a8a8f;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121213;--surface:#1b1b1d;--surface2:#242427;--fg:#f2f2f3;--muted:#a9a9ae;--rule:#333337;
+  --red:#e01e1e;--red-hover:#f03a3a;--red-press:#c00000;--red-tint:#3a1414;--on-red:#ffffff;
+  --good:#4cc283;--good-tint:#15301f;--bad:#ff5a5a;--bad-tint:#3a1414;--grey:#8a8a8f;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:"Montserrat","Helvetica Neue",Arial,sans-serif;font-size:15px;line-height:1.55}
+.top{background:var(--red);color:var(--on-red);padding-block:14px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top .in{max-width:880px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-weight:700;letter-spacing:.02em;font-size:17px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.brand small{font-weight:400;opacity:.85;font-size:13px}
+.top select{font:inherit;background:transparent;color:var(--on-red);border:1px solid rgba(255,255,255,.6);border-radius:6px;padding:5px 8px}
+.top select option{color:#111}
+main{max-width:880px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:18px}
+h1,h2,h3{text-wrap:balance;margin:0;line-height:1.2}
+h1{font-size:26px;font-weight:700}
+h2{font-size:18px;font-weight:700}
+.muted{color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:18px;min-width:0}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+.stat{display:grid;gap:2px}
+.stat b{font-size:28px;font-weight:700;line-height:1.1}
+.stat span{font-size:13px;color:var(--muted)}
+.stat.red b{color:var(--red)}
+.btn{font:inherit;font-weight:500;border:0;border-radius:8px;padding:11px 18px;cursor:pointer;background:var(--red);color:var(--on-red);min-height:44px}
+.btn:hover{background:var(--red-hover)}.btn:active{background:var(--red-press)}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--rule)}
+.btn.ghost:hover{background:var(--surface2)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.seg button{font:inherit;border:0;background:transparent;color:var(--fg);padding:8px 14px;cursor:pointer;min-height:40px}
+.seg button[aria-pressed="true"]{background:var(--red);color:var(--on-red)}
+.bar{height:8px;background:var(--surface2);border-radius:99px;overflow:hidden;position:relative}
+.bar i{display:block;height:100%;background:var(--red);border-radius:99px}
+.bar .mk{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--fg);opacity:.55}
+.ia{display:grid;grid-template-columns:minmax(0,1fr) 120px 44px;gap:10px;align-items:center;font-size:13.5px;padding-block:5px;border-bottom:1px solid var(--rule)}
+.ia:last-child{border-bottom:0}
+.ia .n{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+.tag{display:inline-block;font-size:12px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.q{font-size:17px;line-height:1.55;max-width:68ch}
+.opts{display:grid;gap:10px}
+.opt{font:inherit;text-align:left;background:var(--bg);color:var(--fg);border:1.5px solid var(--rule);border-radius:10px;padding:12px 14px;cursor:pointer;display:flex;gap:12px;align-items:flex-start;min-height:48px}
+.opt:hover:not([disabled]){border-color:var(--red)}
+.opt .l{flex:0 0 26px;height:26px;border-radius:50%;background:var(--surface2);display:grid;place-items:center;font-weight:700;font-size:13px}
+.opt.right{border-color:var(--good);background:var(--good-tint)}
+.opt.right .l{background:var(--good);color:#fff}
+.opt.wrong{border-color:var(--bad);background:var(--bad-tint)}
+.opt.wrong .l{background:var(--bad);color:#fff}
+.opt[disabled]{cursor:default}
+.why{border-left:3px solid var(--red);padding:4px 0 4px 14px;max-width:68ch}
+.why.ok{border-color:var(--good)}
+.who{background:transparent;border:1px solid rgba(255,255,255,.55);color:#fff;border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.signin{max-width:520px;margin:0 auto;display:grid;gap:16px}
+.signin input,.signin select{font:inherit;padding:10px 12px;border:1px solid var(--rule);border-radius:8px;background:var(--bg);color:var(--fg)}
+.signin label{display:grid;gap:6px;font-size:14px}
+.err{color:var(--bad);font-size:13px;min-height:1em}
+.miss{border:1px solid var(--rule);border-radius:10px;padding:10px 14px}
+.miss summary{cursor:pointer;font-weight:600}
+.rate{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.rate button{display:grid;gap:2px;justify-items:center}
+.rate small{font-size:12px;opacity:.85;font-weight:400}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;font-size:13px;border:1px solid var(--rule);background:var(--bg);color:var(--fg);border-radius:999px;padding:6px 12px;cursor:pointer;min-height:36px}
+.chip:hover{border-color:var(--fg)}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.chip .c{opacity:.65;margin-left:5px;font-variant-numeric:tabular-nums}
+.chip[disabled]{opacity:.4;cursor:default}
+.fl{display:grid;gap:6px;font-size:14px}
+.fl select{font:inherit;padding:9px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--bg);color:var(--fg);max-width:100%}
+.badge{display:inline-block;font-size:11.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;border-radius:999px;padding:2px 9px;white-space:nowrap}
+.badge.right{background:var(--good-tint);color:var(--good)}
+.badge.missed{background:var(--bad-tint);color:var(--bad)}
+.badge.fixing{border:1px solid var(--bad);color:var(--bad);padding:1px 8px}
+.badge.new{background:var(--surface2);color:var(--muted)}
+.bank{list-style:none;margin:0;padding:0}
+.bank li{border-bottom:1px solid var(--rule)}
+.bank li:last-child{border-bottom:0}
+.bank button{font:inherit;color:inherit;background:none;border:0;text-align:left;width:100%;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 14px;padding:12px 4px;align-items:start}
+.bank button:hover{background:var(--surface2)}
+.bank .meta{font-size:12.5px;color:var(--muted)}
+.bank .side{display:grid;gap:4px;justify-items:end}
+.ia[data-ia]{cursor:pointer}.ia[data-ia]:hover span:first-child{text-decoration:underline}
+.flash{min-height:180px;display:grid;place-items:center;text-align:center;cursor:pointer;padding:28px}
+.flash .t{font-size:22px;font-weight:700}
+.flash .d{font-size:16px;max-width:56ch}
+.prog{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.notice{background:var(--red-tint);border-radius:10px;padding:12px 14px;font-size:14px}
+textarea,input[type=text]{font:inherit;width:100%;background:var(--bg);color:var(--fg);border:1px solid var(--rule);border-radius:8px;padding:10px}
+textarea{min-height:90px;font-family:ui-monospace,Menlo,monospace;font-size:12px}
+.sample{font-size:12.5px;background:var(--surface2);color:var(--muted);text-align:center;padding:6px 16px}
+.list{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.list li{display:flex;justify-content:space-between;gap:12px;font-size:14px;border-bottom:1px solid var(--rule);padding-bottom:8px}
+.list li:last-child{border-bottom:0}
+kbd{font-family:inherit;font-size:11px;border:1px solid var(--rule);border-radius:4px;padding:0 5px;color:var(--muted)}
+@media (max-width:520px){.bank button{grid-template-columns:minmax(0,1fr)}.bank .side{justify-items:start;grid-auto-flow:column;justify-content:start;gap:8px}.rate small{display:none}h1{font-size:22px}.q{font-size:16px}.ia{grid-template-columns:minmax(0,1fr) 80px 40px}}
+
+/* ── Anchor Bay DECA Design System alignment (Nov 9) ── */
+:root{--bg:#ffffff;--surface:#ffffff;--surface2:#f5f5f5;--fg:#000000;--body:#4d4d4d;--muted:#7a7a7a;--rule:#e0e0e0;
+  --red:#cc0000;--red-hover:#b00000;--red-press:#990000;--red-tint:#fbe6e6;--good:#127c3f;--good-tint:#e7f3ec;--bad:#cc0000;--bad-tint:#fbe6e6;
+  --ease:cubic-bezier(.2,0,.2,1)}
+*,*::before,*::after{border-radius:0!important}
+body{color:var(--body);-webkit-font-smoothing:antialiased}
+h1,h2,h3{color:var(--fg);font-family:"Montserrat","Helvetica Neue",Arial,sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:-.01em;line-height:1.12}
+h1{font-size:26px;padding-bottom:12px;border-bottom:1px solid var(--rule)}
+h2{font-size:15px;letter-spacing:.04em}
+.q,.flash .t{color:var(--fg)}
+.card{background:var(--surface);border:1px solid var(--rule);box-shadow:none}
+.tag{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--red)}
+.stat b{color:var(--fg)}.stat span{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.btn{font-family:"Montserrat",Arial,sans-serif;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.14em;border:2px solid transparent;padding:12px 22px;transition:background-color 120ms var(--ease),color 120ms var(--ease),border-color 120ms var(--ease)}
+.btn.ghost{background:transparent;color:var(--red);border-color:var(--red)}
+.btn.ghost:hover{background:var(--red-tint)}.btn.ghost:active{background:var(--red);color:#fff}
+.btn[disabled]{opacity:.4}
+a{color:var(--red)}
+button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible,.opt:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.seg{border:2px solid var(--red)}
+.seg button{font-family:"Montserrat",Arial,sans-serif;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--red)}
+.seg button[aria-pressed="true"]{background:var(--red);color:#fff}
+.chip{border:1px solid var(--rule);background:#fff;color:var(--fg)}
+.chip:hover{border-color:var(--red)}
+.chip[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:#fff}
+.badge{font-size:10.5px;font-weight:700;letter-spacing:.12em;padding:3px 8px}
+.badge.fixing{padding:2px 7px}
+.opt{border:1px solid var(--rule);background:#fff;transition:border-color 120ms var(--ease)}
+.opt:hover:not([disabled]){border-color:var(--red)}
+.opt .l{background:var(--surface2);color:var(--fg);font-family:"Montserrat",Arial,sans-serif}
+.opt.right,.opt.wrong{border-width:2px}
+.bar{height:6px;background:var(--surface2)}
+.notice{background:var(--red-tint);border-left:3px solid var(--red)}
+.why{border-left-width:3px}
+.miss{border:1px solid var(--rule)}
+.sample{font-size:11px;font-weight:500;letter-spacing:.06em;background:var(--surface2);color:var(--body);padding:7px 16px}
+.top{padding-block:12px}
+.brand{gap:14px}
+.brand img{height:30px;width:auto;display:block}
+.brand small{font-family:"Montserrat",Arial,sans-serif;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.85;padding-left:14px;border-left:1px solid rgba(255,255,255,.45)}
+.top select,.who{border-color:rgba(255,255,255,.7)}
+.signin input,.signin select,.fl select,textarea,input[type=text]{border:1px solid var(--rule);background:#fff}
+.signin label,.fl{font-family:"Montserrat",Arial,sans-serif;font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg)}
+.signin label input,.signin label select,.fl select{text-transform:none;letter-spacing:0;font-weight:400;font-size:15px;color:var(--fg)}
+.foot{max-width:880px;margin:0 auto;padding:18px 16px 36px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:"Montserrat",Arial,sans-serif;font-weight:700;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:520px){h1{font-size:21px}.brand img{height:24px}.brand small{padding-left:10px}}
+main.wide{max-width:1240px}
+.tblwrap{overflow-x:auto;border:1px solid var(--rule)}
+table.dt{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums}
+.dt th{position:sticky;top:0;background:var(--surface);text-align:left;font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:9px 10px;border-bottom:1px solid var(--rule);white-space:nowrap;cursor:pointer;user-select:none}
+.dt th[aria-sort]{color:var(--fg)}
+.dt td{padding:9px 10px;border-bottom:1px solid var(--rule);white-space:nowrap;vertical-align:top}
+.dt td.nm{white-space:normal;min-width:180px}
+.dt tr:last-child td{border-bottom:0}
+.dt .lo,.dt .old{color:var(--bad)}.dt .hi{color:var(--good)}
+</style>
+
+<div class="sample">Progress saves to your Study Lab account · sign in with the same email and password on any device</div>
+<header class="top"><div class="in">
+  <div class="brand" id="home-link" role="button" tabindex="0" aria-label="Anchor Bay DECA Study Lab, home"><img src="assets/abhs-deca-horizontal-white.png" alt="Anchor Bay DECA"><small>Study Lab</small></div>
+  <label class="row" style="gap:8px;font-size:13px">Cluster
+    <select id="cluster"></select>
+  </label>
+  <button class="who" id="who" hidden></button>
+</div></header>
+<main id="app"><p class="muted">Loading questions…</p></main>
+<footer class="foot"><span>Anchor Bay High School DECA · Study Lab</span><span>Chapter-written questions</span></footer>
+
+<script type="module" src="cloud.js" onerror="window.dispatchEvent(new Event('cloud-fail'))"></script>
+<script>
+(()=>{
+const DAY=864e5, OLDKEY='abdeca-study-v1', PKEY='abdeca-study-profile', KEY_PREFIX='abdeca-study-v2';
+const CLUSTERS=[['marketing','Marketing'],['finance','Finance'],['hospitality','Hospitality & Tourism'],['bma','Business Management & Administration'],['entrepreneurship','Entrepreneurship'],['pfl','Personal Financial Literacy'],['bacore','Principles events (BA Core)']];
+const cname=k=>(CLUSTERS.find(c=>c[0]===k)||[k,k])[1];
+const EMAIL_RE=/^[a-z0-9._-]+@(absstudents\.abs\.misd\.net|abs\.misd\.net)$/i;
+const EXAM=new Date('2026-12-01T08:30:00'), BENCH=[{d:new Date('2026-11-11T23:59:00'),p:65},{d:new Date('2026-11-25T23:59:00'),p:80}];
+const FIRST_PASS=new Date('2026-11-24T23:59:00');
+const app=document.getElementById('app');
+let DATA=null, S=null, P=null, storageOK=true, session=null, KEY='';
+
+/* ---------- storage ----------
+   Each student's progress is kept on this device (localStorage) and in their Study Lab
+   account (Cloud Firestore, through cloud.js). Records are keyed by the student's scrambled ID. */
+const SKEY='abdeca-study-v3';
+function blank(){return{v:3,boost:{},name:'',cards:{},log:[],days:{},exams:[],mode:'q',newToday:{d:'',n:0},reports:[],bank:null,upd:0}}
+function loadProfile(){try{const p=JSON.parse(localStorage.getItem(PKEY))||{};return p.v===3?{v:3,users:p.users||{},cur:p.cur||''}:{v:3,users:{},cur:''}}catch(e){storageOK=false;return{v:3,users:{},cur:''}}}
+function saveProfile(){try{localStorage.setItem(PKEY,JSON.stringify(P))}catch(e){storageOK=false}}
+const me=()=>P.users[P.cur];
+const who=()=>me()&&me().email?me().email.split('@')[0]:'Signed in';
+function keyFor(sid,cl){return SKEY+':'+sid+':'+cl}
+function readLocal(k){try{const r=localStorage.getItem(k);return r?Object.assign(blank(),JSON.parse(r)):null}catch(e){storageOK=false;return null}}
+function localSave(){if(!KEY)return;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){storageOK=false}}
+function save(){if(!KEY)return;S.upd=Date.now();localSave();markDirty()}
+// Same scrambled ID as cloud.js (keep SALT in step with it).
+async function sidFor(email){const b=new TextEncoder().encode('abdeca-study-lab|'+String(email).trim().toLowerCase()),h=await crypto.subtle.digest('SHA-256',b);
+  return Array.from(new Uint8Array(h)).map(x=>x.toString(16).padStart(2,'0')).join('').slice(0,20)}
+
+/* ---------- dates ---------- */
+const sod=t=>{const d=new Date(t);d.setHours(0,0,0,0);return d.getTime()};
+const today=()=>sod(Date.now());
+const dkey=t=>{const d=new Date(t);return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()};
+const daysTo=d=>Math.max(0,Math.ceil((sod(d)-today())/DAY));
+const fmt=d=>new Date(d).toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});
+
+/* ---------- merging two copies of a student's progress ----------
+   Used when this device and the account (or two devices) both have answers. Keeps every
+   answer from both, the most recent state of each card, and every practice exam. */
+const cstamp=c=>Math.max(c.seen||0,c.last||0,c.lok||0,c.lmiss||0);
+const dkeyT=k=>{if(!k)return 0;const[y,m,d]=k.split('-').map(Number);return new Date(y,m-1,d).getTime()};
+function mergeS(a,b){
+  if(!b)return a; if(!a)return Object.assign(blank(),b);
+  a=Object.assign(blank(),a); b=Object.assign(blank(),b);
+  const has=x=>Object.keys(x.cards).length||x.exams.length;
+  if(!has(b))return a; if(!has(a))return b;
+  const m=Object.assign(blank(),(b.upd||0)>(a.upd||0)?b:a);
+  m.cards={}; for(const id of new Set(Object.keys(a.cards).concat(Object.keys(b.cards)))){const x=a.cards[id],y=b.cards[id]; m.cards[id]=!x?y:!y?x:cstamp(y)>cstamp(x)?y:x}
+  const seenK=new Set(); m.log=a.log.concat(b.log).filter(e=>{const k=e.id+'|'+e.at; if(seenK.has(k))return false; seenK.add(k); return true}).sort((x,y)=>x.at-y.at).slice(-2000);
+  m.days={}; for(const k of new Set(Object.keys(a.days).concat(Object.keys(b.days))))m.days[k]=Math.max(a.days[k]||0,b.days[k]||0);
+  const cnt={}; for(const e of m.log)cnt[dkey(e.at)]=(cnt[dkey(e.at)]||0)+1; for(const k in cnt)m.days[k]=Math.max(m.days[k]||0,cnt[k]);
+  const ex={}; for(const e of a.exams.concat(b.exams))ex[e.at]=e; m.exams=Object.values(ex).sort((x,y)=>x.at-y.at);
+  m.reports=[...new Set(a.reports.concat(b.reports))].sort((x,y)=>x-y);
+  m.boost=Object.assign({},b.boost||{},a.boost||{});
+  const p=a.newToday||{d:'',n:0},q=b.newToday||{d:'',n:0}; m.newToday=p.d===q.d?{d:p.d,n:Math.max(p.n,q.n)}:dkeyT(q.d)>dkeyT(p.d)?q:p;
+  m.v=3; m.upd=Math.max(a.upd||0,b.upd||0); return m}
+const richer=(m,r)=>!r||m.log.length>r.log.length||m.exams.length>r.exams.length||Object.keys(m.cards).length>Object.keys(r.cards).length;
+
+/* ---------- account sync ----------
+   Answers save on this device at once and reach the account a few seconds later (sooner after
+   10 answers, at the end of a session and when the page is hidden). Each save merges with what
+   the account already has, so a phone and a school computer never overwrite each other. */
+let CLOUD=null, MODE='cloud', dirty=0, pushT=null, syncing=null, lastSync=0, syncErr='', ADV=false, DATAKEY='', FLASH='', PENDING=null;
+function markDirty(){if(MODE!=='cloud'||!CLOUD)return; dirty++; clearTimeout(pushT); pushT=setTimeout(push,dirty>=10?300:12000); paintSync()}
+function applyState(m){for(const k of Object.keys(m))S[k]=m[k]}
+function push(){
+  if(syncing)return syncing; if(MODE!=='cloud'||!CLOUD||!S||!me()||!dirty||DATAKEY!==me().cluster)return Promise.resolve();
+  const n=dirty, sid=me().sid, cl=me().cluster, snap=JSON.parse(JSON.stringify(S));
+  syncing=(async()=>{try{
+    const m=await CLOUD.syncState(sid,cl,snap,mergeS,{cluster:cl,front:front(),upd:Date.now(),sum:{[cl]:summary()}});
+    if(me()&&me().sid===sid&&me().cluster===cl&&richer(m,snap)){applyState(mergeS(JSON.parse(JSON.stringify(S)),m)); localSave(); CLOUD.putStudent(sid,{sum:{[cl]:summary()}}).catch(()=>{})}
+    dirty=Math.max(0,dirty-n); lastSync=Date.now(); syncErr='';
+  }catch(e){syncErr=e.code||'error'; console.warn('Study Lab sync',e); clearTimeout(pushT); pushT=setTimeout(push,45000)}
+  finally{syncing=null; paintSync(); if(dirty&&!syncErr){clearTimeout(pushT); pushT=setTimeout(push,12000)}}})();
+  return syncing}
+async function pull(sid,cl){ // bring the account's copy into this device's copy
+  if(MODE!=='cloud'||!CLOUD)return;
+  try{const r=await CLOUD.getState(sid,cl); if(!me()||me().sid!==sid||me().cluster!==cl)return;
+    const m=mergeS(JSON.parse(JSON.stringify(S)),r?Object.assign(blank(),r):null); applyState(m); localSave();
+    if(richer(m,r?Object.assign(blank(),r):null)&&(Object.keys(m.cards).length||m.exams.length))dirty++;
+    syncErr=''; lastSync=Date.now()}
+  catch(e){syncErr=e.code||'error'; console.warn('Study Lab load',e)}
+  paintSync()}
+function syncText(){
+  if(MODE!=='cloud')return 'Saved on this device only. Sign in to save to your account.';
+  if(syncErr&&!navigator.onLine)return 'Offline: saved on this device, and it will reach your account when you’re back online.';
+  if(syncErr)return 'Saved on this device. Your account will catch up shortly.';
+  if(dirty||syncing)return 'Saving to your account…';
+  return lastSync?'Saved to your account.':'Signed in.'}
+function paintSync(){document.querySelectorAll('[data-sync]').forEach(el=>el.textContent=syncText())}
+document.addEventListener('visibilitychange',()=>{
+  if(!me()||MODE!=='cloud')return;
+  if(document.visibilityState==='hidden'){if(dirty)push()}
+  else if(Date.now()-lastSync>120000&&document.getElementById('bmiss'))pull(me().sid,me().cluster).then(()=>{if(document.getElementById('bmiss'))home()})});
+addEventListener('online',()=>{if(dirty)push()});
+function summary(){ // small progress record the advisor dashboard reads
+  const c=counts(), ra=recentAcc(), weak=iaStats().filter(x=>x.acc!=null).sort((a,b)=>a.acc-b.acc).slice(0,3), rec={}, t0=today();
+  for(let i=0;i<14;i++){const k=dkey(t0-i*DAY+12*36e5); if(S.days[k])rec[k]=S.days[k]}
+  const pct=e=>e?Math.round(e.right/e.n*100):null;
+  return{acc:ra==null?null:Math.round(ra*100),seen:DATA.q.filter(x=>S.cards[x.id]).length,total:DATA.q.length,
+    solid:DATA.q.filter(x=>S.cards[x.id]&&S.cards[x.id].ivl>=Math.min(7,capDays())).length,
+    missed:DATA.q.filter(x=>{const t=status(x.id);return t==='missed'||t==='fixing'}).length,
+    due:c.due,streak:streak(),days:Object.keys(S.days).length,recent:rec,last:S.log.length?S.log[S.log.length-1].at:0,
+    timed:pct(lastOf(false)),mock:pct(lastOf(true)),weak:weak.map(x=>({ia:x.ia,acc:Math.round(x.acc*100)})),at:Date.now()}}
+
+/* ---------- scheduler: SM-2 style, exam-aware cap ---------- */
+const STEPS=[1,10]; // learning steps, minutes
+function capDays(){const d=daysTo(EXAM);return Math.max(1,Math.floor(d/2.5))}
+function card(id){return S.cards[id]||(S.cards[id]={ivl:0,ease:2.5,step:0,due:0,reps:0,lapses:0,ok:0,bad:0,first:null,last:0})}
+function schedule(id,grade){ // grade: 0 again, 1 hard, 2 good, 3 easy
+  const c=card(id), now=Date.now(), cap=capDays();
+  c.reps++; c.last=now; c.g=grade;
+  const learning=c.ivl===0;
+  if(grade===0){c.lapses+= learning?0:1; c.ease=Math.max(1.3,c.ease-0.2); c.ivl=0; c.step=0; c.due=now+STEPS[0]*6e4; return c}
+  if(learning){
+    if(grade===3){c.ivl=Math.min(cap,3)}
+    else if(grade===1){c.due=now+STEPS[Math.min(c.step,1)]*6e4;return c}
+    else if(c.step<STEPS.length-1){c.step++;c.due=now+STEPS[c.step]*6e4;return c}
+    else c.ivl=1;
+  }else{
+    if(grade===1){c.ivl=c.ivl*1.2;c.ease=Math.max(1.3,c.ease-0.15)}
+    else if(grade===2){c.ivl=c.ivl*c.ease}
+    else {c.ivl=c.ivl*c.ease*1.3;c.ease+=0.15}
+    c.ivl=Math.max(1,Math.round(c.ivl));
+  }
+  c.ivl=Math.min(c.ivl,cap);
+  c.due=today()+c.ivl*DAY+4*36e5; // available from 4 AM on its due day
+  return c;
+}
+
+/* ---------- stats ---------- */
+const boosted=()=>DATA.k.filter(x=>S.boost&&S.boost[x.id]);
+function pool(){return S.mode==='k'?DATA.k:S.mode==='q'?DATA.q.concat(boosted()):DATA.q.concat(DATA.k)}
+function counts(){
+  const now=Date.now(); let due=0,learn=0,mature=0,seen=0;
+  for(const it of pool()){const c=S.cards[it.id]; if(!c)continue; seen++;
+    if(c.due<=now+0) due++; if(c.ivl===0) learn++; if(c.ivl>=Math.min(7,capDays())) mature++;}
+  return{due,learn,mature,seen,unseen:pool().length-seen,total:pool().length};
+}
+function newPerDay(){const un=DATA.q.filter(x=>!S.cards[x.id]).length+(S.mode!=='q'?DATA.k.filter(x=>!S.cards[x.id]).length:0);
+  const d=Math.max(1,daysTo(FIRST_PASS)); return Math.min(80,Math.max(10,Math.ceil(un/d)))}
+function newLeft(){if(S.newToday.d!==dkey(Date.now()))S.newToday={d:dkey(Date.now()),n:0};return Math.max(0,newPerDay()-S.newToday.n)}
+function iaStats(){
+  const m={}; for(const q of DATA.q){(m[q.ia]=m[q.ia]||{n:0,seen:0,ok:0,tries:0}).n++;
+    const c=S.cards[q.id]; if(c&&(c.ok+c.bad)){m[q.ia].seen++; m[q.ia].ok+=c.cok||0; m[q.ia].tries+=c.ctr||0}}
+  return Object.entries(m).map(([ia,v])=>({ia,...v,acc:v.tries?v.ok/v.tries:null})).sort((a,b)=>b.n-a.n);
+}
+function recentAcc(n=100){const L=S.log.filter(x=>x.t==='q'&&x.c).slice(-n); if(L.length<10)return null; return L.filter(x=>x.ok).length/L.length}
+/* ---------- results and ratings ----------
+   lr = last result, lok/lmiss = time of last right/miss, g = last rating (0 again … 3 easy).
+   A missed card counts as fixed only once it is answered right on a later day than the miss:
+   answering right minutes after seeing the answer is not yet evidence of retention. */
+const RATE=['Again','Hard','Good','Easy'];
+/* "Cold" answers (first try, or the first answer on a later day) measure readiness.
+   Same-day retries right after seeing the answer are left out because they overstate it. */
+function record(id,ok,t){const c=card(id),now=Date.now(),cold=!c.seen||sod(c.seen)<today(); if(c.first===null)c.first=ok; ok?c.ok++:c.bad++; c.lr=ok; c.seen=now;
+  if(cold){c.cok=(c.cok||0)+(ok?1:0); c.ctr=(c.ctr||0)+1}
+  if(ok)c.lok=now; else{c.lmiss=now;c.g=0}
+  if(S.boost)delete S.boost[id];
+  S.log.push({t,id,ok,at:now,c:cold?1:0}); if(S.log.length>2000)S.log=S.log.slice(-2000); S.days[dkey(now)]=(S.days[dkey(now)]||0)+1}
+function status(id){const c=S.cards[id]; if(!c||!(c.ok+c.bad))return'new'; if(c.lr===false)return'missed';
+  if(c.lmiss&&c.lok&&sod(c.lok)<=sod(c.lmiss))return'fixing'; return'right'}
+function toReview(id){const c=card(id); if(c.ivl>0)c.lapses++; c.ivl=0;c.step=0;c.due=Date.now()}
+function introduce(id){const c=card(id); if(!c.reps){const g0=c.g; schedule(id,2); c.g=g0}}
+function migrate(){
+  if((S.v||2)<3){const lastDay={}, tally={};
+    for(const e of S.log){const d=sod(e.at), cold=lastDay[e.id]==null||lastDay[e.id]<d; lastDay[e.id]=d; e.c=cold?1:0;
+      if(cold){const t=tally[e.id]||(tally[e.id]={ok:0,tr:0,at:0}); t.tr++; if(e.ok)t.ok++} (tally[e.id]||(tally[e.id]={ok:0,tr:0,at:0})).at=e.at}
+    for(const[id,c]of Object.entries(S.cards)){if(!(c.ok+c.bad))continue; const t=tally[id];
+      if(t){c.cok=t.ok;c.ctr=t.tr;c.seen=t.at} else {c.ctr=1;c.cok=c.first?1:0;c.seen=c.last||0}}
+    S.v=3; S.boost=S.boost||{}}
+  for(const[id,c]of Object.entries(S.cards)){if(c.lr!==undefined||!(c.ok+c.bad))continue;
+  const L=S.log.filter(x=>x.id===id); if(L.length){c.lr=L[L.length-1].ok; const m=L.filter(x=>!x.ok).pop(),o=L.filter(x=>x.ok).pop(); if(m)c.lmiss=m.at; if(o)c.lok=o.at}
+  else c.lr=c.ok>0||!c.bad}}
+function perm(n){const p=[...Array(n).keys()]; for(let i=n-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[p[i],p[j]]=[p[j],p[i]]} return p}
+function optsHtml(it,p,sel){return p.map((oi,k)=>`<button class="opt" data-i="${oi}" ${sel===oi?'style="border-color:var(--red);background:var(--red-tint)"':''}><span class="l">${'ABCD'[k]}</span><span>${esc(it.o[oi])}</span></button>`).join('')}
+function keyTerms(it){if(!DATA.kmap){DATA.kmap={}; for(const k of DATA.k)DATA.kmap[k.t.toLowerCase()]=k} return (it.kt||[]).map(t=>DATA.kmap[String(t).toLowerCase()]).filter(Boolean)}
+function ktBlock(it){const L=keyTerms(it); if(!L.length)return '';
+  return `<details class="miss"><summary>Key terms in this question (${L.length})</summary><div style="display:grid;gap:8px;margin-top:10px">${L.map(k=>`<div><b>${esc(k.t)}</b> <span class="muted">${esc(k.d)}</span></div>`).join('')}</div><p class="muted" style="margin:10px 0 0;font-size:13px">These flashcards come up in your next session.</p></details>`}
+function boostTerms(it){for(const k of keyTerms(it)){S.boost=S.boost||{}; S.boost[k.id]=1; const c=S.cards[k.id]; if(c&&c.reps)c.due=Math.min(c.due,Date.now())}}
+const QRATE=g=>g>=2?'Knew it':g===1?'Guessed':'Missed last time';
+const front=()=>(me()&&me().front)||'t';
+function pickSide(){const f=front(); return f==='m'?(Math.random()<.5?'t':'d'):f}
+function frontSeg(){return `<div class="seg" role="group" aria-label="Key terms show first"><button data-front="t" aria-pressed="${front()==='t'}">Term first</button><button data-front="d" aria-pressed="${front()==='d'}">Definition first</button><button data-front="m" aria-pressed="${front()==='m'}">Mix</button></div>`}
+function bindFront(re){app.querySelectorAll('[data-front]').forEach(b=>b.onclick=()=>{me().front=b.dataset.front;saveProfile();markDirty();re()})}
+function faceFront(it,side,tag){return side==='d'
+  ?`<div style="display:grid;gap:12px"><span class="tag">${tag} · what’s the term?</span><div class="d" style="font-size:18px">${esc(it.d)}</div></div>`
+  :`<div style="display:grid;gap:12px"><span class="tag">${tag} · tap to flip</span><div class="t">${esc(it.t)}</div></div>`}
+const faceBoth=it=>`<div style="display:grid;gap:12px"><div class="t">${esc(it.t)}</div><div class="d">${esc(it.d)}</div></div>`;
+function streak(){let s=0,t=today(); if(!S.days[dkey(t)])t-=DAY; while(S.days[dkey(t)]){s++;t-=DAY} return s}
+
+/* ---------- session building with weak-area weighting ---------- */
+function buildSession(){
+  const now=Date.now(), items=pool(), byId=Object.fromEntries(items.map(x=>[x.id,x]));
+  const dueCards=items.filter(x=>S.cards[x.id]&&S.cards[x.id].due<=now).sort((a,b)=>S.cards[a.id].due-S.cards[b.id].due);
+  const bt=items.filter(x=>!S.cards[x.id]&&S.boost&&S.boost[x.id]);
+  const fresh=items.filter(x=>!S.cards[x.id]&&!(S.boost&&S.boost[x.id])); const nl=newLeft(); const picks=bt.slice();
+  const st=Object.fromEntries(iaStats().map(x=>[x.ia,x]));
+  const bucket={}; for(const x of fresh)(bucket[x.ia]=bucket[x.ia]||[]).push(x);
+  for(const k in bucket)bucket[k].sort(()=>Math.random()-.5);
+  while(picks.length<nl+bt.length){const keys=Object.keys(bucket).filter(k=>bucket[k].length); if(!keys.length)break;
+    const w=keys.map(k=>{const a=st[k]&&st[k].acc!=null?st[k].acc:.6; return bucket[k].length*(1.25-a)});
+    let r=Math.random()*w.reduce((a,b)=>a+b,0),i=0; while(r>w[i]){r-=w[i];i++} picks.push(bucket[keys[i]].pop())}
+  const q=[]; let di=0,ni=0; // interleave: 2 reviews : 1 new
+  while(di<dueCards.length||ni<picks.length){ if(di<dueCards.length)q.push(dueCards[di++]); if(di<dueCards.length)q.push(dueCards[di++]); if(ni<picks.length)q.push(picks[ni++]); }
+  return{queue:q,byId,done:0,right:0,newSeen:0,start:now,boosted:Object.fromEntries(bt.map(x=>[x.id,1]))};
+}
+
+/* ---------- views ---------- */
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function home(){
+  document.querySelector('main').classList.remove('wide'); session=null; const c=counts(), ra=recentAcc(), st=streak(), nl=newLeft(), queued=c.due+Math.min(nl,c.unseen);
+  const nextB=BENCH.find(b=>b.d>Date.now());
+  const qb={missed:0,right:0,new:0}; for(const x of DATA.q){const t=status(x.id); qb[t==='fixing'?'missed':t]++}
+  const qs={seen:DATA.q.filter(x=>S.cards[x.id]).length,mature:DATA.q.filter(x=>S.cards[x.id]&&S.cards[x.id].ivl>=Math.min(7,capDays())).length};
+  app.innerHTML=`
+  ${storageOK?'':'<div class="notice">This browser is blocking storage (private window or blocked site data). Your progress still saves to your account, but keep this tab open until it says “Saved to your account.”</div>'}
+  ${FLASH?`<div class="notice">${esc(FLASH)}</div>`:''}
+  ${MODE==='local'?'<div class="notice">You’re studying without signing in because the sign-in service couldn’t be reached. Progress saves on this device and moves into your account the next time you sign in here.</div>':''}
+  <section class="row" style="justify-content:space-between;align-items:flex-end">
+    <div style="display:grid;gap:6px"><h1>Today’s ${esc(cname(me().cluster))} plan</h1>
+    <span class="muted">${daysTo(EXAM)} days to the District exam (${fmt(EXAM)})${nextB?` · next benchmark ${nextB.p}% by ${fmt(nextB.d)}`:''}</span></div>
+    <div class="seg" role="group" aria-label="Study mode">
+      <button data-mode="q" aria-pressed="${S.mode==='q'}">Questions</button><button data-mode="k" aria-pressed="${S.mode==='k'}">Key terms</button><button data-mode="b" aria-pressed="${S.mode==='b'}">Both</button></div>
+  </section>
+  <section class="card" style="display:grid;gap:16px">
+    <div class="grid">
+      <div class="stat red"><b>${queued}</b><span>cards in today’s session</span></div>
+      <div class="stat"><b>${c.due}</b><span>reviews due now</span></div>
+      <div class="stat"><b>${Math.min(nl,c.unseen)}</b><span>new today (pace: ${newPerDay()}/day)</span></div>
+      <div class="stat"><b>${st}</b><span>day streak</span></div>
+    </div>
+    <div class="row"><button class="btn" id="go" ${queued?'':'disabled'}>${queued?'Start today’s session':'All caught up for today'}</button>
+      <button class="btn ghost" id="exam">Timed practice set (25 Q)</button><button class="btn ghost" id="mock">Full mock exam (100 Q, 90 min)</button></div>
+    ${S.mode!=='q'?`<div class="row" style="gap:10px"><span class="muted" style="font-size:13px">Key terms show</span>${frontSeg()}</div>`:''}
+  </section>
+  <section class="card" style="display:grid;gap:12px">
+    <div class="row" style="justify-content:space-between"><h2>Exam readiness</h2><span class="muted" style="font-size:13px">First tries and next-day reviews, last 100</span></div>
+    <div style="display:grid;gap:6px"><div class="row" style="justify-content:space-between"><b style="font-size:22px">${ra==null?'—':Math.round(ra*100)+'%'}</b>
+      <span class="muted" style="font-size:13px">${ra==null?'Answer 10 questions to see this':ra>=.8?'At the 80% benchmark':ra>=.65?'At 65%, building to 80%':'Below the 65% benchmark'}</span></div>
+      <div class="bar"><i style="width:${ra==null?0:ra*100}%"></i><span class="mk" style="left:65%"></span><span class="mk" style="left:80%"></span></div>
+      <div class="prog"><span>Marks at 65% and 80%</span><span>${qs.seen} of ${DATA.q.length} questions seen · ${qs.mature} solid</span></div></div>
+    ${lastEx(true)||lastEx(false)?`<div class="prog" style="font-size:13.5px">${lastEx(true)?`<span>Last mock exam: <b style="color:var(--fg)">${lastEx(true)}</b></span>`:''}${lastEx(false)?`<span>Last timed set: <b style="color:var(--fg)">${lastEx(false)}</b></span>`:''}</div>`:''}
+    <p class="muted" style="margin:0;font-size:13px">Retries right after you see an answer don’t count here, so this tracks what you’d know on exam day. A mock exam on questions you haven’t seen is the best check before a benchmark.</p>
+  </section>
+  <section class="card" style="display:grid;gap:12px">
+    <div class="row" style="justify-content:space-between"><h2>Question bank</h2><span class="muted" style="font-size:13px">Practice by instructional area, outside the daily schedule</span></div>
+    <div class="grid"><div class="stat red"><b>${qb.missed}</b><span>missed, not yet fixed</span></div><div class="stat"><b>${qb.right}</b><span>answered correctly</span></div><div class="stat"><b>${qb.new}</b><span>not tried yet</span></div></div>
+    <div class="row"><button class="btn ghost" id="bank">Browse by instructional area</button><button class="btn ghost" id="bmiss" ${qb.missed?'':'disabled'}>Practice my missed questions${qb.missed?' ('+qb.missed+')':''}</button></div>
+  </section>
+  <section class="card"><div class="row" style="justify-content:space-between;margin-bottom:8px"><h2>By instructional area</h2><span class="muted" style="font-size:13px">Select an area to practice it in the bank</span></div>
+    ${iaStats().map(x=>`<div class="ia" data-ia="${esc(x.ia)}" role="button" tabindex="0"><span>${esc(x.ia)} <span class="muted">· ${x.seen}/${x.n}</span></span><div class="bar"><i style="width:${x.acc==null?0:x.acc*100}%"></i><span class="mk" style="left:80%"></span></div><span class="n">${x.acc==null?'—':Math.round(x.acc*100)+'%'}</span></div>`).join('')}
+  </section>
+  <section class="card" style="display:grid;gap:12px">
+    <h2>Your account</h2>
+    <p class="muted" style="margin:0;font-size:14px">${MODE==='cloud'?'Signed in as '+esc(me().email||'your school email')+'. ':''}<span data-sync>${syncText()}</span></p>
+    <div class="row">${MODE==='local'?'<button class="btn" id="signin2">Sign in</button>':''}<button class="btn ghost" id="imp">Bring in progress from the old Study Lab</button>${ADV?'<button class="btn ghost" id="adv">Advisor dashboard</button>':''}</div>
+    <div id="panel"></div>
+  </section>`;
+  FLASH='';
+  app.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{S.mode=b.dataset.mode;save();home()});
+  const g=document.getElementById('go'); if(g)g.onclick=()=>{session=buildSession();next()};
+  bindFront(home);
+  document.getElementById('bank').onclick=()=>openBank({type:'q'});
+  document.getElementById('bmiss').onclick=()=>{openBank({type:'q',ia:'',st:'missed',rt:'any'},true)};
+  app.querySelectorAll('.ia[data-ia]').forEach(r=>{const go=()=>openBank({type:'q',ia:r.dataset.ia,st:'all',rt:'any'}); r.onclick=go; r.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();go()}}});
+  document.getElementById('exam').onclick=()=>startExam(false); document.getElementById('mock').onclick=()=>startExam(true);
+  document.getElementById('imp').onclick=importPanel;
+  const sg=document.getElementById('signin2'); if(sg)sg.onclick=()=>{P.cur='';saveProfile();MODE='cloud';signin()};
+  const ad=document.getElementById('adv'); if(ad)ad.onclick=()=>advisor();
+  if(dirty&&!syncing)push();
+}
+function lastOf(m){for(let i=S.exams.length-1;i>=0;i--)if(!!S.exams[i].mock===m)return S.exams[i]; return null}
+function lastEx(m){const e=lastOf(m); return e?`${Math.round(e.right/e.n*100)}% on ${fmt(new Date(e.at))}${m&&e.unseen!=null?` (${e.unseen} of ${e.n} unseen)`:''}`:''}
+function dec(s){return JSON.parse(decodeURIComponent(escape(atob(s.trim()))))}
+/* ---------- moving progress in from the old (claude.ai) Study Lab ----------
+   Accepts an old "Backup code", or a move code (SLM1.) that carries every cluster at once. */
+async function unpackMove(code){const b=code.trim().slice(5).replace(/-/g,'+').replace(/_/g,'/'), bin=Uint8Array.from(atob(b),c=>c.charCodeAt(0));
+  return JSON.parse(await new Response(new Blob([bin]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).text())}
+async function importCode(raw){
+  raw=String(raw||'').trim(); if(!raw)throw new Error('empty');
+  let pack; if(raw.startsWith('SLM1.'))pack=await unpackMove(raw); else{const o=dec(raw); pack={email:o.email,clusters:{[o.cluster||me().cluster]:o}}}
+  if(!pack||!pack.clusters)throw new Error('bad');
+  if(pack.email&&(await sidFor(pack.email))!==me().sid)return{err:'That code belongs to '+pack.email+'. Sign in as that student to bring it in.'};
+  const added=[];
+  for(const[cl,o]of Object.entries(pack.clusters)){
+    if(!CLUSTERS.some(c=>c[0]===cl)||!o||!o.cards||!Object.keys(o.cards).length)continue;
+    const st=Object.assign(blank(),o); delete st.email; delete st.cluster; st.upd=st.upd||1;
+    if(cl===me().cluster){applyState(mergeS(JSON.parse(JSON.stringify(S)),st)); S.upd=Date.now(); localSave(); dirty+=10; markDirty()}
+    else{const k=keyFor(me().sid,cl), m=mergeS(readLocal(k),st); try{localStorage.setItem(k,JSON.stringify(m))}catch(e){}
+      if(MODE==='cloud'&&CLOUD){try{await CLOUD.syncState(me().sid,cl,m,mergeS,null)}catch(e){console.warn(e)}}}
+    added.push(cname(cl))}
+  return{added}}
+function importPanel(){const p=document.getElementById('panel');
+  p.innerHTML=`<div style="display:grid;gap:8px"><span style="font-size:14px">In the old Study Lab, press <b>Backup code</b> (or <b>Move to the new Study Lab</b>), copy the code and paste it here. Your old answers are added to this account; nothing here is lost.</span><textarea id="rc" placeholder="Paste the code"></textarea><div class="row"><button class="btn" id="rgo">Bring it in</button><span id="rmsg" class="muted" style="font-size:13px"></span></div></div>`;
+  document.getElementById('rgo').onclick=async()=>{const msg=document.getElementById('rmsg'); msg.textContent='Working…';
+    try{const r=await importCode(document.getElementById('rc').value); if(r.err){msg.textContent=r.err;return}
+      if(!r.added.length){msg.textContent='That code has no answers in it yet.';return}
+      FLASH='Brought in your progress for '+r.added.join(', ')+'.'; home()}
+    catch(e){console.warn(e); msg.textContent='That code didn’t work. Copy the whole code and try again.'}}}
+
+/* ---------- study loop ---------- */
+function next(){
+  if(!session.queue.length)return done();
+  const it=session.queue[0]; const isQ=!!it.o;
+  const left=session.queue.length;
+  const head=`<div class="prog"><span>${session.done} done · ${left} to go</span><span>${esc(it.ia)}${it.pi?' · '+esc(it.pi):''}</span></div>
+   <div class="bar"><i style="width:${session.done/(session.done+left)*100}%"></i></div>`;
+  if(isQ){
+    const p=perm(it.o.length);
+    app.innerHTML=`${head}<section class="card" style="display:grid;gap:16px">
+      <span class="tag">${S.cards[it.id]?'Review':'New question'}</span>
+      <p class="q" style="margin:0">${esc(it.s)}</p>
+      <div class="opts">${optsHtml(it,p)}</div>
+      <div id="after"></div></section>
+      <div class="row" style="justify-content:space-between"><button class="btn ghost" id="quit">End session</button><span class="muted" style="font-size:12px"><kbd>A</kbd>–<kbd>D</kbd> answer · <kbd>1</kbd> guessed · <kbd>2</kbd> knew it</span></div>`;
+    app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>answerQ(it,+b.dataset.i,p));
+  }else{
+    const side=pickSide();
+    app.innerHTML=`${head}<div class="row" style="justify-content:flex-end">${frontSeg()}</div><section class="card flash" id="fl">${faceFront(it,side,S.cards[it.id]?'Review':'New term')}</section>
+      <div id="after"></div><div class="row"><button class="btn ghost" id="quit">End session</button><span class="muted" style="font-size:12px"><kbd>Space</kbd> flip · <kbd>0</kbd>–<kbd>3</kbd> rate</span></div>`;
+    document.getElementById('fl').onclick=()=>flip(it); bindFront(next);
+  }
+  document.getElementById('quit').onclick=home;
+}
+function rateRow(it,again,isQ){
+  const c=card(it.id), learning=c.ivl===0, cap=capDays();
+  const lab=g=>{ if(learning){return g===1?'again soon':g===2?(c.step<STEPS.length-1?'in 10 min':'tomorrow'):Math.min(cap,3)+' days'}
+    const iv=Math.min(cap,Math.max(1,Math.round(g===1?c.ivl*1.2:g===2?c.ivl*c.ease:c.ivl*c.ease*1.3))); return iv===1?'tomorrow':iv+' days'};
+  if(again)return `<div class="row"><button class="btn" data-g="0">Continue <small style="font-weight:400;opacity:.85">· it comes back in a minute</small></button></div>`;
+  if(isQ)return `<div style="display:grid;gap:8px"><span class="muted" style="font-size:13px">Right. Did you know it, or was it a guess?</span><div class="rate" style="grid-template-columns:repeat(2,minmax(0,1fr))"><button class="btn ghost" data-g="1">I guessed<small>${lab(1)}</small></button><button class="btn" data-g="2">I knew it<small>${lab(2)}</small></button></div></div>`;
+  return `<div class="rate"><button class="btn ghost" data-g="1">Hard<small>${lab(1)}</small></button><button class="btn" data-g="2">Good<small>${lab(2)}</small></button><button class="btn ghost" data-g="3">Easy<small>${lab(3)}</small></button></div>`;
+}
+function why(it){const o=it.o[it.a].replace(/[.?!]$/,''),r=it.r;return r.toLowerCase().startsWith(o.toLowerCase())?r.slice(o.length).replace(/^[.?!]?\s*/,''):r}
+function plain(s){return String(s).replace(/[.?!]$/,'')}
+/* On a miss: why the chosen option doesn't fit first, then the right answer and its rationale.
+   The right answer is also highlighted in the options, so it is visible immediately. */
+function feedback(it,i,p){
+  if(i===it.a)return `<div class="why ok"><b>Correct.</b> <span>${esc(why(it))}</span></div>`;
+  const L='ABCD'[(p||[0,1,2,3]).indexOf(it.a)];
+  const w=it.w&&it.w[i];
+  return (w?`<div class="why"><b>Why “${esc(plain(it.o[i]))}” doesn’t fit:</b> <span>${esc(w)}</span></div>`:`<div class="why"><b>Not quite.</b></div>`)+
+    `<div class="why ok"><b>The answer is ${L}, “${esc(plain(it.o[it.a]))}.”</b> <span>${esc(why(it))}</span></div>`+ktBlock(it);
+}
+function answerQ(it,i,p){
+  const ok=i===it.a; record(it.id,ok,'q'); if(!ok)boostTerms(it);
+  app.querySelectorAll('.opt').forEach(b=>{b.disabled=true;const k=+b.dataset.i;if(k===it.a)b.classList.add('right');else if(k===i)b.classList.add('wrong')});
+  const a=document.getElementById('after');
+  a.innerHTML=`<div style="display:grid;gap:14px">${feedback(it,i,p)}${rateRow(it,!ok,true)}</div>`;
+  a.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>grade(it,+b.dataset.g,ok));
+}
+function flip(it){
+  const f=document.getElementById('fl'); f.onclick=null;
+  f.innerHTML=faceBoth(it);
+  document.getElementById('after').innerHTML=`<div style="display:grid;gap:10px"><span class="muted" style="font-size:13px">Did you know it?</span><div class="rate" style="grid-template-columns:repeat(4,minmax(0,1fr))"><button class="btn ghost" data-g="0">Missed<small>1 min</small></button>${rateRow(it,false,false).replace(/^<div class="rate">|<\/div>$/g,'')}</div></div>`;
+  document.getElementById('after').querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{const g=+b.dataset.g;record(it.id,g>0,'k');grade(it,g,g>0)});
+}
+function grade(it,g,ok){
+  const wasNew=!S.cards[it.id]||S.cards[it.id].reps===0;
+  if(wasNew&&!(it.t&&session.boosted&&session.boosted[it.id])){S.newToday.n++;session.newSeen++}
+  const c=schedule(it.id,g);
+  session.queue.shift(); session.done++; if(ok)session.right++;
+  if(c.ivl===0){const pos=g===0?Math.min(3,session.queue.length):session.queue.length; session.queue.splice(pos,0,it)}
+  save(); next();
+}
+function done(){
+  const pct=session.done?Math.round(session.right/session.done*100):0;
+  app.innerHTML=`<section class="card" style="display:grid;gap:14px"><h1>Session complete</h1>
+   <div class="grid"><div class="stat red"><b>${session.done}</b><span>cards reviewed</span></div><div class="stat"><b>${pct}%</b><span>answered right</span></div><div class="stat"><b>${streak()}</b><span>day streak</span></div></div>
+   <p class="muted" style="margin:0">Missed cards come back tomorrow. Cards you knew come back in a few days. Come back tomorrow for your next session.</p>
+   <div class="row"><button class="btn" id="h">Back to today’s plan</button><span class="muted" style="font-size:13px" data-sync>${syncText()}</span></div></section>`;
+  document.getElementById('h').onclick=home; if(dirty)push();
+}
+
+/* ---------- timed practice set ---------- */
+let T=null;
+const rnd=a=>a.sort(()=>Math.random()-.5);
+const untried=x=>!S.cards[x.id]||!(S.cards[x.id].ok+S.cards[x.id].bad);
+function startExam(mock){
+  const n=mock?100:25; let items;
+  if(mock){items=rnd(DATA.q.filter(untried)).slice(0,n);
+    if(items.length<n){const have=new Set(items.map(x=>x.id)); items=items.concat(DATA.q.filter(x=>!have.has(x.id)).sort((a,b)=>((S.cards[a.id]||{}).seen||0)-((S.cards[b.id]||{}).seen||0)).slice(0,n-items.length))}
+    items=rnd(items)}
+  else items=rnd(DATA.q.slice()).slice(0,n);
+  T={items,perm:items.map(x=>perm(x.o.length)),ans:Array(items.length).fill(null),i:0,end:Date.now()+items.length*54e3,timer:null,mock:!!mock,unseen:items.filter(untried).length}; window.scrollTo(0,0); examView();
+  T.timer=setInterval(()=>{const el=document.getElementById('clock'); if(!el){clearInterval(T.timer);return}
+    const s=Math.max(0,Math.round((T.end-Date.now())/1e3)); el.textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); if(!s)finishExam()},500);
+}
+function examView(){
+  const it=T.items[T.i];
+  app.innerHTML=`<div class="prog"><span>${T.mock?'Mock exam · ':''}Question ${T.i+1} of ${T.items.length} · no feedback until the end</span><span>Time left <b id="clock" style="color:var(--fg)">—</b></span></div>
+  <section class="card" style="display:grid;gap:16px"><p class="q" style="margin:0">${esc(it.s)}</p>
+  <div class="opts">${optsHtml(it,T.perm[T.i],T.ans[T.i])}</div></section>
+  <div class="row" style="justify-content:space-between"><button class="btn ghost" id="prev" ${T.i?'':'disabled'}>Previous</button>
+  <div class="row"><button class="btn ghost" id="fin">Submit set</button><button class="btn" id="nx">${T.i<T.items.length-1?'Next':'Review answers'}</button></div></div>`;
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{T.ans[T.i]=+b.dataset.i;examView()});
+  document.getElementById('prev').onclick=()=>{T.i--;examView()};
+  document.getElementById('nx').onclick=()=>{if(T.i<T.items.length-1){T.i++;examView()}else finishExam()};
+  document.getElementById('fin').onclick=finishExam;
+}
+function finishExam(){
+  clearInterval(T.timer); let right=0;
+  const skipped=T.ans.filter(x=>x==null).length;
+  T.items.forEach((it,k)=>{if(T.ans[k]==null)return; const ok=T.ans[k]===it.a; if(ok)right++; record(it.id,ok,'q'); if(!ok){toReview(it.id);boostTerms(it)} else introduce(it.id)});
+  const pct=Math.round(right/T.items.length*100); S.exams.push({at:Date.now(),n:T.items.length,right,mock:T.mock,unseen:T.unseen}); save();
+  app.innerHTML=`<section class="card" style="display:grid;gap:14px"><h1>${pct}% on this ${T.mock?'mock exam':'practice set'}</h1>
+   <p class="muted" style="margin:0">${right} of ${T.items.length} correct${T.mock?`, with ${T.unseen} of ${T.items.length} questions you hadn’t seen before`:''}. Every question you missed is now in your review list, so it comes back in today’s session.${skipped?` The ${skipped} you left blank count against the score but aren’t added to your review list.`:''}</p>
+   <div class="bar"><i style="width:${pct}%"></i><span class="mk" style="left:65%"></span><span class="mk" style="left:80%"></span></div>
+   ${right<T.items.length?`<h2 style="margin:6px 0 0;font-size:16px">What you missed</h2><div style="display:grid;gap:10px">${T.items.map((it,k)=>T.ans[k]===it.a?'':`<details class="miss"><summary>${k+1}. ${esc(it.s.length>110?it.s.slice(0,110)+'…':it.s)}</summary><div style="display:grid;gap:10px;margin-top:10px">${T.ans[k]==null?`<div class="why"><b>Not answered.</b></div><div class="why ok"><b>The answer is “${esc(plain(it.o[it.a]))}.”</b> <span>${esc(why(it))}</span></div>`:feedback(it,T.ans[k],T.perm[k])}</div></details>`).join('')}</div>`:''}
+   <ul class="list">${T.items.map((it,k)=>`<li><span>${k+1}. ${esc(it.s.length>110?it.s.slice(0,110)+'…':it.s)}</span><b style="color:${T.ans[k]===it.a?'var(--good)':'var(--bad)'};flex:0 0 auto">${T.ans[k]===it.a?'Right':'Missed'}</b></li>`).join('')}</ul>
+   <div class="row"><button class="btn" id="h">Back to today’s plan</button></div></section>`;
+  document.getElementById('h').onclick=home;
+}
+
+/* ---------- question bank: browse and practice by instructional area ---------- */
+let BF=null, R=null;
+const ST=[['all','All'],['new','Not tried'],['missed','Missed'],['right','Correct']];
+const RT=[['any','Any'],['0','Again'],['1','Hard'],['2','Good'],['3','Easy'],['-1','Not rated']];
+const RTQ=[['any','Any'],['0','Missed last time'],['1','Guessed'],['2','Knew it'],['-1','Not rated']];
+const rateOf=id=>{const c=S.cards[id];return c&&c.g!=null?c.g:-1};
+function stOk(id,st){if(st==='all')return true; const t=status(id); return st==='missed'?(t==='missed'||t==='fixing'):t===st}
+const rtOk=(id,rt)=>rt==='any'||(BF.type==='q'&&rt==='2'?rateOf(id)>=2:rateOf(id)===+rt);
+const bankItems=()=>BF.type==='k'?DATA.k:DATA.q;
+function bankList(){return bankItems().filter(x=>(!BF.ia||x.ia===BF.ia)&&stOk(x.id,BF.st)&&rtOk(x.id,BF.rt))}
+function badge(id,isQ){const t=status(id); const l={new:'Not tried',missed:'Missed',fixing:'Fix pending',right:isQ?'Correct':'Knew it'}[t];
+  return `<span class="badge ${t}" title="${t==='fixing'?'Right since the miss, but on the same day. Get it right on a later day to clear it.':''}">${l}</span>`}
+function openBank(o,practice){BF=Object.assign({type:'q',ia:'',st:'all',rt:'any',shuffle:false},S.bank||{},o||{}); BF.shown=60; window.scrollTo(0,0);
+  if(practice){const L=bankList(); if(L.length)return startRun(L.slice().sort(()=>Math.random()-.5),0)} bank()}
+function bank(){
+  session=null; S.bank={type:BF.type,ia:BF.ia,st:BF.st,rt:BF.rt,shuffle:BF.shuffle}; save();
+  const isQ=BF.type==='q', noun=isQ?'question':'term', all=bankItems(), byIa={};
+  for(const x of all)byIa[x.ia]=(byIa[x.ia]||0)+1;
+  if(BF.ia&&!byIa[BF.ia])BF.ia='';
+  if(isQ&&BF.rt==='3')BF.rt='2'; const RTS=isQ?RTQ:RT;
+  const base=all.filter(x=>!BF.ia||x.ia===BF.ia), list=base.filter(x=>stOk(x.id,BF.st)&&rtOk(x.id,BF.rt));
+  const sc=k=>base.filter(x=>rtOk(x.id,BF.rt)&&stOk(x.id,k)).length, rc=k=>base.filter(x=>stOk(x.id,BF.st)&&rtOk(x.id,k)).length;
+  const chip=(f,k,l,n)=>`<button class="chip" data-f="${f}" data-k="${k}" aria-pressed="${String(BF[f])===k}">${l}<span class="c">${n}</span></button>`;
+  const row=(x,i)=>`<li><button data-i="${i}"><span style="display:grid;gap:3px">${isQ?`<span>${esc(x.s.length>170?x.s.slice(0,170)+'…':x.s)}</span>`:`<span><b>${esc(x.t)}</b></span><span class="meta">${esc(x.d.length>140?x.d.slice(0,140)+'…':x.d)}</span>`}
+    <span class="meta">${BF.ia?'':esc(x.ia)}${isQ&&x.pi?(BF.ia?'':' · ')+esc(x.pi):''}</span></span>
+    <span class="side">${badge(x.id,isQ)}${rateOf(x.id)>0||(rateOf(x.id)===0&&status(x.id)!=='missed')?`<span class="meta">${isQ?QRATE(rateOf(x.id)):'Rated '+RATE[rateOf(x.id)]}</span>`:''}</span></button></li>`;
+  app.innerHTML=`
+  <section class="row" style="justify-content:space-between;align-items:flex-end">
+    <div style="display:grid;gap:6px"><h1>${isQ?'Question bank':'Key term bank'}</h1><span class="muted">${esc(cname(me().cluster))} · practice any ${noun} by instructional area. Answers here count toward your progress, and misses go into today’s review.</span></div>
+    <button class="btn ghost" id="back">Back to today’s plan</button></section>
+  <section class="card" style="display:grid;gap:16px">
+    <div class="row" style="justify-content:space-between"><div class="seg" role="group" aria-label="Card type"><button data-type="q" aria-pressed="${isQ}">Questions</button><button data-type="k" aria-pressed="${!isQ}">Key terms</button></div>${isQ?'':frontSeg()}</div>
+    <label class="fl">Instructional area<select id="bia"><option value="">All areas (${all.length})</option>${Object.entries(byIa).sort((a,b)=>b[1]-a[1]).map(([ia,n])=>`<option value="${esc(ia)}" ${ia===BF.ia?'selected':''}>${esc(ia)} (${n})</option>`).join('')}</select></label>
+    <div class="fl"><span>Result</span><div class="chips">${ST.map(([k,l])=>chip('st',k,k==='right'&&!isQ?'Knew it':l,sc(k))).join('')}</div>
+      ${BF.st==='missed'?`<span class="muted" style="font-size:13px">A missed ${noun} stays on this list until you get it right on a later day. Getting it right minutes after seeing the answer doesn’t yet show you’ll remember it.</span>`:''}</div>
+    <div class="fl"><span>Your rating</span><div class="chips">${RTS.map(([k,l])=>chip('rt',k,l,rc(k))).join('')}</div>
+      <span class="muted" style="font-size:13px">${isQ?'After each right answer you say whether you knew it or guessed. Guessed answers come back sooner.':'Your last Hard, Good or Easy. Again means you missed it the last time.'}</span></div>
+  </section>
+  <div class="row" style="justify-content:space-between"><b>${list.length} ${noun}${list.length===1?'':'s'}</b>
+    <div class="row"><label class="row" style="gap:6px;font-size:14px;cursor:pointer"><input type="checkbox" id="shuf" ${BF.shuffle?'checked':''}> Shuffle</label>
+    <button class="btn" id="prac" ${list.length?'':'disabled'}>Practice ${list.length===1?'this':'these'} ${list.length}</button></div></div>
+  <section class="card" style="padding:4px 14px">${list.length?`<ul class="bank">${list.slice(0,BF.shown).map(row).join('')}</ul>${list.length>BF.shown?`<div style="padding:12px 4px"><button class="btn ghost" id="more">Show ${Math.min(60,list.length-BF.shown)} more</button></div>`:''}`:`<p class="muted" style="padding:10px 4px">Nothing matches these filters.</p>`}</section>`;
+  document.getElementById('back').onclick=home;
+  app.querySelectorAll('[data-type]').forEach(b=>b.onclick=()=>{BF.type=b.dataset.type;BF.shown=60;bank()});
+  document.getElementById('bia').onchange=e=>{BF.ia=e.target.value;BF.shown=60;bank()};
+  app.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{BF[b.dataset.f]=b.dataset.k;BF.shown=60;bank()});
+  document.getElementById('shuf').onchange=e=>{BF.shuffle=e.target.checked;S.bank.shuffle=BF.shuffle;save()};
+  const pr=document.getElementById('prac'); if(pr)pr.onclick=()=>startRun(BF.shuffle?list.slice().sort(()=>Math.random()-.5):list,0);
+  const mo=document.getElementById('more'); if(mo)mo.onclick=()=>{BF.shown+=60;bank()};
+  app.querySelectorAll('.bank [data-i]').forEach(b=>b.onclick=()=>startRun(list,+b.dataset.i));
+  bindFront(bank);
+}
+function startRun(items,at){R={items,i:at,start:at,res:{},type:BF.type}; window.scrollTo(0,0); runView()}
+function runView(){
+  if(R.i>=R.items.length)return runDone();
+  const it=R.items[R.i], n=R.items.length, isQ=R.type==='q', ans=Object.keys(R.res).length, right=Object.values(R.res).filter(Boolean).length;
+  const head=`<div class="prog"><span>${R.i+1} of ${n}${ans?` · ${right} of ${ans} right`:''}</span><span>${esc(it.ia)}${it.pi?' · '+esc(it.pi):''}</span></div>
+   <div class="bar"><i style="width:${R.i/n*100}%"></i></div>`;
+  const foot=hint=>`<div class="row" style="justify-content:space-between"><button class="btn ghost" id="quit">End practice</button><span class="muted" style="font-size:12px">${hint}</span></div>`;
+  const nextBtn=`<div class="row"><button class="btn" id="nx">${R.i<n-1?'Next':'See results'}</button></div>`;
+  const store=ok=>{record(it.id,ok,R.type); if(ok)introduce(it.id); else{toReview(it.id); if(isQ)boostTerms(it)} R.res[it.id]=ok; save()};
+  if(isQ){
+    const p=perm(it.o.length);
+    app.innerHTML=`${head}<section class="card" style="display:grid;gap:16px"><div class="row" style="gap:8px"><span class="tag">Question bank</span>${badge(it.id,true)}</div>
+      <p class="q" style="margin:0">${esc(it.s)}</p>
+      <div class="opts">${optsHtml(it,p)}</div>
+      <div id="after"></div></section>${foot('<kbd>A</kbd>–<kbd>D</kbd> answer · <kbd>1</kbd> guessed · <kbd>2</kbd> knew it · <kbd>Enter</kbd> next')}`;
+    app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const i=+b.dataset.i, ok=i===it.a; store(ok);
+      app.querySelectorAll('.opt').forEach(x=>{x.disabled=true;const k=+x.dataset.i;if(k===it.a)x.classList.add('right');else if(k===i)x.classList.add('wrong')});
+      const a=document.getElementById('after'), lbl=R.i<n-1?'Next':'See results';
+      a.innerHTML=`<div style="display:grid;gap:14px">${feedback(it,i,p)}${ok?`<div style="display:grid;gap:8px"><span class="muted" style="font-size:13px">Right. Did you know it, or was it a guess?</span><div class="rate" style="grid-template-columns:repeat(2,minmax(0,1fr))"><button class="btn ghost" data-g="1">I guessed<small>${lbl}</small></button><button class="btn" data-g="2">I knew it<small>${lbl}</small></button></div></div>`:nextBtn}</div>`;
+      const nx=document.getElementById('nx'); if(nx)nx.onclick=()=>{R.i++;runView()};
+      a.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{const c=card(it.id), g=+b.dataset.g; c.g=g;
+        if(g===1){const t=today()+DAY+4*36e5; if(c.due>t)c.due=t} save(); R.i++; runView()})});
+  }else{
+    const side=pickSide();
+    app.innerHTML=`${head}<div class="row" style="justify-content:space-between"><div class="row" style="gap:8px"><span class="tag">Key term bank</span>${badge(it.id,false)}</div>${frontSeg()}</div>
+      <section class="card flash" id="fl">${faceFront(it,side,side==='d'?'Definition':'Term')}</section><div id="after"></div>${foot('<kbd>Space</kbd> flip · <kbd>0</kbd> missed · <kbd>2</kbd> knew it')}`;
+    const fl=document.getElementById('fl');
+    fl.onclick=()=>{fl.onclick=null; fl.innerHTML=faceBoth(it);
+      const a=document.getElementById('after'); a.innerHTML=`<div style="display:grid;gap:10px"><span class="muted" style="font-size:13px">Did you know it?</span><div class="rate" style="grid-template-columns:repeat(2,minmax(0,1fr))"><button class="btn ghost" data-g="0">Missed it</button><button class="btn" data-g="2">Knew it</button></div></div>`;
+      a.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{store(b.dataset.g!=='0');R.i++;runView()})};
+    bindFront(runView);
+  }
+  document.getElementById('quit').onclick=()=>Object.keys(R.res).length?runDone():bank();
+}
+function runDone(){
+  const isQ=R.type==='q', noun=isQ?'question':'term', done=R.items.filter(x=>x.id in R.res), right=done.filter(x=>R.res[x.id]).length, missed=done.filter(x=>!R.res[x.id]);
+  const pct=done.length?Math.round(right/done.length*100):0;
+  app.innerHTML=`<section class="card" style="display:grid;gap:14px"><h1>Practice set done</h1>
+   <div class="grid"><div class="stat red"><b>${done.length}</b><span>${noun}s answered</span></div><div class="stat"><b>${pct}%</b><span>right</span></div><div class="stat"><b>${missed.length}</b><span>missed</span></div></div>
+   <p class="muted" style="margin:0">${missed.length?`Missed ${noun}s are in today’s review and on the bank’s Missed list until you get them right on a later day.`:`Nothing missed. These come back on their normal schedule in your daily sessions.`}</p>
+   ${done.length?`<ul class="list">${done.map(x=>`<li><span>${esc(isQ?(x.s.length>110?x.s.slice(0,110)+'…':x.s):x.t)}</span><b style="color:${R.res[x.id]?'var(--good)':'var(--bad)'};flex:0 0 auto">${R.res[x.id]?(isQ?'Right':'Knew it'):'Missed'}</b></li>`).join('')}</ul>`:''}
+   <div class="row">${missed.length?`<button class="btn" id="again">Practice the ${missed.length} I missed</button>`:''}<button class="btn ${missed.length?'ghost':''}" id="bk">Back to the bank</button><button class="btn ghost" id="h">Back to today’s plan</button></div></section>`;
+  const ag=document.getElementById('again'); if(ag)ag.onclick=()=>startRun(missed,0);
+  document.getElementById('bk').onclick=()=>{window.scrollTo(0,0);bank()}; document.getElementById('h').onclick=home;
+}
+
+/* ---------- keyboard ---------- */
+document.addEventListener('keydown',e=>{
+  if(e.target.matches('input,textarea'))return;
+  const k=e.key.toLowerCase();
+  const li=k.length===1?'abcd'.indexOf(k):-1, opt=li>=0?app.querySelectorAll('.opt')[li]:null; if(opt&&!opt.disabled){opt.click();return}
+  const g=app.querySelector(`[data-g="${k}"]`); if(/^[0-3]$/.test(k)&&g){g.click();return}
+  if(k===' '){const f=document.getElementById('fl'); if(f&&f.onclick){e.preventDefault();f.click()}}
+  if((k==='enter'||k==='n')&&!e.target.matches('button,[role=button]')){const nx=document.getElementById('nx'); if(nx){e.preventDefault();nx.click()}}
+});
+document.getElementById('home-link').onclick=()=>{if(P.cur&&DATA)home()};
+
+/* ---------- advisor dashboard ----------
+   Only advisors (listed in Firebase under /advisors) can open it; students can read only
+   their own records. Names come from a roster kept in this browser only: the database holds
+   scrambled IDs, and the roster turns them back into students on the advisor's computer. */
+const RKEY='abdeca-study-roster';
+let DASH=null;
+function loadRoster(){try{return JSON.parse(localStorage.getItem(RKEY))||[]}catch(e){return[]}}
+function saveRoster(r){try{localStorage.setItem(RKEY,JSON.stringify(r))}catch(e){}}
+async function parseRoster(text){const out=[], seen=new Set();
+  const cells=line=>{if(line.includes('\t'))return line.split('\t'); const o=[]; let cur='',q=false;
+    for(const ch of line){if(ch==='"')q=!q; else if((ch===','||ch===';')&&!q){o.push(cur);cur=''} else cur+=ch} o.push(cur); return o};
+  for(const line of String(text).split(/\r?\n/)){const parts=cells(line).map(x=>x.trim().replace(/^"|"$/g,'').trim()).filter(Boolean);
+    const em=parts.find(x=>/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(x)); if(!em)continue; const e=em.toLowerCase(); if(seen.has(e))continue; seen.add(e);
+    out.push({name:parts.filter(x=>x!==em).join(' ').replace(/\s+/g,' ')||e.split('@')[0],email:e,sid:await sidFor(e)})}
+  return out}
+const daysAgo=t=>t?Math.max(0,Math.round((today()-sod(t))/DAY)):null;
+const lastTxt=t=>{const d=daysAgo(t); return d==null?'Never':d===0?'Today':d===1?'Yesterday':d<7?d+' days ago':fmt(t)};
+function wk(sum){let n=0; if(sum&&sum.recent)for(let i=0;i<7;i++)n+=sum.recent[dkey(today()-i*DAY+12*36e5)]||0; return n}
+function mkRow(name,email,sid,s,unrostered){const cl=(s&&s.cluster)||'', sum=(s&&s.sum&&s.sum[cl])||null, last=(sum&&sum.last)||0, d=daysAgo(last);
+  return{name:name||'Not on roster ('+sid.slice(0,6)+')',email,sid,acct:!!s,unrostered:!!unrostered,cl,
+    acc:sum&&sum.acc!=null?sum.acc:null,seen:sum?sum.seen:null,total:sum?sum.total:null,missed:sum?sum.missed:null,
+    last,lastD:d,wk:wk(sum),days:sum?sum.days:null,streak:sum&&d!=null&&d<=1?sum.streak:0,timed:sum?sum.timed:null,mock:sum?sum.mock:null,
+    weak:sum&&sum.weak&&sum.weak[0]?sum.weak[0].ia+' ('+sum.weak[0].acc+'%)':'',
+    other:s&&s.sum?Object.keys(s.sum).filter(k=>k!==cl).map(cname):[]}}
+function dashRows(){const roster=loadRoster(), by={}, used=new Set(), rows=[];
+  for(const s of DASH.list)by[s.sid]=s;
+  for(const r of roster){used.add(r.sid); rows.push(mkRow(r.name,r.email,r.sid,by[r.sid]))}
+  for(const s of DASH.list)if(!used.has(s.sid))rows.push(mkRow('','',s.sid,s,roster.length>0));
+  return{rows,roster}}
+const DCOLS=[['name','Student'],['cl','Cluster'],['acc','Readiness'],['seen','Seen'],['missed','Missed'],['last','Last studied'],['wk','Cards, 7 days'],['days','Days studied'],['streak','Streak'],['timed','Timed set'],['mock','Mock exam'],['weak','Weakest area']];
+const DVIEWS=[['all','Everyone'],['nudge','Not studied in 3+ days'],['noacct','No account yet'],['low','Below 65%'],['unrostered','Not on roster']];
+async function advisor(){
+  if(!ADV||!CLOUD)return; history.replaceState(null,'','#advisor');
+  document.querySelector('main').classList.add('wide'); app.innerHTML='<p class="muted">Loading the chapter’s progress…</p>';
+  try{DASH=Object.assign(DASH||{cl:'',view:'all',sort:'name',dir:1},{list:await CLOUD.listStudents(),at:Date.now()}); dash()}
+  catch(e){app.innerHTML=`<div class="notice">Couldn’t load student records (${esc(e.code||e.message)}). Check your connection and try again.</div><div class="row"><button class="btn ghost" id="dback">Back to studying</button></div>`; document.getElementById('dback').onclick=leaveDash}}
+function leaveDash(){history.replaceState(null,'',location.pathname+location.search); home()}
+function dash(){
+  const {rows:all,roster}=dashRows(), base=all.filter(r=>!r.unrostered||DASH.view==='unrostered'||DASH.view==='all');
+  const test={all:()=>true,nudge:r=>r.acct&&(r.lastD==null||r.lastD>=3),noacct:r=>!r.acct,low:r=>r.acc!=null&&r.acc<65,unrostered:r=>r.unrostered}[DASH.view];
+  const rows=base.filter(r=>(!DASH.cl||r.cl===DASH.cl)&&test(r));
+  const k=DASH.sort, dir=DASH.dir; rows.sort((a,b)=>{if(a.unrostered!==b.unrostered)return a.unrostered?1:-1; const x=a[k],y=b[k]; if(x==null||x==='')return 1; if(y==null||y==='')return -1; return (typeof x==='string'?x.localeCompare(y):x-y)*dir});
+  const scope=all.filter(r=>(!DASH.cl||r.cl===DASH.cl)&&(!roster.length||!r.unrostered)), withAcct=scope.filter(r=>r.acct), accs=withAcct.filter(r=>r.acc!=null).map(r=>r.acc);
+  const tile=(n,l,red)=>`<div class="stat${red?' red':''}"><b>${n}</b><span>${l}</span></div>`;
+  const pc=v=>v==null?'—':v+'%', cls=v=>v==null?'':v<65?'lo':v>=80?'hi':'';
+  const cell=r=>`<tr><td class="nm"><b style="font-weight:500">${esc(r.name)}</b>${r.email?`<br><span class="muted" style="font-size:12px">${esc(r.email)}</span>`:''}</td>
+    <td>${r.acct?esc(cname(r.cl))+(r.other.length?`<br><span class="muted" style="font-size:12px">also ${esc(r.other.join(', '))}</span>`:''):'<span class="muted">No account yet</span>'}</td>
+    <td class="${cls(r.acc)}">${pc(r.acc)}</td><td>${r.seen==null?'—':r.seen+' / '+r.total}</td><td>${r.missed==null?'—':r.missed}</td>
+    <td class="${r.lastD!=null&&r.lastD>=3?'old':''}">${r.acct?lastTxt(r.last):'—'}</td><td>${r.acct?r.wk:'—'}</td><td>${r.days==null?'—':r.days}</td><td>${r.acct?r.streak:'—'}</td>
+    <td class="${cls(r.timed)}">${pc(r.timed)}</td><td class="${cls(r.mock)}">${pc(r.mock)}</td><td>${esc(r.weak||'—')}</td></tr>`;
+  app.innerHTML=`<section class="row" style="justify-content:space-between;align-items:flex-end"><div style="display:grid;gap:6px"><h1>Advisor dashboard</h1>
+      <span class="muted" style="font-size:13px">Loaded ${new Date(DASH.at).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}. Each student’s numbers are as of their last save.</span></div>
+      <div class="row"><button class="btn ghost" id="drefresh">Refresh</button><button class="btn ghost" id="dback">Back to studying</button></div></section>
+    <section class="card"><div class="grid">
+      ${tile(withAcct.length+(roster.length?' of '+scope.length:''),roster.length?(DASH.cl?'with an account in this cluster':'roster members with an account'):'accounts',true)}
+      ${tile(withAcct.filter(r=>r.lastD===0).length,'studied today')}${tile(withAcct.filter(r=>r.wk>0).length,'studied in the last 7 days')}
+      ${tile(accs.length?Math.round(accs.reduce((a,b)=>a+b,0)/accs.length)+'%':'—','average readiness')}${tile(accs.filter(v=>v<65).length,'below 65%')}</div></section>
+    <section class="card" style="display:grid;gap:12px">
+      <div class="chips"><button class="chip" data-dcl="" aria-pressed="${!DASH.cl}">All clusters</button>${CLUSTERS.map(c=>`<button class="chip" data-dcl="${c[0]}" aria-pressed="${DASH.cl===c[0]}">${esc(c[1])}</button>`).join('')}</div>
+      <div class="chips">${DVIEWS.map(v=>`<button class="chip" data-dview="${v[0]}" aria-pressed="${DASH.view===v[0]}">${v[1]}</button>`).join('')}</div>
+      <div class="tblwrap"><table class="dt"><thead><tr>${DCOLS.map(c=>`<th data-dsort="${c[0]}" ${DASH.sort===c[0]?`aria-sort="${dir>0?'ascending':'descending'}"`:''}>${c[1]}${DASH.sort===c[0]?(dir>0?' ↑':' ↓'):''}</th>`).join('')}</tr></thead>
+        <tbody>${rows.length?rows.map(cell).join(''):`<tr><td colspan="${DCOLS.length}" class="muted">No students match.</td></tr>`}</tbody></table></div>
+      <span class="muted" style="font-size:13px">Readiness counts first tries and next-day reviews only (the last 100). Red: below 65% or 3+ days since studying. Green: 80% or higher.</span>
+      <div class="row"><button class="btn ghost" id="dcsv">Download as a spreadsheet (CSV)</button><button class="btn ghost" id="dbak">Download full backup</button><span id="dmsg" class="muted" style="font-size:13px"></span></div></section>
+    <section class="card" style="display:grid;gap:10px"><h2>Roster</h2>
+      <p class="muted" style="margin:0;font-size:14px">Paste names and school emails, one student per line (copying two columns from Excel works). The roster stays in this browser only; the database never sees names. Paste it again on another computer.</p>
+      <textarea id="rost" placeholder="Jordan Smith	SmithJ1234@absstudents.abs.misd.net">${esc(roster.map(r=>r.name+'\t'+r.email).join('\n'))}</textarea>
+      <div class="row"><button class="btn" id="rsave">Save roster</button><span class="muted" id="rmsg2" style="font-size:13px">${roster.length} students on this browser’s roster</span></div></section>`;
+  document.getElementById('dback').onclick=leaveDash; document.getElementById('drefresh').onclick=advisor;
+  app.querySelectorAll('[data-dcl]').forEach(b=>b.onclick=()=>{DASH.cl=b.dataset.dcl;dash()});
+  app.querySelectorAll('[data-dview]').forEach(b=>b.onclick=()=>{DASH.view=b.dataset.dview;dash()});
+  app.querySelectorAll('[data-dsort]').forEach(h=>h.onclick=()=>{const c=h.dataset.dsort; DASH.dir=DASH.sort===c?-DASH.dir:(['name','cl','weak'].includes(c)?1:-1); DASH.sort=c; dash()});
+  document.getElementById('rsave').onclick=async()=>{const r=await parseRoster(document.getElementById('rost').value); saveRoster(r); dash()};
+  document.getElementById('dcsv').onclick=()=>{const q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"';
+    const lines=[['Student','School email','Cluster','Readiness %','Questions seen','Questions in cluster','Missed (not fixed)','Last studied','Cards in last 7 days','Days studied','Streak','Last timed set %','Last mock exam %','Weakest area','Account','Study Lab ID'].map(q).join(',')]
+      .concat(rows.map(r=>[r.name,r.email,r.acct?cname(r.cl):'',r.acc,r.seen,r.total,r.missed,r.acct?(r.last?new Date(r.last).toLocaleDateString():'Never'):'',r.acct?r.wk:'',r.days,r.acct?r.streak:'',r.timed,r.mock,r.weak,r.acct?'Yes':'No',r.sid].map(q).join(',')));
+    download('study-lab-progress-'+dkey(Date.now())+'.csv',new Blob(['﻿'+lines.join('\r\n')],{type:'text/csv'}))};
+  document.getElementById('dbak').onclick=async()=>{const msg=document.getElementById('dmsg'), out=[];
+    for(let i=0;i<DASH.list.length;i++){const s=DASH.list[i]; msg.textContent='Reading '+(i+1)+' of '+DASH.list.length+'…';
+      try{out.push(Object.assign({},s,{clusters:await CLOUD.listStates(s.sid)}))}catch(e){out.push(Object.assign({},s,{error:e.code||e.message}))}}
+    download('study-lab-backup-'+dkey(Date.now())+'.json',new Blob([JSON.stringify({exported:new Date().toISOString(),students:out})],{type:'application/json'})); msg.textContent='Backup downloaded ('+out.length+' accounts).'}}
+function download(name,blob){const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},2000)}
+
+/* ---------- sign-in ---------- */
+const AUTHMSG={'auth/invalid-credential':'That email and password don’t match an account. Check both, or choose Create account if this is your first time.',
+  'auth/invalid-login-credentials':'That email and password don’t match an account. Check both, or choose Create account if this is your first time.',
+  'auth/wrong-password':'That password isn’t right. Try again, or ask Mr. Yono to reset it.','auth/user-not-found':'There’s no account for that email yet. Choose Create account.',
+  'auth/email-already-in-use':'There’s already an account for this email. Choose Sign in. If you forgot your password, ask Mr. Yono to reset it.',
+  'auth/weak-password':'Make your password at least 8 characters.','auth/password-does-not-meet-requirements':'Make your password at least 8 characters.',
+  'auth/too-many-requests':'Too many tries. Wait a few minutes and try again.','auth/network-request-failed':'Can’t reach the sign-in service from this network.',
+  'timeout':'The sign-in service didn’t answer.','auth/user-disabled':'This account is turned off. Ask Mr. Yono.','auth/quota-exceeded':'Too many new accounts from this network in the last hour. Try again in a little while.'};
+function signin(err){
+  session=null; KEY=''; S=null; DATA=null; DATAKEY=''; dirty=0; clearTimeout(pushT); ADV=false; DASH=null; showWho(); document.querySelector('main').classList.remove('wide');
+  const tab=signin.tab||'in', up=tab==='up';
+  app.innerHTML=`<section class="card signin"><h1>${up?'Create your Study Lab account':'Sign in to study'}</h1>
+    <div class="seg" role="group" aria-label="Sign in or create an account"><button data-tab="in" aria-pressed="${!up}">Sign in</button><button data-tab="up" aria-pressed="${up}">Create account</button></div>
+    <label>School email<input id="em" type="email" autocomplete="username" placeholder="SmithJ1234@absstudents.abs.misd.net" value="${esc(signin.em||'')}"></label>
+    <label>${up?'Make a password':'Password'}<input id="pw" type="password" autocomplete="${up?'new-password':'current-password'}"></label>
+    ${up?`<label>Type the password again<input id="pw2" type="password" autocomplete="new-password"></label>
+    <label>Cluster (the exam your event takes)<select id="cl">${CLUSTERS.map(c=>`<option value="${c[0]}">${esc(c[1])}</option>`).join('')}</select></label>
+    <p class="muted" style="margin:0;font-size:13px">Use at least 8 characters, and don’t reuse your school password.</p>`:''}
+    <div class="err" id="er">${esc(err||'')}</div>
+    <div class="row"><button class="btn" id="go">${up?'Create my account':'Sign in'}</button></div><div id="lo"></div>
+    <p class="muted" style="margin:0;font-size:13px">${up?'':'First time here? Choose <b>Create account</b>. '}Forgot your password? Ask Mr. Yono to reset it; your progress is kept.</p>
+    <p class="muted" style="margin:0;font-size:13px">Your progress saves to your account, so you can pick up where you left off on a school computer or your phone. The Study Lab stores a scrambled ID, not your name or email.</p></section>`;
+  const q=x=>app.querySelector(x);
+  app.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{signin.tab=b.dataset.tab; signin.em=q('#em').value; signin()});
+  q('#go').onclick=()=>doAuth(tab); app.querySelectorAll('.signin input').forEach(i=>i.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();q('#go').click()}});
+  if(!CLOUD)showLocal('','The sign-in service didn’t load on this network.')}
+async function doAuth(tab){const q=x=>app.querySelector(x), em=q('#em').value.trim().toLowerCase(), pw=q('#pw').value, er=q('#er'), go=q('#go'), up=tab==='up';
+  er.textContent=''; signin.em=em;
+  if(!EMAIL_RE.test(em)){er.textContent='Use your school email, ending in @absstudents.abs.misd.net.';return}
+  if(pw.length<8){er.textContent=up?'Make your password at least 8 characters.':'Passwords are at least 8 characters. Check yours and try again.';return}
+  if(up&&pw!==q('#pw2').value){er.textContent='The two passwords don’t match.';return}
+  if(!CLOUD){showLocal(em,'The sign-in service didn’t load on this network.');return}
+  go.disabled=true; go.textContent=up?'Creating your account…':'Signing in…';
+  PENDING={email:em,signup:up,cluster:up?q('#cl').value:null};
+  try{up?await CLOUD.signUp(em,pw):await CLOUD.signIn(em,pw)}
+  catch(e){PENDING=null; console.warn('Study Lab sign-in',e); if(!q('#go'))return; go.disabled=false; go.textContent=up?'Create my account':'Sign in';
+    er.textContent=AUTHMSG[e.code]||'Something went wrong ('+(e.code||'unknown')+'). Try again.';
+    if(e.code==='auth/network-request-failed'||e.code==='timeout')showLocal(em)}}
+function showLocal(em,why){const lo=app.querySelector('#lo'); if(!lo)return;
+  lo.innerHTML=`<div class="notice" style="display:grid;gap:8px"><span>${esc(why||'This network may be blocking the sign-in service.')} You can study on this device now, and your progress moves into your account the next time you sign in here.</span><div><button class="btn ghost" id="local">Study on this device for now</button></div></div>`;
+  lo.querySelector('#local').onclick=async()=>{const e=(em||(app.querySelector('#em')||{}).value||'').trim().toLowerCase(), er=app.querySelector('#er');
+    if(!EMAIL_RE.test(e)){if(er)er.textContent='Enter your school email first.';return}
+    const sid=await sidFor(e); P.users[sid]=Object.assign(P.users[sid]||{cluster:(app.querySelector('#cl')||{}).value||'marketing',front:'t'},{sid,email:e,local:true});
+    P.cur=sid; MODE='local'; saveProfile(); showWho(); loadCluster(me().cluster)}}
+async function bootUser(sid){
+  MODE='cloud'; const pend=PENDING; PENDING=null;
+  const u=P.users[sid]=Object.assign(P.users[sid]||{cluster:'marketing',front:'t'},{sid}); delete u.local;
+  if(pend&&pend.email)u.email=pend.email;
+  P.cur=sid; saveProfile(); showWho(); app.innerHTML='<p class="muted">Loading your account…</p>';
+  if(pend&&pend.signup){u.cluster=pend.cluster||u.cluster; CLOUD.putStudent(sid,{cluster:u.cluster,front:u.front||'t',created:Date.now(),upd:Date.now()}).catch(e=>console.warn(e))}
+  else{try{const st=await CLOUD.getStudent(sid); if(st){if(st.cluster)u.cluster=st.cluster; if(st.front)u.front=st.front}}catch(e){syncErr=e.code||'error'}}
+  if(P.cur!==sid)return; saveProfile();
+  CLOUD.isAdvisor(sid).then(v=>{ADV=v; if(!v||P.cur!==sid)return; if(location.hash==='#advisor'&&DATA)advisor(); else if(document.getElementById('bmiss'))home()});
+  loadCluster(u.cluster)}
+
+/* ---------- boot ---------- */
+const sel=document.getElementById('cluster'), whoB=document.getElementById('who');
+sel.innerHTML=CLUSTERS.map(c=>`<option value="${c[0]}">${esc(c[1])}</option>`).join('');
+const cache={};
+async function loadCluster(cl){
+  if(me().cluster!==cl&&dirty){try{await push()}catch(e){}}
+  me().cluster=cl; saveProfile(); sel.value=cl; KEY=keyFor(me().sid,cl); DATA=null; DATAKEY='';
+  S=readLocal(KEY)||blank(); app.innerHTML='<p class="muted">Loading your progress…</p>';
+  if(MODE==='cloud')await pull(me().sid,cl);
+  if(!me()||me().cluster!==cl)return;
+  migrate();
+  try{const d=cache[cl]||await fetch('data/'+cl+'.json').then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}); cache[cl]=d;
+    if(!me()||me().cluster!==cl)return;
+    DATA=d; DATAKEY=cl; home(); if(dirty)markDirty();
+    if(PMOVE){const code=PMOVE; PMOVE=''; importCode(code).then(r=>{FLASH=r.err||(r.added.length?'Brought in your progress for '+r.added.join(', ')+'.':'')}).catch(e=>{console.warn(e);FLASH='The move link didn’t work. Use “Bring in progress from the old Study Lab” instead.'}).then(()=>{if(document.getElementById('bmiss'))home()})}
+    else if(location.hash==='#advisor'&&ADV)advisor()}
+  catch(e){console.error('Study Lab load error',e);app.innerHTML='<div class="notice">The question set could not load. Check your connection and refresh the page.</div>'}}
+function showWho(){if(P.cur&&me()){whoB.hidden=false;whoB.textContent=who()+(MODE==='cloud'?' · sign out':' · switch');sel.disabled=false}else{whoB.hidden=true;sel.disabled=true}}
+whoB.onclick=async()=>{
+  if(MODE==='cloud'&&CLOUD&&CLOUD.currentSid()){whoB.textContent='Saving…'; try{if(dirty)await push()}catch(e){} P.cur=''; saveProfile(); await CLOUD.signOut()}
+  else{P.cur=''; saveProfile(); MODE='cloud'; signin()}};
+sel.onchange=()=>{if(P.cur)loadCluster(sel.value)};
+function waitCloud(){return new Promise(res=>{if(window.Cloud)return res(window.Cloud); const t=setTimeout(()=>res(window.Cloud||null),10000);
+  addEventListener('cloud-ready',()=>{clearTimeout(t);res(window.Cloud)},{once:true}); addEventListener('cloud-fail',()=>{clearTimeout(t);res(null)},{once:true})})}
+P=loadProfile();
+let PMOVE=location.hash.startsWith('#move=')?decodeURIComponent(location.hash.slice(6)):'';
+if(PMOVE)history.replaceState(null,'',location.pathname+location.search);
+addEventListener('hashchange',()=>{if(location.hash.startsWith('#move='))location.reload()});
+app.innerHTML='<p class="muted">Loading…</p>';
+waitCloud().then(c=>{
+  if(!c){MODE='local'; if(P.cur&&me()){showWho();loadCluster(me().cluster)}else signin(); return}
+  CLOUD=c; let first=true;
+  c.onUser(sid=>{const was=first; first=false;
+    if(sid)bootUser(sid);
+    else if(was&&P.cur&&me()&&me().local){MODE='local';showWho();loadCluster(me().cluster)}
+    else signin()})});
+})();
+</script>
+
+</body></html>

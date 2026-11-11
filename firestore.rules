@@ -1,0 +1,60 @@
+rules_version = '2';
+
+// Anchor Bay DECA Study Lab: Firestore security rules.
+// Students sign in with a scrambled ID (first 20 hex characters of a SHA-256 of
+// their school email) at the reserved domain abdeca-studylab.invalid, so no names
+// or email addresses are stored here. Each student can read and write only their
+// own records; advisors listed in /advisors can read everyone's.
+// Publish by pasting this file into Firebase console > Firestore > Rules.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function authed() {
+      return request.auth != null && request.auth.token.email is string;
+    }
+    function mySid() {
+      return request.auth.token.email.split('@')[0];
+    }
+    function owns(sid) {
+      return authed()
+        && sid.matches('^[0-9a-f]{20}$')
+        && request.auth.token.email == sid + '@abdeca-studylab.invalid';
+    }
+    function advisor() {
+      return authed()
+        && request.auth.token.email.matches('^[0-9a-f]{20}@abdeca-studylab[.]invalid$')
+        && exists(/databases/$(database)/documents/advisors/$(mySid()));
+    }
+    function clusterName(cl) {
+      return cl in ['marketing', 'finance', 'hospitality', 'bma', 'entrepreneurship', 'pfl', 'bacore'];
+    }
+
+    // One record per student: current cluster, settings and a small progress
+    // summary for each cluster (read by the advisor dashboard).
+    match /students/{sid} {
+      allow read: if owns(sid) || advisor();
+      allow create, update: if owns(sid)
+        && request.resource.data.keys().hasOnly(['cluster', 'front', 'sum', 'upd', 'created']);
+      allow delete: if false;
+
+      // Full study state for one cluster, stored as a JSON string.
+      match /clusters/{cl} {
+        allow read: if owns(sid) || advisor();
+        allow create, update: if owns(sid)
+          && clusterName(cl)
+          && request.resource.data.keys().hasOnly(['state', 'upd', 'v'])
+          && request.resource.data.state is string
+          && request.resource.data.state.size() < 950000;
+        allow delete: if false;
+      }
+    }
+
+    // Advisor list: one empty document per advisor, named by their scrambled ID.
+    // Added by hand in the Firebase console; a user may only check their own.
+    match /advisors/{sid} {
+      allow get: if owns(sid);
+      allow list, write: if false;
+    }
+  }
+}
