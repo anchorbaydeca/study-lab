@@ -158,6 +158,46 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 .foot{max-width:880px;margin:0 auto;padding:18px 16px 36px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:"Montserrat",Arial,sans-serif;font-weight:700;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
 @media (max-width:520px){h1{font-size:21px}.brand img{height:24px}.brand small{padding-left:10px}}
 main.wide{max-width:1240px}
+/* ── Cross out answer choices ── */
+.orow{display:flex;gap:8px;align-items:stretch}
+.orow .opt{flex:1 1 auto;min-width:0}
+.xo{flex:0 0 44px;font-family:"Montserrat",Arial,sans-serif;font-weight:700;font-size:13px;background:#fff;color:var(--muted);border:1px solid var(--rule);cursor:pointer;display:grid;place-items:center;padding:0;min-height:48px}
+.xo s{text-decoration-thickness:2px;text-decoration-color:var(--red)}
+.xo:hover{border-color:var(--red);color:var(--red)}
+.orow.x .xo{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);border-color:var(--red)}
+.orow.x .opt{opacity:.45}
+.orow.x .opt span:last-child{text-decoration:line-through}
+.orow.x .opt.right,.orow.x .opt.wrong{opacity:1}
+.orow.x .opt.right span:last-child{text-decoration:none}
+.opts.done .xo{display:none}
+/* ── Question tools row and calculator ── */
+.qtop{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.tool{font-family:"Montserrat",Arial,sans-serif;font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);background:#fff;border:1px solid var(--red);padding:7px 12px;min-height:36px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.tool:hover{background:var(--red-tint)}
+.tool[aria-expanded="true"]{background:var(--red);color:#fff}
+.tool svg{width:15px;height:15px;flex:none}
+#calc{position:fixed;z-index:50;right:24px;bottom:24px;width:272px;background:#fff;border:1px solid var(--fg);box-shadow:0 14px 36px rgba(0,0,0,.2);font-family:"Montserrat",Arial,sans-serif}
+#calc .ch{display:flex;justify-content:space-between;align-items:center;background:var(--red);color:#fff;padding:4px 4px 4px 12px;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;cursor:move;touch-action:none;user-select:none}
+#calc .ch button{background:transparent;border:0;color:#fff;font:inherit;font-size:20px;line-height:1;width:40px;height:40px;cursor:pointer}
+#calc .cd{padding:8px 12px;text-align:right;border-bottom:1px solid var(--rule);font-variant-numeric:tabular-nums}
+#calc .ce{font-size:12px;color:var(--muted);min-height:18px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#calc .cv{font-size:30px;font-weight:700;color:var(--fg);line-height:1.25;overflow:hidden;white-space:nowrap}
+#calc .ck{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--rule)}
+#calc .ck button{font-family:"Montserrat",Arial,sans-serif;font-size:18px;font-weight:500;border:0;background:#fff;color:var(--fg);height:50px;cursor:pointer;font-variant-numeric:tabular-nums;padding:0}
+#calc .ck button:hover{background:var(--surface2)}
+#calc .ck .fn{background:var(--surface2);font-size:14px;font-weight:700}
+#calc .ck .op{background:var(--surface2);color:var(--red);font-size:22px;font-weight:700}
+#calc .ck .op[aria-pressed="true"]{background:var(--red-tint);box-shadow:inset 0 0 0 2px var(--red)}
+#calc .ck .eq{background:var(--red);color:#fff;font-size:22px;font-weight:700}
+#calc .ck .eq:hover{background:var(--red-hover)}
+/* wider screens: the page slides left so the calculator never covers a choice or the Next button */
+@media (min-width:641px){body.calc-open main{margin-left:auto;margin-right:max(320px,calc((100% - 880px)/2))}}
+@media (max-width:640px){
+  #calc{left:0!important;right:0!important;top:auto!important;bottom:0!important;width:auto;border-width:1px 0 0;padding-bottom:env(safe-area-inset-bottom,0px)}
+  #calc .ch{cursor:default}
+  #calc .ck button{height:44px}
+  body.calc-open main{padding-bottom:calc(var(--calch,330px) + 24px)}
+}
 .tblwrap{overflow-x:auto;border:1px solid var(--rule)}
 table.dt{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums}
 .dt th{position:sticky;top:0;background:var(--surface);text-align:left;font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:9px 10px;border-bottom:1px solid var(--rule);white-space:nowrap;cursor:pointer;user-select:none}
@@ -354,7 +394,17 @@ function migrate(){
   const L=S.log.filter(x=>x.id===id); if(L.length){c.lr=L[L.length-1].ok; const m=L.filter(x=>!x.ok).pop(),o=L.filter(x=>x.ok).pop(); if(m)c.lmiss=m.at; if(o)c.lok=o.at}
   else c.lr=c.ok>0||!c.bad}}
 function perm(n){const p=[...Array(n).keys()]; for(let i=n-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[p[i],p[j]]=[p[j],p[i]]} return p}
-function optsHtml(it,p,sel){return p.map((oi,k)=>`<button class="opt" data-i="${oi}" ${sel===oi?'style="border-color:var(--red);background:var(--red-tint)"':''}><span class="l">${'ABCD'[k]}</span><span>${esc(it.o[oi])}</span></button>`).join('')}
+function optsHtml(it,p,sel,xs){return p.map((oi,k)=>{const L='ABCD'[k], x=!!(xs&&xs.has(oi));
+  return `<div class="orow${x?' x':''}"><button class="opt" data-i="${oi}" ${sel===oi?'style="border-color:var(--red);background:var(--red-tint)"':''}><span class="l">${L}</span><span>${esc(it.o[oi])}</span></button><button type="button" class="xo" aria-pressed="${x}" aria-label="${x?'Bring back':'Cross out'} choice ${L}" title="${x?'Bring back':'Cross out'} ${L}">${x?'Undo':`<s>${L}</s>`}</button></div>`}).join('')}
+/* Crossing out: the button beside a choice strikes it through. Tapping a crossed-out choice
+   brings it back instead of answering with it, so a stray tap can't submit an eliminated answer.
+   xs holds the crossed-out choices; changed(i), when given, re-renders instead (practice tests). */
+function bindOpts(xs,pick,changed){app.querySelectorAll('.orow').forEach(r=>{const o=r.querySelector('.opt'), x=r.querySelector('.xo'), i=+o.dataset.i, L=o.querySelector('.l').textContent;
+  const flip=()=>{xs.has(i)?xs.delete(i):xs.add(i); if(changed)return changed(i); const on=xs.has(i);
+    r.classList.toggle('x',on); x.setAttribute('aria-pressed',on); x.setAttribute('aria-label',(on?'Bring back':'Cross out')+' choice '+L); x.title=(on?'Bring back ':'Cross out ')+L; x.innerHTML=on?'Undo':`<s>${L}</s>`};
+  x.onclick=flip; o.onclick=()=>xs.has(i)?flip():pick(i)})}
+function lockOpts(){const w=app.querySelector('.opts'); if(w)w.classList.add('done'); app.querySelectorAll('.opt,.xo').forEach(b=>b.disabled=true)}
+const CALC_BTN=`<button type="button" class="tool" data-calc aria-expanded="false" aria-controls="calc"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="1.5" width="10" height="13"/><path d="M5.5 4.6h5M5.6 8h.8M9.6 8h.8M5.6 11.2h.8M9.6 11.2h.8"/></svg>Calculator</button>`;
 function keyTerms(it){if(!DATA.kmap){DATA.kmap={}; for(const k of DATA.k)DATA.kmap[k.t.toLowerCase()]=k} return (it.kt||[]).map(t=>DATA.kmap[String(t).toLowerCase()]).filter(Boolean)}
 function ktBlock(it){const L=keyTerms(it); if(!L.length)return '';
   return `<details class="miss"><summary>Key terms in this question (${L.length})</summary><div style="display:grid;gap:8px;margin-top:10px">${L.map(k=>`<div><b>${esc(k.t)}</b> <span class="muted">${esc(k.d)}</span></div>`).join('')}</div><p class="muted" style="margin:10px 0 0;font-size:13px">These flashcards come up in your next session.</p></details>`}
@@ -490,12 +540,12 @@ function next(){
   if(isQ){
     const p=perm(it.o.length);
     app.innerHTML=`${head}<section class="card" style="display:grid;gap:16px">
-      <span class="tag">${S.cards[it.id]?'Review':'New question'}</span>
+      <div class="qtop"><span class="tag">${S.cards[it.id]?'Review':'New question'}</span>${CALC_BTN}</div>
       <p class="q" style="margin:0">${esc(it.s)}</p>
       <div class="opts">${optsHtml(it,p)}</div>
       <div id="after"></div></section>
-      <div class="row" style="justify-content:space-between"><button class="btn ghost" id="quit">End session</button><span class="muted" style="font-size:12px"><kbd>A</kbd>–<kbd>D</kbd> answer · <kbd>1</kbd> guessed · <kbd>2</kbd> knew it</span></div>`;
-    app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>answerQ(it,+b.dataset.i,p));
+      <div class="row" style="justify-content:space-between"><button class="btn ghost" id="quit">End session</button><span class="muted" style="font-size:12px"><kbd>A</kbd>–<kbd>D</kbd> answer · <kbd>Shift</kbd>+letter cross out · <kbd>1</kbd> guessed · <kbd>2</kbd> knew it</span></div>`;
+    bindOpts(new Set(),i=>answerQ(it,i,p));
   }else{
     const side=pickSide();
     app.innerHTML=`${head}<div class="row" style="justify-content:flex-end">${frontSeg()}</div><section class="card flash" id="fl">${faceFront(it,side,S.cards[it.id]?'Review':'New term')}</section>
@@ -525,7 +575,7 @@ function feedback(it,i,p){
 }
 function answerQ(it,i,p){
   const ok=i===it.a; record(it.id,ok,'q'); if(!ok)boostTerms(it);
-  app.querySelectorAll('.opt').forEach(b=>{b.disabled=true;const k=+b.dataset.i;if(k===it.a)b.classList.add('right');else if(k===i)b.classList.add('wrong')});
+  lockOpts(); app.querySelectorAll('.opt').forEach(b=>{const k=+b.dataset.i;if(k===it.a)b.classList.add('right');else if(k===i)b.classList.add('wrong')});
   const a=document.getElementById('after');
   a.innerHTML=`<div style="display:grid;gap:14px">${feedback(it,i,p)}${rateRow(it,!ok,true)}</div>`;
   a.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>grade(it,+b.dataset.g,ok));
@@ -563,18 +613,19 @@ function startExam(mock){
     if(items.length<n){const have=new Set(items.map(x=>x.id)); items=items.concat(DATA.q.filter(x=>!have.has(x.id)).sort((a,b)=>((S.cards[a.id]||{}).seen||0)-((S.cards[b.id]||{}).seen||0)).slice(0,n-items.length))}
     items=rnd(items)}
   else items=rnd(DATA.q.slice()).slice(0,n);
-  T={items,perm:items.map(x=>perm(x.o.length)),ans:Array(items.length).fill(null),i:0,end:Date.now()+items.length*54e3,timer:null,mock:!!mock,unseen:items.filter(untried).length}; window.scrollTo(0,0); examView();
+  T={items,perm:items.map(x=>perm(x.o.length)),ans:Array(items.length).fill(null),xo:items.map(()=>new Set()),i:0,end:Date.now()+items.length*54e3,timer:null,mock:!!mock,unseen:items.filter(untried).length}; window.scrollTo(0,0); examView();
   T.timer=setInterval(()=>{const el=document.getElementById('clock'); if(!el){clearInterval(T.timer);return}
     const s=Math.max(0,Math.round((T.end-Date.now())/1e3)); el.textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); if(!s)finishExam()},500);
 }
 function examView(){
   const it=T.items[T.i];
   app.innerHTML=`<div class="prog"><span>${T.mock?'Mock exam · ':''}Question ${T.i+1} of ${T.items.length} · no feedback until the end</span><span>Time left <b id="clock" style="color:var(--fg)">—</b></span></div>
-  <section class="card" style="display:grid;gap:16px"><p class="q" style="margin:0">${esc(it.s)}</p>
-  <div class="opts">${optsHtml(it,T.perm[T.i],T.ans[T.i])}</div></section>
+  <section class="card" style="display:grid;gap:16px"><div class="qtop" style="justify-content:flex-end">${CALC_BTN}</div><p class="q" style="margin:0">${esc(it.s)}</p>
+  <div class="opts">${optsHtml(it,T.perm[T.i],T.ans[T.i],T.xo[T.i])}</div></section>
   <div class="row" style="justify-content:space-between"><button class="btn ghost" id="prev" ${T.i?'':'disabled'}>Previous</button>
   <div class="row"><button class="btn ghost" id="fin">Submit set</button><button class="btn" id="nx">${T.i<T.items.length-1?'Next':'Review answers'}</button></div></div>`;
-  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{T.ans[T.i]=+b.dataset.i;examView()});
+  // Crossing out the choice you had picked clears that answer.
+  bindOpts(T.xo[T.i],i=>{T.ans[T.i]=i;examView()},i=>{if(T.xo[T.i].has(i)&&T.ans[T.i]===i)T.ans[T.i]=null;examView()});
   document.getElementById('prev').onclick=()=>{T.i--;examView()};
   document.getElementById('nx').onclick=()=>{if(T.i<T.items.length-1){T.i++;examView()}else finishExam()};
   document.getElementById('fin').onclick=finishExam;
@@ -656,12 +707,12 @@ function runView(){
   const store=ok=>{record(it.id,ok,R.type); if(ok)introduce(it.id); else{toReview(it.id); if(isQ)boostTerms(it)} R.res[it.id]=ok; save()};
   if(isQ){
     const p=perm(it.o.length);
-    app.innerHTML=`${head}<section class="card" style="display:grid;gap:16px"><div class="row" style="gap:8px"><span class="tag">Question bank</span>${badge(it.id,true)}</div>
+    app.innerHTML=`${head}<section class="card" style="display:grid;gap:16px"><div class="qtop"><div class="row" style="gap:8px"><span class="tag">Question bank</span>${badge(it.id,true)}</div>${CALC_BTN}</div>
       <p class="q" style="margin:0">${esc(it.s)}</p>
       <div class="opts">${optsHtml(it,p)}</div>
-      <div id="after"></div></section>${foot('<kbd>A</kbd>–<kbd>D</kbd> answer · <kbd>1</kbd> guessed · <kbd>2</kbd> knew it · <kbd>Enter</kbd> next')}`;
-    app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const i=+b.dataset.i, ok=i===it.a; store(ok);
-      app.querySelectorAll('.opt').forEach(x=>{x.disabled=true;const k=+x.dataset.i;if(k===it.a)x.classList.add('right');else if(k===i)x.classList.add('wrong')});
+      <div id="after"></div></section>${foot('<kbd>A</kbd>–<kbd>D</kbd> answer · <kbd>Shift</kbd>+letter cross out · <kbd>1</kbd> guessed · <kbd>2</kbd> knew it · <kbd>Enter</kbd> next')}`;
+    bindOpts(new Set(),i=>{const ok=i===it.a; store(ok);
+      lockOpts(); app.querySelectorAll('.opt').forEach(x=>{const k=+x.dataset.i;if(k===it.a)x.classList.add('right');else if(k===i)x.classList.add('wrong')});
       const a=document.getElementById('after'), lbl=R.i<n-1?'Next':'See results';
       a.innerHTML=`<div style="display:grid;gap:14px">${feedback(it,i,p)}${ok?`<div style="display:grid;gap:8px"><span class="muted" style="font-size:13px">Right. Did you know it, or was it a guess?</span><div class="rate" style="grid-template-columns:repeat(2,minmax(0,1fr))"><button class="btn ghost" data-g="1">I guessed<small>${lbl}</small></button><button class="btn" data-g="2">I knew it<small>${lbl}</small></button></div></div>`:nextBtn}</div>`;
       const nx=document.getElementById('nx'); if(nx)nx.onclick=()=>{R.i++;runView()};
@@ -691,11 +742,77 @@ function runDone(){
   document.getElementById('bk').onclick=()=>{window.scrollTo(0,0);bank()}; document.getElementById('h').onclick=home;
 }
 
+/* ---------- calculator ----------
+   A basic four-function calculator, like the one allowed on the DECA exam. It floats over the
+   page (a bottom panel on phones), keeps its display while you move between questions, and
+   closes on any screen that isn't a multiple-choice question. Operations run left to right,
+   as on a handheld calculator: 2 + 3 × 4 = 20. */
+const CALC={acc:null,op:null,cur:'0',typing:false,hasB:false,expr:'',err:false};
+const SYM={'+':'+','-':'−','*':'×','/':'÷'};
+const CLAB={ac:'All clear',neg:'Change sign','%':'Percent','/':'Divide','*':'Multiply','-':'Subtract','+':'Add','=':'Equals',bs:'Backspace','.':'Decimal point'};
+const calcEl=document.createElement('div'); calcEl.id='calc'; calcEl.hidden=true; calcEl.setAttribute('role','dialog'); calcEl.setAttribute('aria-label','Calculator');
+calcEl.innerHTML=`<div class="ch" title="Drag to move"><span>Calculator</span><button type="button" data-ck="close" aria-label="Close calculator">×</button></div>
+  <div class="cd"><div class="ce" aria-hidden="true"></div><div class="cv" role="status" aria-live="polite">0</div></div>
+  <div class="ck">${[['ac','AC','fn'],['neg','±','fn'],['%','%','fn'],['/','÷','op'],['7'],['8'],['9'],['*','×','op'],['4'],['5'],['6'],['-','−','op'],['1'],['2'],['3'],['+','+','op'],['0'],['.'],['bs','⌫','fn'],['=','=','eq']]
+    .map(([k,l,c])=>`<button type="button" data-ck="${k}"${c?` class="${c}"`:''}${CLAB[k]?` aria-label="${CLAB[k]}"`:''}>${l||k}</button>`).join('')}</div>`;
+document.body.appendChild(calcEl);
+const cnum=s=>parseFloat(String(s));
+function cdisp(s){s=String(s); if(s==='Error')return s;
+  if(/e/i.test(s))return Number(s).toExponential(6).replace(/\.?0+e/,'e').replace('-','−');
+  const neg=s.startsWith('-'), t=neg?s.slice(1):s, [i,d]=t.split('.');
+  return (neg?'−':'')+i.replace(/\B(?=(\d{3})+(?!\d))/g,',')+(d!==undefined?'.'+d:'')}
+function capply(a,op,b){return op==='+'?a+b:op==='-'?a-b:op==='*'?a*b:b===0?NaN:a/b}
+function cset(n){if(!isFinite(n)){Object.assign(CALC,{err:true,cur:'Error',expr:'Can’t divide by zero',acc:null,op:null,typing:false,hasB:false});return false}
+  CALC.cur=String(Number(n.toPrecision(12))); return true}
+function calcPress(a){const C=CALC;
+  if(C.err){Object.assign(C,{acc:null,op:null,cur:'0',typing:false,hasB:false,expr:'',err:false}); if(!/^[0-9.]$/.test(a))return calcPaint()}
+  if(/^[0-9.]$/.test(a)){
+    if(!C.typing){if(!C.op)C.expr=''; C.cur=a==='.'?'0.':a; C.typing=true}
+    else{if(a==='.'&&C.cur.includes('.'))return; if(C.cur.replace(/[-.]/g,'').length>=12)return;
+      C.cur=a!=='.'&&/^-?0$/.test(C.cur)?C.cur.replace('0',a):C.cur+a}
+    C.hasB=true}
+  else if(SYM[a]){
+    if(C.op&&C.hasB){if(!cset(capply(C.acc,C.op,cnum(C.cur))))return calcPaint(); C.acc=cnum(C.cur)}
+    else if(!C.op)C.acc=cnum(C.cur);
+    C.op=a; C.typing=false; C.hasB=false; C.expr=cdisp(C.acc)+' '+SYM[a]}
+  else if(a==='='){if(!C.op)return; const b=C.hasB?cnum(C.cur):C.acc, e=cdisp(C.acc)+' '+SYM[C.op]+' '+cdisp(b)+' =';
+    if(!cset(capply(C.acc,C.op,b)))return calcPaint(); Object.assign(C,{expr:e,acc:null,op:null,typing:false,hasB:false})}
+  else if(a==='%'){const b=cnum(C.cur); cset(C.op==='+'||C.op==='-'?C.acc*b/100:b/100); C.typing=false; C.hasB=true}
+  else if(a==='neg'){if(C.op&&!C.hasB){C.cur='-0';C.typing=true;C.hasB=true} else C.cur=C.cur.startsWith('-')?C.cur.slice(1):'-'+C.cur}
+  else if(a==='bs'){if(!C.typing)return; C.cur=C.cur.slice(0,-1); if(C.cur===''||C.cur==='-')C.cur='0'}
+  else if(a==='ac')Object.assign(C,{acc:null,op:null,cur:'0',typing:false,hasB:false,expr:'',err:false});
+  calcPaint()}
+function calcPaint(){const v=cdisp(CALC.cur), cv=calcEl.querySelector('.cv');
+  cv.textContent=v; cv.style.fontSize=v.length>15?'19px':v.length>11?'23px':'';
+  calcEl.querySelector('.ce').textContent=CALC.expr;
+  calcEl.querySelectorAll('.op').forEach(b=>b.setAttribute('aria-pressed',CALC.op===b.dataset.ck&&!CALC.hasB))}
+function calcShow(on){calcEl.hidden=!on; document.body.classList.toggle('calc-open',on);
+  if(on){calcPaint(); document.documentElement.style.setProperty('--calch',calcEl.offsetHeight+'px')}
+  app.querySelectorAll('[data-calc]').forEach(b=>b.setAttribute('aria-expanded',on))}
+function calcKey(e){if(calcEl.hidden)return false; const k=e.key;
+  if(calcEl.contains(e.target)&&(k==='Enter'||k===' '))return false; // a focused key presses itself
+  const a=/^[0-9.]$/.test(k)?k:'+-*/%'.includes(k)&&k.length===1?k:k==='x'||k==='X'?'*':k==='Enter'||k==='='?'=':k==='Backspace'?'bs':k==='Delete'?'ac':k==='Escape'?'close':null;
+  if(!a)return false; e.preventDefault(); a==='close'?calcShow(false):calcPress(a); return true}
+calcEl.addEventListener('mousedown',e=>{if(e.target.closest('.ck [data-ck]'))e.preventDefault()}); // keep focus where it was
+calcEl.addEventListener('click',e=>{const b=e.target.closest('[data-ck]'); if(!b)return; b.dataset.ck==='close'?calcShow(false):calcPress(b.dataset.ck)});
+app.addEventListener('click',e=>{if(e.target.closest('[data-calc]'))calcShow(calcEl.hidden)});
+new MutationObserver(()=>{if(app.querySelector('[data-calc]'))app.querySelectorAll('[data-calc]').forEach(b=>b.setAttribute('aria-expanded',!calcEl.hidden)); else if(!calcEl.hidden)calcShow(false)}).observe(app,{childList:true});
+{const hd=calcEl.querySelector('.ch'); // drag the title bar to move it (wider screens)
+  hd.addEventListener('pointerdown',e=>{if(e.target.closest('button')||matchMedia('(max-width:640px)').matches)return;
+    const r=calcEl.getBoundingClientRect(), dx=e.clientX-r.left, dy=e.clientY-r.top; hd.setPointerCapture(e.pointerId);
+    const mv=ev=>Object.assign(calcEl.style,{left:Math.min(Math.max(0,ev.clientX-dx),innerWidth-r.width)+'px',top:Math.min(Math.max(0,ev.clientY-dy),innerHeight-r.height)+'px',right:'auto',bottom:'auto'});
+    const up=()=>{hd.removeEventListener('pointermove',mv);hd.removeEventListener('pointerup',up)};
+    hd.addEventListener('pointermove',mv); hd.addEventListener('pointerup',up)})}
+
 /* ---------- keyboard ---------- */
 document.addEventListener('keydown',e=>{
-  if(e.target.matches('input,textarea'))return;
+  if(e.target.matches('input,textarea,select'))return;
+  if(e.metaKey||e.ctrlKey||e.altKey)return; // leave Cmd/Ctrl shortcuts (copy, find) alone
+  if(calcKey(e))return;
   const k=e.key.toLowerCase();
-  const li=k.length===1?'abcd'.indexOf(k):-1, opt=li>=0?app.querySelectorAll('.opt')[li]:null; if(opt&&!opt.disabled){opt.click();return}
+  const li=k.length===1?'abcd'.indexOf(k):-1;
+  if(li>=0&&e.shiftKey){const x=app.querySelectorAll('.xo')[li]; if(x&&!x.disabled){e.preventDefault();x.click()} return}
+  const opt=li>=0?app.querySelectorAll('.opt')[li]:null; if(opt&&!opt.disabled){opt.click();return}
   const g=app.querySelector(`[data-g="${k}"]`); if(/^[0-3]$/.test(k)&&g){g.click();return}
   if(k===' '){const f=document.getElementById('fl'); if(f&&f.onclick){e.preventDefault();f.click()}}
   if((k==='enter'||k==='n')&&!e.target.matches('button,[role=button]')){const nx=document.getElementById('nx'); if(nx){e.preventDefault();nx.click()}}
