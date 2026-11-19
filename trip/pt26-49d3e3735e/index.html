@@ -80,6 +80,7 @@ h1.hl{font:700 34px/1.12 var(--font-display);letter-spacing:-.01em;text-transfor
 .pair .stat{border-bottom:0}
 .pair .stat+.stat{border-left:1px solid var(--rule)}
 .pair .stat .v{font-size:4.2vh}
+.stat .wx{font:500 1.5vh/1.3 var(--font-display);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:.5vh;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .next{padding:2.2vh 2vw;flex:1;display:flex;flex-direction:column;justify-content:flex-start}
 .next .k{font:700 1.45vh/1.2 var(--font-display);letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
 #display:not(.day) .next .k{color:#ff5c5c}
@@ -124,7 +125,7 @@ h1.hl{font:700 34px/1.12 var(--font-display);letter-spacing:-.01em;text-transfor
 .qrw h2{font:700 5vh/1.1 var(--font-display);text-transform:uppercase;margin:1.4vh 0 2vh}
 .qrw p{font:400 2.8vh/1.4 var(--font-body);color:var(--muted)}
 .busw{display:grid;grid-template-columns:44% 1fr;gap:4vw;align-items:center}
-.busw .busart{background:var(--panel);border-left:.5vh solid var(--red);padding:5vh 2vw}
+.busw .busart{background:var(--panel);border-left:.5vh solid var(--red);padding:3vh 1.6vw}
 .stage .busw .busfig{position:static;inset:auto;width:100%;height:auto;display:block}
 .busw h2{margin-top:0}
 .chf{display:flex;align-items:center;gap:1.6vw;background:var(--panel);margin-top:1.6vh;padding:1.8vh 1.6vw}
@@ -132,7 +133,7 @@ h1.hl{font:700 34px/1.12 var(--font-display);letter-spacing:-.01em;text-transfor
 .chf small{display:block;font:700 1.5vh/1.2 var(--font-display);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .chf b{display:block;font:700 3.6vh/1.1 var(--font-display);text-transform:uppercase;margin:.6vh 0}
 .chf span{font:400 2.1vh/1.3 var(--font-body);color:var(--muted)}
-.busw li{grid-template-columns:11vw 1fr;padding:1.1vh 0}
+.busw li{grid-template-columns:10vw 1fr;padding:1vh 0}.busw li span{font-size:2.4vh}.busw h2{font-size:4.6vh}
 .info.photo{background:linear-gradient(90deg,rgba(0,0,0,.86) 0%,rgba(0,0,0,.72) 48%,rgba(0,0,0,.25) 100%),var(--city) center/cover no-repeat;color:#fff}
 .info.photo .eyebrow{color:#ff5c5c}.info.photo li b{color:#ff5c5c}.info.photo li{border-bottom-color:rgba(255,255,255,.28)}.info.photo .rule2{background:rgba(255,255,255,.4)}
 .info.photo h2,.info.photo ul{max-width:62%}
@@ -261,7 +262,8 @@ input[type=email],input[type=password]{width:100%;font:400 16px/1.4 var(--font-b
   .r-extra li span small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
   .r-extra li.done b,.r-extra li.done span{color:var(--muted)}
   .r-extra .r-bus{background:var(--panel);border-left:4px solid var(--red);padding:18px 14px;margin:8px 0 6px}
-  .r-extra .r-bus svg{width:100%;height:auto;display:block}
+  .r-extra .r-bus svg,.r-extra .r-bus img.busfig{width:100%;height:auto;display:block}
+  #display.rider .stat .wx{font-size:11px;margin-top:4px}
   .r-extra .chf{padding:12px 0 0;margin:0;background:none;gap:12px}
   .r-extra .chf small{font-size:10px}.r-extra .chf b{font-size:20px;margin:4px 0}.r-extra .chf span{font-size:13px}
   .r-extra .fine{font:400 13px/1.5 var(--font-body);color:var(--muted)}
@@ -307,6 +309,10 @@ input[type=email],input[type=password]{width:100%;font:400 16px/1.4 var(--font-b
       <div class="pair">
         <div class="stat"><div class="k" id="s2K">Distance left</div><div class="v" id="s2V">--</div></div>
         <div class="stat"><div class="k" id="s3K">Avg. speed</div><div class="v" id="s3V">--</div></div>
+      </div>
+      <div class="pair" id="wxPair" hidden>
+        <div class="stat"><div class="k" id="w1K">Outside now</div><div class="v" id="w1V">--</div><div class="wx" id="w1S"></div></div>
+        <div class="stat"><div class="k" id="w2K">Destination</div><div class="v" id="w2V">--</div><div class="wx" id="w2S"></div></div>
       </div>
       <div class="next"><div class="k" id="nK">Up next</div><div class="t" id="nT"></div><div class="s" id="nS"></div></div>
     </aside>
@@ -2828,14 +2834,15 @@ const BUS_SVG = `<svg class="busfig" viewBox="0 0 640 220" xmlns="http://www.w3.
 <g fill="#23272e"><path d="M482 180 a40 40 0 0 1 80 0 Z"/><path d="M66 180 a40 40 0 0 1 112 0 Z"/></g>
 <g><circle cx="522" cy="180" r="27" fill="#1a1a1a"/><circle cx="522" cy="180" r="12" fill="#bdbdbd"/><circle cx="96" cy="180" r="25" fill="#1a1a1a"/><circle cx="96" cy="180" r="11" fill="#bdbdbd"/><circle cx="150" cy="180" r="27" fill="#1a1a1a"/><circle cx="150" cy="180" r="12" fill="#bdbdbd"/></g>
 </svg>`;
-const COACH = {model:"MCI J4500 motorcoach", unit:"251", year:"2021", length:"45 feet", seats:"Up to 56", operator:"ALLSTAR Chauffeured Services · Troy, MI", chauffeur:"Chanta"};
+const COACH = {model:"MCI J4500", unit:"251", year:"2021", length:"45 ft", seats:"56 passengers", amenities:"Leather seats, onboard restroom, climate control, power outlets", operator:"ALLSTAR Chauffeured Services", base:"Troy, MI · 248-549-8800", chauffeur:"Ms. Chanta"};
+const BUS_IMG = "bus.png";
 const SHOW_PHOTO = false;
 const isMobLbl = () => typeof isMob==="function" && isMob();
 const CITY_BG = "";
+function busArt(){ return BUS_IMG? `<img class="busfig" src="${BUS_IMG}" alt="ALLSTAR MCI J4500 motorcoach" onerror="this.outerHTML=BUS_SVG">` : BUS_SVG; }
 function coachRows(st,ph,l){ const mph = (ph==="enroute")? Math.round(l.miles/l.driveMin*60/5)*5 : 0;
-  return [["Coach",COACH.model+" · No. "+COACH.unit],["Model year",COACH.year],["Size",COACH.length+" · "+COACH.seats.toLowerCase()+" seats"],["Operator",COACH.operator],
-    ["Speed", ph==="enroute"? `About ${mph} mph cruising` : (ph==="rest"?"Parked at a stop":(ph==="boarding"?"Parked for boarding":"Parked"))],
-    ["Traveled", st.departed? `${Math.round(st.milesDone)} of ${l.miles} miles` : `${l.miles} miles today`]]; }
+  return [["Coach",`${COACH.year} ${COACH.model} · No. ${COACH.unit} · ${COACH.length}`],["Seats",COACH.seats],["Amenities",COACH.amenities],["Operator",`${COACH.operator} · ${COACH.base}`],
+    ["Speed", ph==="enroute"? `About ${mph} mph cruising` : (ph==="rest"?"Parked at a stop":(ph==="boarding"?"Parked for boarding":"Parked"))]]; }
 
 const PRESETS = [
   ["announcement","Welcome aboard","Our estimated arrival time is on the right side of this screen."],
@@ -3116,8 +3123,8 @@ function setSlide(name,l,st){
   else if(kind==="info"){ renderInfo(arg); $("slInfo").classList.add("on"); }
   else { renderQr(); $("slQr").classList.add("on"); }
 }
-function chauffeurCard(){ return `<div class="chf">${SHOW_PHOTO?`<img src="chauffeur.png" alt="">`:""}<div><small>Your chauffeur</small><b>${esc(COACH.chauffeur)}</b><span>${esc(COACH.operator.split(" · ")[0])}</span></div></div>`; }
-function renderInfo(key){ $("slInfo").classList.remove("photo"); if(key==="bus"){ const a=activeLeg(now()); const ph=phaseOf(a,now()); const rows=coachRows(a.st,ph,a.l); $("slInfo").innerHTML=`<div class="busw"><div><div class="busart">${BUS_SVG}</div>${chauffeurCard()}</div><div><h2>Your coach</h2><div class="rule2"></div><ul>${rows.map(r=>`<li><b>${esc(r[0])}</b><span>${esc(r[1])}</span></li>`).join("")}</ul></div></div>`; return; }
+function chauffeurCard(){ return `<div class="chf">${SHOW_PHOTO?`<img src="chauffeur.png" alt="">`:""}<div><small>Your chauffeur</small><b>${esc(COACH.chauffeur)}</b><span>${esc(COACH.operator)}</span></div></div>`; }
+function renderInfo(key){ $("slInfo").classList.remove("photo"); if(key==="bus"){ const a=activeLeg(now()); const ph=phaseOf(a,now()); const rows=coachRows(a.st,ph,a.l); $("slInfo").innerHTML=`<div class="busw"><div><div class="busart">${busArt()}</div>${chauffeurCard()}</div><div><h2>Your coach</h2><div class="rule2"></div><ul>${rows.map(r=>`<li><b>${esc(r[0])}</b><span>${esc(r[1])}</span></li>`).join("")}</ul></div></div>`; return; }
   if(key==="stops"){ const a=activeLeg(now()); const l=a.l, st=a.st; const rows=(l.stops||[]).map((sp,i)=>{ const e=st.stopEtas[i]; const when=e.done?"Done":(e.now?"Now":"~"+fmtT(e.at)); return [when, `${sp.place} · about ${sp.min} min${sp.note?" · "+sp.note:""}`]; }); rows.push(["~"+fmtT(st.eta), P[l.to].name]); const s=$("slInfo"); s.innerHTML=`<div class="eyebrow">${l.day} · times update live</div><h2>Today's stops</h2><div class="rule2"></div><ul>${rows.map(r=>`<li><b>${esc(r[0])}</b><span>${esc(r[1])}</span></li>`).join("")}</ul>`; return; }
   const d=INFO[key]; const s=$("slInfo"); s.classList.toggle("photo", !!CITY_BG && ["thursday","friday","home"].includes(key));
   s.innerHTML=`<div class="eyebrow">${d.eyebrow}</div><h2>${d.title}</h2><div class="rule2"></div><ul>${d.items.map(i=>`<li class="${d.plain?"plain":""}"><b>${d.plain?"":i[0]}</b><span>${esc(i[1])}</span></li>`).join("")}</ul>`; }
@@ -3194,7 +3201,7 @@ function renderRiderStops(a,ph,t){
   (l.stops||[]).forEach((sp,i)=>{ const e=(st.stopEtas||[])[i]||{}; rows.push([e.done?"Done":(e.now?"Now":"~"+fmtT(e.at)), sp.place, `About ${sp.min} min${sp.note?" · "+sp.note:""}`, !!e.done]); });
   rows.push([(st.arrived?"":"~")+fmtT(st.arrActual||st.eta), (st.arrived?"Arrived · ":"")+P[l.to].name, "", !!st.arrived]);
   const bus=coachRows(st,ph,l); const key=JSON.stringify(rows)+JSON.stringify(bus)+l.id; if(key===rStopsKey) return; rStopsKey=key;
-  if(!$("rBusArt").innerHTML) $("rBusArt").innerHTML=BUS_SVG+chauffeurCard();
+  if(!$("rBusArt").innerHTML) $("rBusArt").innerHTML=busArt()+chauffeurCard();
   $("rBus").innerHTML = bus.map(r=>`<li><b>${esc(r[0])}</b><span>${esc(r[1])}</span></li>`).join("");
   $("rStopsH").textContent = l.stops&&l.stops.length? "Today's stops" : "Today's drive";
   $("rStopsSub").textContent = l.day+" · times are estimates and update as the coach moves.";
@@ -3229,6 +3236,19 @@ function renderAnns(t,st,l){
 }
 function onNewAnn(a){ if($("display").hidden) return; if(a.kind!=="urgent"){ bandIdx=ANNS.filter(x=>x.active!==false&&(!x.until||x.until>now())&&x.kind!=="urgent").findIndex(x=>x.id===a.id); bandAt=Date.now(); const b=$("band"); b.classList.remove("flash"); void b.offsetWidth; b.classList.add("flash"); } chime(); }
 let audioCtx=null;
+/* weather (Open-Meteo; skipped quietly where the page can't reach it) */
+const WXC=c=>c===0?"Clear":c<=2?"Partly cloudy":c===3?"Cloudy":c<=48?"Fog":c<=57?"Drizzle":c<=67?"Rain":c<=77?"Snow":c<=82?"Showers":c<=86?"Snow showers":"Thunderstorms";
+async function wxAt(lat,lon){ const u=`https://api.open-meteo.com/v1/forecast?latitude=${lat.toFixed(2)}&longitude=${lon.toFixed(2)}&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=America%2FNew_York`; const r=await fetch(u); if(!r.ok) throw new Error(r.status); const j=await r.json(); return {t:Math.round(j.current.temperature_2m), s:WXC(j.current.weather_code)}; }
+let wxBusy=false;
+async function updWx(){ if(wxBusy||DEMO) return; wxBusy=true;
+  try{ const a=activeLeg(now()); const l=a.l, st=a.st; const here=st.pos||{lat:P[l.from].lat,lon:P[l.from].lon}; const dest=P[l.to];
+    const [w1,w2]=await Promise.all([wxAt(here.lat,here.lon), wxAt(dest.lat,dest.lon)]);
+    $("w1K").textContent = st.departed&&!st.arrived ? "Outside now" : "Here now"; $("w1V").innerHTML=`${w1.t}<small>°F</small>`; $("w1S").textContent=w1.s;
+    $("w2K").textContent = l.to==="hotel"||l.to==="downs" ? "Louisville" : P[l.to].short; $("w2V").innerHTML=`${w2.t}<small>°F</small>`; $("w2S").textContent=w2.s;
+    $("wxPair").hidden=false;
+  }catch(e){ /* no network access here: keep the panel hidden */ }
+  wxBusy=false; }
+setTimeout(updWx,2500); setInterval(updWx,10*60000);
 function chime(){ if(!audioCtx) return; try{ const t0=audioCtx.currentTime; [880,1320].forEach((f,i)=>{ const o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.frequency.value=f; o.type="sine"; g.gain.setValueAtTime(0.0001,t0+i*0.18); g.gain.exponentialRampToValueAtTime(0.18,t0+i*0.18+0.02); g.gain.exponentialRampToValueAtTime(0.0001,t0+i*0.18+0.5); o.connect(g); g.connect(audioCtx.destination); o.start(t0+i*0.18); o.stop(t0+i*0.18+0.55); }); }catch(e){} }
 let wakeLock=null;
 async function startDisplay(){
