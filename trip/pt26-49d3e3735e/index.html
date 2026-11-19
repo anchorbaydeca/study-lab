@@ -152,6 +152,8 @@ h1.hl{font:700 34px/1.12 var(--font-display);letter-spacing:-.01em;text-transfor
 .start p{font:400 2.2vh/1.45 var(--font-body);color:var(--g70);margin-top:1.4vh}
 .d-nav{position:absolute;top:2.2vh;right:13vw;z-index:26;display:flex;gap:.6vw;opacity:0;pointer-events:none;transition:opacity 180ms var(--ease)}
 .d-nav.on{opacity:1;pointer-events:auto}
+html.fs #dNav,html.fs #offline,html.fs .demo-tag{display:none!important}
+html.fs #display{cursor:none}
 .d-nav a,.d-nav button{font:700 1.5vh/1 var(--font-display);text-transform:uppercase;letter-spacing:.06em;background:#fff;color:var(--red);border:2px solid var(--red);padding:1.1vh 1vw;text-decoration:none;cursor:pointer;border-radius:0}
 .d-nav a:hover,.d-nav button:hover{background:var(--red-tint)}
 .demo-tag{position:absolute;right:1.6vw;bottom:1.6vh;z-index:3;font:800 1.5vh/1 var(--font-display);letter-spacing:.16em;text-transform:uppercase;background:var(--red);color:#fff;padding:1vh 1vw}
@@ -3375,13 +3377,15 @@ $("cSignIn").addEventListener("click",doSignIn); $("cPw").addEventListener("keyd
 $("cSignOut").addEventListener("click",()=>{ try{ window.FB.signOut(FAUTH); }catch(e){} });
 $("gpsBtn").addEventListener("click",toggleGps);
 $("fsBtn").addEventListener("click",async()=>{ try{ if(document.fullscreenElement) await document.exitFullscreen(); else await document.documentElement.requestFullscreen(); }catch(e){ toast("Use the browser's full screen: F11 or Control-Command-F"); } });
-let navT=null; const showNav=()=>{ if($("display").hidden) return; $("dNav").classList.add("on"); clearTimeout(navT); navT=setTimeout(()=>$("dNav").classList.remove("on"),4000); };
+function fsCheck(){ const fs=!!document.fullscreenElement || (Math.abs(window.innerHeight-screen.height)<3 && Math.abs(window.innerWidth-screen.width)<3); document.documentElement.classList.toggle("fs",fs); if(fs){ $("startOv").hidden=true; } }
+document.addEventListener("fullscreenchange",fsCheck); window.addEventListener("resize",fsCheck); fsCheck();
+let navT=null; const showNav=()=>{ if($("display").hidden || document.documentElement.classList.contains("fs")) return; $("dNav").classList.add("on"); clearTimeout(navT); navT=setTimeout(()=>$("dNav").classList.remove("on"),4000); };
 ["mousemove","touchstart","keydown"].forEach(ev=>document.addEventListener(ev,showNav,{passive:true}));
 document.addEventListener("keydown",e=>{ if(!$("display").hidden && (e.key==="h"||e.key==="H")) location.hash="#home"; });
 if(DEMO){ $("startH").textContent="Demo: Thursday's drive at 90× speed"; $("startBtn").textContent="Start demo"; const a=document.querySelector('#dNav a[href="#home"]'); a.textContent="Exit demo"; const tag=document.createElement("div"); tag.className="demo-tag"; tag.textContent="Demo · 90× speed"; $("stage").appendChild(tag); }
 document.addEventListener("visibilitychange",async()=>{ if(document.visibilityState==="visible" && !$("display").hidden && $("startOv").hidden && navigator.wakeLock){ try{ wakeLock=await navigator.wakeLock.request("screen"); }catch(e){} } });
 if(CITY_BG) $("slInfo").style.setProperty("--city",`url("${CITY_BG}")`);
-const BUILD_ID="1795109139";
+const BUILD_ID="1795109192";
 setInterval(async()=>{ try{ const r=await fetch("version.json?"+Date.now(),{cache:"no-store"}); if(r.ok){ const j=await r.json(); if(j.build && j.build!==BUILD_ID) location.reload(); } }catch(e){} }, 90000);
 route();
 initDb(()=>tick(true));
