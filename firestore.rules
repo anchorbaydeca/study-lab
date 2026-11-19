@@ -50,6 +50,14 @@ service cloud.firestore {
       }
     }
 
+    // Live coach tracker pages (trip/<trip id>/ on the site). Anyone with the
+    // link can read a trip's position, schedule and announcements; only
+    // advisors can change them.
+    match /coach/{trip}/{rest=**} {
+      allow read: if true;
+      allow write: if advisor() && trip.matches('^[a-z0-9-]{8,40}$');
+    }
+
     // Advisor list: one empty document per advisor, named by their scrambled ID.
     // Added by hand in the Firebase console; a user may only check their own.
     match /advisors/{sid} {
