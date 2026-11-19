@@ -207,8 +207,29 @@ textarea{min-height:84px;resize:vertical}
 .c-auth input{margin-bottom:10px}
 #control.locked .c-sec{display:none}
 input[type=email],input[type=password]{width:100%;font:400 16px/1.4 var(--font-body);border:1px solid var(--g15);border-radius:0;padding:10px 12px;background:#fff;color:#000}
+/* public page on a laptop: map fills the first screen, details scroll below */
+#display.rider{position:absolute;left:0;right:0;top:0;bottom:auto;height:100vh;overflow:visible}
+#display.rider .r-extra{display:block;position:absolute;top:100vh;left:0;right:0;background:var(--bg);color:var(--ink);padding:48px max(32px,calc((100vw - 1040px)/2)) 72px;border-top:1px solid var(--rule)}
+.r-extra h3{font:700 26px/1.15 var(--font-display);text-transform:uppercase;margin:0 0 6px}
+.r-extra .sub{font:400 16px/1.45 var(--font-body);color:var(--muted);margin-bottom:14px}
+.r-extra ul{list-style:none;margin-bottom:36px}
+.r-extra li{display:grid;grid-template-columns:140px 1fr;gap:18px;padding:13px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.r-extra li b{font:700 16px/1.25 var(--font-display);text-transform:uppercase;color:var(--trail)}
+.r-extra li span{font:400 17px/1.45 var(--font-body)}
+.r-extra li span small{display:block;color:var(--muted);font-size:14px;margin-top:2px}
+.r-extra li.done b,.r-extra li.done span{color:var(--muted)}
+.r-extra .fine{font:400 15px/1.55 var(--font-body);color:var(--muted);max-width:760px}
+.r-extra .r-bus{background:var(--panel);border-left:4px solid var(--red);padding:24px;margin:10px 0 8px;max-width:620px}
+.r-extra .r-bus svg,.r-extra .r-bus img.busfig{width:100%;height:auto;display:block}
+.r-extra .chf{display:flex;align-items:center;gap:14px;padding:14px 0 0}
+.r-extra .chf small{display:block;font:700 11px/1.2 var(--font-display);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.r-extra .chf b{display:block;font:700 22px/1.1 var(--font-display);text-transform:uppercase;margin:4px 0}
+.r-extra .chf span{font:400 14px/1.3 var(--font-body);color:var(--muted)}
+.r-hint{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(17vh + 1.6vh);z-index:5;font:700 1.3vh/1 var(--font-display);letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:var(--panel);border:1px solid var(--rule);padding:1vh 1.2vw;display:none}
+#display.rider .r-hint{display:block}
 @media (max-aspect-ratio: 4/3), (max-width: 899px){
-  #display.rider{position:relative;inset:auto;min-height:100%;overflow:visible;display:flex;flex-direction:column}
+  #display.rider .r-hint{display:none}
+  #display.rider{position:relative;inset:auto;height:auto;min-height:100%;overflow:visible;display:flex;flex-direction:column}
   #display.rider .d-top{position:sticky;top:0;z-index:15;height:auto;min-height:60px;padding:10px 16px;gap:12px;order:0}
   #display.rider .d-top img{height:28px}
   #display.rider .d-top .logo-fallback{font-size:14px}
@@ -255,7 +276,7 @@ input[type=email],input[type=password]{width:100%;font:400 16px/1.4 var(--font-b
   #display.rider .urgent .foot{left:22px;right:22px;bottom:22px;font-size:11px;padding-top:10px}
   #display.rider .urgent .x{position:absolute;top:14px;right:14px;background:transparent;border:1px solid rgba(255,255,255,.8);color:#fff;font:700 12px/1 var(--font-display);padding:10px 12px}
   #display.rider .offline{position:fixed;font-size:10px;right:12px;bottom:12px;background:var(--panel);padding:6px 8px;z-index:20}
-  #display.rider .r-extra{display:block;order:4;background:var(--bg);color:var(--ink);padding:22px 16px 40px;border-top:1px solid var(--rule)}
+  #display.rider .r-extra{display:block;position:static;order:4;background:var(--bg);color:var(--ink);padding:22px 16px 40px;border-top:1px solid var(--rule)}
   .r-extra h3{font:700 20px/1.15 var(--font-display);text-transform:uppercase;margin:0 0 4px}
   .r-extra .sub{font:400 14px/1.4 var(--font-body);color:var(--muted);margin-bottom:12px}
   .r-extra ul{list-style:none;margin-bottom:26px}
@@ -329,6 +350,7 @@ input[type=email],input[type=password]{width:100%;font:400 16px/1.4 var(--font-b
     </div>
   </footer>
   <div class="urgent" id="urgent" hidden><button class="x" id="uClose" type="button">Close</button><div class="tag" id="uTag">Announcement</div><h2 id="uTitle"></h2><p id="uText"></p><div class="foot"><span id="uFootL"></span><span id="uFootR"></span></div></div>
+  <div class="r-hint">Scroll down for stops and coach details ↓</div>
   <section class="r-extra" id="rExtra">
     <h3 id="rStopsH">Today's stops</h3>
     <p class="sub" id="rStopsSub">Times are estimates and update as the coach moves.</p>
@@ -3106,7 +3128,7 @@ function drawDyn(l, st){
 }
 let rot={i:-1,until:0,seq:[]};
 function stageSeq(l,ph,t){
-  if(isRider()){ if(isMob()) return [["map:wide",600000]]; const r=[["map:wide",30000]]; if((l.stops||[]).length>1) r.push(["info:stops",14000]); r.push(["map:wide",30000]); r.push(["info:bus",14000]); r.push(["info:"+(l.id==="L4"?"home":(l.id==="L1"?"thursday":"friday")),15000]); return r; }
+  if(isRider()) return [["map:wide",600000]];
   const seq=[["map:wide",24000],["map:close",18000]];
   const day = l.id==="L4"?"home":(l.id==="L1"?"thursday":"friday");
   if((l.stops||[]).length>1) seq.splice(1,0,["info:stops",14000]);
