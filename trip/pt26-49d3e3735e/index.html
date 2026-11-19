@@ -2832,7 +2832,7 @@ const isMob = () => isRider() && (window.innerWidth < 900 || window.innerWidth/w
 const INFO = {
   thursday: {eyebrow:"Thursday, November 19", title:"Tonight in Louisville", items:[
     ["~5:10 PM","Arrive at the Louisville Marriott Downtown. Chaperones hand out room keys."],["Check-in","Settle in and change into night-out casual, your own choice of outfit"],
-    ["6:00 PM","Dinner (provided) and exploring downtown in groups"],["9:00 PM","Back at the hotel for room check"],["11:30 PM","Curfew"]]},
+    ["7:30 PM","Dinner (provided) and exploring downtown in groups"],["9:00 PM","Back at the hotel for room check"],["11:30 PM","Curfew"]]},
   friday: {eyebrow:"Friday, November 20", title:"Derby day", items:[
     ["9:00 AM","Explore Louisville in groups"],["11:30 AM","Meet in the lobby in Derby attire"],["12–5 PM","DECA at the Downs, Churchill Downs"],
     ["6:15 PM","Chapter dinner, business formal"],["8:00 PM","Connect Leadership Labs, then the Opening Session at 9:15 PM"]]},
@@ -3381,6 +3381,8 @@ document.addEventListener("keydown",e=>{ if(!$("display").hidden && (e.key==="h"
 if(DEMO){ $("startH").textContent="Demo: Thursday's drive at 90× speed"; $("startBtn").textContent="Start demo"; const a=document.querySelector('#dNav a[href="#home"]'); a.textContent="Exit demo"; const tag=document.createElement("div"); tag.className="demo-tag"; tag.textContent="Demo · 90× speed"; $("stage").appendChild(tag); }
 document.addEventListener("visibilitychange",async()=>{ if(document.visibilityState==="visible" && !$("display").hidden && $("startOv").hidden && navigator.wakeLock){ try{ wakeLock=await navigator.wakeLock.request("screen"); }catch(e){} } });
 if(CITY_BG) $("slInfo").style.setProperty("--city",`url("${CITY_BG}")`);
+const BUILD_ID="1795109139";
+setInterval(async()=>{ try{ const r=await fetch("version.json?"+Date.now(),{cache:"no-store"}); if(r.ok){ const j=await r.json(); if(j.build && j.build!==BUILD_ID) location.reload(); } }catch(e){} }, 90000);
 route();
 initDb(()=>tick(true));
 setInterval(()=>tick(),1000);
