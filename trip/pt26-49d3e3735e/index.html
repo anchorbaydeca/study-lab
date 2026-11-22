@@ -216,6 +216,12 @@ textarea{min-height:84px;resize:vertical}
 
 /* ---------- RIDER (public phone view) ---------- */
 .r-extra{display:none}
+.r-ph{position:relative;aspect-ratio:3/2;max-width:1040px;background:#000;overflow:hidden;margin:4px 0 0}
+.r-ph .bg{position:absolute;inset:-6%;background-size:cover;background-position:center;filter:blur(28px) brightness(.4)}
+.r-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity 1s ease}
+.r-ph img.on{opacity:1}
+.r-ph .n{position:absolute;right:10px;bottom:10px;font:700 11px/1 var(--font-display);letter-spacing:.12em;text-transform:uppercase;color:#ddd;background:rgba(0,0,0,.55);padding:6px 8px}
+.r-extra .r-links a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 #display.rider .start,#display.rider .d-nav{display:none!important}
 .c-auth{padding:20px;border-bottom:1px solid var(--g15)}
 .c-auth input{margin-bottom:10px}
@@ -366,17 +372,18 @@ input[type=email],input[type=password]{width:100%;font:400 16px/1.4 var(--font-b
     </div>
   </footer>
   <div class="urgent" id="urgent" hidden><button class="x" id="uClose" type="button">Close</button><div class="tag" id="uTag">Announcement</div><h2 id="uTitle"></h2><p id="uText"></p><div class="foot"><span id="uFootL"></span><span id="uFootR"></span></div></div>
-  <div class="r-hint">Scroll down for stops and coach details ↓</div>
+  <div class="r-hint">Scroll down for trip photos, stops and coach details ↓</div>
   <section class="r-extra" id="rExtra">
+    <h3>Photos from the trip</h3>
+    <p class="sub">From the Ultimate DECA Power Trip conference album. Photos change every few seconds.</p>
+    <div class="r-ph" id="rPh"><div class="bg" id="rPhBg"></div><img id="rPhA" alt="Ultimate DECA Power Trip photo"><img id="rPhB" alt="Ultimate DECA Power Trip photo"><span class="n" id="rPhN"></span></div>
+    <ul class="r-links"><li><b>Album</b><span><a href="https://adobe.ly/4eOEoD7" target="_blank" rel="noopener">See every photo in the conference album</a></span></li><li><b>Instagram</b><span><a href="https://www.instagram.com/anchorbaydeca/" target="_blank" rel="noopener">Follow @anchorbaydeca</a></span></li></ul>
     <h3 id="rStopsH">Today's stops</h3>
     <p class="sub" id="rStopsSub">Times are estimates and update as the coach moves.</p>
     <ul id="rStops"></ul>
     <h3>Your coach</h3>
     <div class="r-bus" id="rBusArt"></div>
     <ul id="rBus"></ul>
-    <h3>Photos from the trip</h3>
-    <p class="sub">See the conference album and follow along on Instagram.</p>
-    <ul><li><b>Album</b><span><a href="https://adobe.ly/4eOEoD7" target="_blank" rel="noopener" style="color:inherit">Ultimate DECA Power Trip 2026 · Louisville</a></span></li><li><b>Instagram</b><span><a href="https://www.instagram.com/anchorbaydeca/" target="_blank" rel="noopener" style="color:inherit">@anchorbaydeca</a></span></li></ul>
     <h3>About this page</h3>
     <p class="fine">This page follows the Anchor Bay DECA coach for the Ultimate DECA Power Trip. The coach's position comes from our travel schedule and check-ins from Mr. Yono, so it is approximate and can run a few minutes behind. Announcements are the same ones shown on the coach's screens. Keep this page open, or refresh it, for the latest arrival time.</p>
   </section>
@@ -3246,9 +3253,12 @@ function tick(force){
   }
   if(lastSlideKey==="info:bus" && t%10000<1000) renderInfo("bus");
   renderAnns(t,st,l);
-  if(isRider()) renderRiderStops(a,ph,t);
+  if(isRider()){ renderRiderStops(a,ph,t); rPhStart(); }
 }
 let rStopsKey="";
+let rPhI=-1, rPhFlip=false, rPhT=null;
+function rPhShow(){ rPhI=(rPhI+1)%PHOTOS.length; const src=PHOTOS[rPhI]; const nx=new Image(); nx.onload=()=>{ const cur=rPhFlip?$("rPhA"):$("rPhB"), nxt=rPhFlip?$("rPhB"):$("rPhA"); nxt.src=src; nxt.classList.add("on"); cur.classList.remove("on"); rPhFlip=!rPhFlip; $("rPhBg").style.backgroundImage=`url("${src}")`; $("rPhN").textContent=`${rPhI+1} of ${PHOTOS.length}`; const pre=new Image(); pre.src=PHOTOS[(rPhI+1)%PHOTOS.length]; }; nx.src=src; }
+function rPhStart(){ if(rPhT||!PHOTOS.length) return; rPhShow(); rPhT=setInterval(()=>{ if(!document.hidden) rPhShow(); },6000); }
 function renderRiderStops(a,ph,t){
   const {l,st}=a; const rows=[];
   rows.push([st.departed? fmtT(st.depActual) : fmtT(l.dep), (st.departed?"Departed ":"Departs ")+P[l.from].name, "", st.departed]);
@@ -3412,7 +3422,7 @@ document.addEventListener("keydown",e=>{ if(!$("display").hidden && (e.key==="h"
 if(DEMO){ $("startH").textContent="Demo: Thursday's drive at 90× speed"; $("startBtn").textContent="Start demo"; const a=document.querySelector('#dNav a[href="#home"]'); a.textContent="Exit demo"; const tag=document.createElement("div"); tag.className="demo-tag"; tag.textContent="Demo · 90× speed"; $("stage").appendChild(tag); }
 document.addEventListener("visibilitychange",async()=>{ if(document.visibilityState==="visible" && !$("display").hidden && $("startOv").hidden && navigator.wakeLock){ try{ wakeLock=await navigator.wakeLock.request("screen"); }catch(e){} } });
 if(CITY_BG) $("slInfo").style.setProperty("--city",`url("${CITY_BG}")`);
-const BUILD_ID="1795367653";
+const BUILD_ID="1795368023";
 setInterval(async()=>{ try{ const r=await fetch("version.json?"+Date.now(),{cache:"no-store"}); if(r.ok){ const j=await r.json(); if(j.build && j.build!==BUILD_ID) location.reload(); } }catch(e){} }, 90000);
 route();
 initDb(()=>tick(true));
