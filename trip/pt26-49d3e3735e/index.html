@@ -347,7 +347,7 @@ input[type=email],input[type=password]{width:100%;font:400 16px/1.4 var(--font-b
       <div class="slide info" id="slInfo"></div>
       <div class="slide qrw" id="slQr"></div>
       <div class="slide qrw" id="slIg"></div>
-      <div class="slide photos" id="slPh"><div class="phbg" id="phBg"></div><img class="ph" id="phA" alt=""><img class="ph" id="phB" alt=""><div class="phn" id="phN"></div></div>
+      <div class="slide photos" id="slPh"><div class="phbg" id="phBg"></div><img class="ph" id="phA" alt=""><img class="ph" id="phB" alt=""></div>
     </div>
     <aside class="panel">
       <div class="stat hero"><div class="k" id="hK">Time to destination</div><div class="v" id="hV">--</div></div>
@@ -376,7 +376,7 @@ input[type=email],input[type=password]{width:100%;font:400 16px/1.4 var(--font-b
   <section class="r-extra" id="rExtra">
     <h3>Photos from the trip</h3>
     <p class="sub">From the Ultimate DECA Power Trip conference album. Photos change every few seconds.</p>
-    <div class="r-ph" id="rPh"><div class="bg" id="rPhBg"></div><img id="rPhA" alt="Ultimate DECA Power Trip photo"><img id="rPhB" alt="Ultimate DECA Power Trip photo"><span class="n" id="rPhN"></span></div>
+    <div class="r-ph" id="rPh"><div class="bg" id="rPhBg"></div><img id="rPhA" alt="Ultimate DECA Power Trip photo"><img id="rPhB" alt="Ultimate DECA Power Trip photo"></div>
     <ul class="r-links"><li><b>Album</b><span><a href="https://adobe.ly/4eOEoD7" target="_blank" rel="noopener">See every photo in the conference album</a></span></li><li><b>Instagram</b><span><a href="https://www.instagram.com/anchorbaydeca/" target="_blank" rel="noopener">Follow @anchorbaydeca</a></span></li></ul>
     <h3 id="rStopsH">Today's stops</h3>
     <p class="sub" id="rStopsSub">Times are estimates and update as the coach moves.</p>
@@ -3182,7 +3182,7 @@ const PHOTOS = ["album/d8e9658f5e0c.jpg", "album/9dda603b5c98.jpg", "album/c8530
 (function(){ for(let i=PHOTOS.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [PHOTOS[i],PHOTOS[j]]=[PHOTOS[j],PHOTOS[i]]; } })();
 const IG_URL = "https://www.instagram.com/anchorbaydeca/";
 let phI=-1, phT=null, phFlip=false;
-function phShow(){ if(!PHOTOS.length) return; phI=(phI+1)%PHOTOS.length; const src=PHOTOS[phI]; const nx=new Image(); nx.onload=()=>{ const cur=phFlip?$("phA"):$("phB"), nxt=phFlip?$("phB"):$("phA"); nxt.src=src; nxt.classList.add("on"); cur.classList.remove("on"); phFlip=!phFlip; $("phBg").style.backgroundImage=`url("${src}")`; $("phN").textContent=`Conference album · ${phI+1} of ${PHOTOS.length}`; const pre=new Image(); pre.src=PHOTOS[(phI+1)%PHOTOS.length]; }; nx.src=src; }
+function phShow(){ if(!PHOTOS.length) return; phI=(phI+1)%PHOTOS.length; const src=PHOTOS[phI]; const nx=new Image(); nx.onload=()=>{ const cur=phFlip?$("phA"):$("phB"), nxt=phFlip?$("phB"):$("phA"); nxt.src=src; nxt.classList.add("on"); cur.classList.remove("on"); phFlip=!phFlip; $("phBg").style.backgroundImage=`url("${src}")`; const pre=new Image(); pre.src=PHOTOS[(phI+1)%PHOTOS.length]; }; nx.src=src; }
 function phStart(){ if(phT) return; phShow(); phT=setInterval(phShow,8000); }
 function phStop(){ if(phT){ clearInterval(phT); phT=null; } }
 function chauffeurCard(){ return `<div class="chf">${SHOW_PHOTO?`<img src="chauffeur.png" alt="">`:""}<div><small>Your chauffeur</small><b>${esc(COACH.chauffeur)}</b><span>${esc(COACH.operator)}</span></div></div>`; }
@@ -3258,7 +3258,7 @@ function tick(force){
 }
 let rStopsKey="";
 let rPhI=-1, rPhFlip=false, rPhT=null;
-function rPhShow(){ rPhI=(rPhI+1)%PHOTOS.length; const src=PHOTOS[rPhI]; const nx=new Image(); nx.onload=()=>{ const cur=rPhFlip?$("rPhA"):$("rPhB"), nxt=rPhFlip?$("rPhB"):$("rPhA"); nxt.src=src; nxt.classList.add("on"); cur.classList.remove("on"); rPhFlip=!rPhFlip; $("rPhBg").style.backgroundImage=`url("${src}")`; $("rPhN").textContent=`${rPhI+1} of ${PHOTOS.length}`; const pre=new Image(); pre.src=PHOTOS[(rPhI+1)%PHOTOS.length]; }; nx.src=src; }
+function rPhShow(){ rPhI=(rPhI+1)%PHOTOS.length; const src=PHOTOS[rPhI]; const nx=new Image(); nx.onload=()=>{ const cur=rPhFlip?$("rPhA"):$("rPhB"), nxt=rPhFlip?$("rPhB"):$("rPhA"); nxt.src=src; nxt.classList.add("on"); cur.classList.remove("on"); rPhFlip=!rPhFlip; $("rPhBg").style.backgroundImage=`url("${src}")`; const pre=new Image(); pre.src=PHOTOS[(rPhI+1)%PHOTOS.length]; }; nx.src=src; }
 function rPhStart(){ if(rPhT||!PHOTOS.length) return; rPhShow(); rPhT=setInterval(()=>{ if(!document.hidden) rPhShow(); },6000); }
 function renderRiderStops(a,ph,t){
   const {l,st}=a; const rows=[];
@@ -3423,7 +3423,7 @@ document.addEventListener("keydown",e=>{ if(!$("display").hidden && (e.key==="h"
 if(DEMO){ $("startH").textContent="Demo: Thursday's drive at 90× speed"; $("startBtn").textContent="Start demo"; const a=document.querySelector('#dNav a[href="#home"]'); a.textContent="Exit demo"; const tag=document.createElement("div"); tag.className="demo-tag"; tag.textContent="Demo · 90× speed"; $("stage").appendChild(tag); }
 document.addEventListener("visibilitychange",async()=>{ if(document.visibilityState==="visible" && !$("display").hidden && $("startOv").hidden && navigator.wakeLock){ try{ wakeLock=await navigator.wakeLock.request("screen"); }catch(e){} } });
 if(CITY_BG) $("slInfo").style.setProperty("--city",`url("${CITY_BG}")`);
-const BUILD_ID="1795379903";
+const BUILD_ID="1795379982";
 setInterval(async()=>{ try{ const r=await fetch("version.json?"+Date.now(),{cache:"no-store"}); if(r.ok){ const j=await r.json(); if(j.build && j.build!==BUILD_ID) location.reload(); } }catch(e){} }, 90000);
 route();
 initDb(()=>tick(true));
