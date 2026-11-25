@@ -1,42 +1,3028 @@
 {
-  "MP:001": {
-    "title": "Marketing strategy",
-    "pt": "Explain the concept of marketing strategies",
-    "scenes": [
-      {"type": "title", "step": "Intro", "h": "Marketing strategy", "sub": "What it is, the two parts it’s built from, and how it shows up on the exam", "cap": "A one-minute look at a concept that runs through the Marketing exam.", "dur": 5},
-      {"type": "define", "step": "Define", "term": "Marketing strategy", "text": "A business’s plan for reaching its marketing goals by choosing a target market and building a marketing mix to satisfy it.", "keys": ["plan", "target market", "marketing mix"], "cap": "Define it first: a strategy is a plan, and it has two parts.", "dur": 8},
-      {"type": "select", "step": "Explain", "h": "Part 1: Target market", "text": "The specific group of customers the business decides to serve.", "n": 40, "pick": [3, 4, 5, 13, 14, 23, 24, 25, 33, 34], "cap": "No business can serve everyone well, so it chooses whom to focus on.", "dur": 8},
-      {"type": "parts", "step": "Explain", "h": "Part 2: Marketing mix", "items": [
-        {"t": "Product", "d": "What is sold: features, brand name, packaging and services"},
-        {"t": "Price", "d": "What customers pay, including discounts and payment terms"},
-        {"t": "Place", "d": "Where and how customers get it: stores, websites, delivery"},
-        {"t": "Promotion", "d": "How customers learn about it: ads, social media, personal selling"}], "cap": "These four Ps are the tools the business controls.", "dur": 11},
-      {"type": "hub", "step": "Explain", "center": "Target market", "items": ["Product", "Price", "Place", "Promotion"], "cap": "Every P is chosen to fit the target market, and the four work together: change one, and the others may need to change too.", "dur": 9},
-      {"type": "example", "step": "Example", "h": "Example: N42° Café & Shop", "rows": [
-        ["Target market", "Students who want a quick breakfast before class"],
-        ["Product", "Grab-and-go breakfast items and drinks"],
-        ["Price", "Priced for a student budget"],
-        ["Place", "Next to E117, on the way to class"],
-        ["Promotion", "Teams posts and morning announcements"]], "cap": "Every decision points back to the same group of customers.", "dur": 12},
-      {"type": "compare", "step": "On the exam", "h": "Goal or strategy?", "a": {"t": "Business goal", "d": "What the business wants to achieve, such as growing its market share from 12% to 15%"}, "b": {"t": "Marketing strategy", "d": "How it will get there: the target market it serves and the marketing mix it uses"}, "cap": "When a question describes a number to reach, that target is a goal, not the strategy itself.", "dur": 10},
-      {"type": "tip", "step": "On the exam", "h": "Sorting a decision into the mix", "items": [["Brand name, features, packaging", "Product"], ["Which stores carry it", "Place"], ["An introductory discount", "Price"], ["A social media campaign", "Promotion"]], "cap": "Ask what the decision changes, and the P usually follows.", "dur": 10}
-    ]
-  },
-  "FI:238": {
-    "title": "Time value of money",
-    "pt": "Calculate the time value of money",
-    "scenes": [
-      {"type": "title", "step": "Intro", "h": "Time value of money", "sub": "Why a dollar today is worth more than a dollar later, and how to calculate it", "cap": "Have the calculator ready: this concept is mostly math.", "dur": 5},
-      {"type": "define", "step": "Define", "term": "Time value of money", "text": "The idea that money available now is worth more than the same amount later, because money on hand today can earn interest.", "keys": ["now", "later", "earn interest"], "cap": "Define it first: time plus interest changes what money is worth.", "dur": 8},
-      {"type": "bars", "step": "Explain", "h": "Compounding: $1,000 at 8% a year", "bars": [
-        {"l": "Today", "v": 1000, "lab": "$1,000.00", "note": ""},
-        {"l": "Year 1", "v": 1080, "lab": "$1,080.00", "note": "+$80.00"},
-        {"l": "Year 2", "v": 1166.4, "lab": "$1,166.40", "note": "+$86.40"},
-        {"l": "Year 3", "v": 1259.71, "lab": "$1,259.71", "note": "+$93.31"}], "cap": "Each year’s interest also earns interest, so the growth gets bigger every year.", "dur": 10},
-      {"type": "calc", "step": "Explain", "h": "Future value", "lines": ["FV = PV × (1 + r)ⁿ", "PV = $1,000   r = 8% = 0.08   n = 3", "FV = $1,000 × 1.08³", "FV = $1,000 × 1.259712"], "result": "FV = $1,259.71", "cap": "PV is the amount today, r is the rate per period and n is the number of periods.", "dur": 11},
-      {"type": "flow", "step": "Explain", "h": "Interest more than once a year", "steps": ["12% a year, compounded quarterly", "Rate per period: 12% ÷ 4 = 3%", "Periods: 5 years × 4 = 20"], "cap": "Divide the rate, and multiply the years, by the number of periods per year.", "dur": 9},
-      {"type": "calc", "step": "Example", "h": "Working backward: present value", "lines": ["PV = FV ÷ (1 + r)ⁿ", "Goal: $5,000 in 5 years at 12%, compounded quarterly", "PV = $5,000 ÷ 1.03²⁰", "PV = $5,000 ÷ 1.806111"], "result": "PV ≈ $2,768", "cap": "To find what to deposit today, divide instead of multiply.", "dur": 11},
-      {"type": "tip", "step": "On the exam", "h": "Common wrong answers", "items": [["$1,240.00", "Simple interest: $80 × 3 years, no compounding"], ["$1,080.00", "Only one year of interest"], ["$2,837", "Compounded once a year instead of quarterly"]], "cap": "Check whether the answer should be larger (future value) or smaller (present value).", "dur": 11}
-    ]
-  }
+ "MP:001": {
+  "title": "Marketing strategy",
+  "pt": "Explain the concept of marketing strategies",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Marketing strategy",
+    "sub": "What it is, the two parts it’s built from, and how it shows up on the exam",
+    "cap": "A one-minute look at a concept that runs through the Marketing exam.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Marketing strategy",
+    "text": "A business’s plan for reaching its marketing goals by choosing a target market and building a marketing mix to satisfy it.",
+    "keys": [
+     "plan",
+     "target market",
+     "marketing mix"
+    ],
+    "cap": "Define it first: a strategy is a plan, and it has two parts.",
+    "dur": 8
+   },
+   {
+    "type": "select",
+    "step": "Explain",
+    "h": "Part 1: Target market",
+    "text": "The specific group of customers the business decides to serve.",
+    "n": 40,
+    "pick": [
+     3,
+     4,
+     5,
+     13,
+     14,
+     23,
+     24,
+     25,
+     33,
+     34
+    ],
+    "cap": "No business can serve everyone well, so it chooses whom to focus on.",
+    "dur": 8
+   },
+   {
+    "type": "parts",
+    "step": "Explain",
+    "h": "Part 2: Marketing mix",
+    "items": [
+     {
+      "t": "Product",
+      "d": "What is sold: features, brand name, packaging and services"
+     },
+     {
+      "t": "Price",
+      "d": "What customers pay, including discounts and payment terms"
+     },
+     {
+      "t": "Place",
+      "d": "Where and how customers get it: stores, websites, delivery"
+     },
+     {
+      "t": "Promotion",
+      "d": "How customers learn about it: ads, social media, personal selling"
+     }
+    ],
+    "cap": "These four Ps are the tools the business controls.",
+    "dur": 11
+   },
+   {
+    "type": "hub",
+    "step": "Explain",
+    "center": "Target market",
+    "items": [
+     "Product",
+     "Price",
+     "Place",
+     "Promotion"
+    ],
+    "cap": "Every P is chosen to fit the target market, and the four work together: change one, and the others may need to change too.",
+    "dur": 9
+   },
+   {
+    "type": "example",
+    "step": "Example",
+    "h": "Example: N42° Café & Shop",
+    "rows": [
+     [
+      "Target market",
+      "Students who want a quick breakfast before class"
+     ],
+     [
+      "Product",
+      "Grab-and-go breakfast items and drinks"
+     ],
+     [
+      "Price",
+      "Priced for a student budget"
+     ],
+     [
+      "Place",
+      "Next to E117, on the way to class"
+     ],
+     [
+      "Promotion",
+      "Teams posts and morning announcements"
+     ]
+    ],
+    "cap": "Every decision points back to the same group of customers.",
+    "dur": 12
+   },
+   {
+    "type": "compare",
+    "step": "On the exam",
+    "h": "Goal or strategy?",
+    "a": {
+     "t": "Business goal",
+     "d": "What the business wants to achieve, such as growing its market share from 12% to 15%"
+    },
+    "b": {
+     "t": "Marketing strategy",
+     "d": "How it will get there: the target market it serves and the marketing mix it uses"
+    },
+    "cap": "When a question describes a number to reach, that target is a goal, not the strategy itself.",
+    "dur": 10
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "Sorting a decision into the mix",
+    "items": [
+     [
+      "Brand name, features, packaging",
+      "Product"
+     ],
+     [
+      "Which stores carry it",
+      "Place"
+     ],
+     [
+      "An introductory discount",
+      "Price"
+     ],
+     [
+      "A social media campaign",
+      "Promotion"
+     ]
+    ],
+    "cap": "Ask what the decision changes, and the P usually follows.",
+    "dur": 10
+   }
+  ]
+ },
+ "FI:238": {
+  "title": "Time value of money",
+  "pt": "Calculate the time value of money",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Time value of money",
+    "sub": "Why a dollar today is worth more than a dollar later, and how to calculate it",
+    "cap": "Have the calculator ready: this concept is mostly math.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Time value of money",
+    "text": "The idea that money available now is worth more than the same amount later, because money on hand today can earn interest.",
+    "keys": [
+     "now",
+     "later",
+     "earn interest"
+    ],
+    "cap": "Define it first: time plus interest changes what money is worth.",
+    "dur": 8
+   },
+   {
+    "type": "bars",
+    "step": "Explain",
+    "h": "Compounding: $1,000 at 8% a year",
+    "bars": [
+     {
+      "l": "Today",
+      "v": 1000,
+      "lab": "$1,000.00",
+      "note": ""
+     },
+     {
+      "l": "Year 1",
+      "v": 1080,
+      "lab": "$1,080.00",
+      "note": "+$80.00"
+     },
+     {
+      "l": "Year 2",
+      "v": 1166.4,
+      "lab": "$1,166.40",
+      "note": "+$86.40"
+     },
+     {
+      "l": "Year 3",
+      "v": 1259.71,
+      "lab": "$1,259.71",
+      "note": "+$93.31"
+     }
+    ],
+    "cap": "Each year’s interest also earns interest, so the growth gets bigger every year.",
+    "dur": 10
+   },
+   {
+    "type": "calc",
+    "step": "Explain",
+    "h": "Future value",
+    "lines": [
+     "FV = PV × (1 + r)ⁿ",
+     "PV = $1,000   r = 8% = 0.08   n = 3",
+     "FV = $1,000 × 1.08³",
+     "FV = $1,000 × 1.259712"
+    ],
+    "result": "FV = $1,259.71",
+    "cap": "PV is the amount today, r is the rate per period and n is the number of periods.",
+    "dur": 11
+   },
+   {
+    "type": "flow",
+    "step": "Explain",
+    "h": "Interest more than once a year",
+    "steps": [
+     "12% a year, compounded quarterly",
+     "Rate per period: 12% ÷ 4 = 3%",
+     "Periods: 5 years × 4 = 20"
+    ],
+    "cap": "Divide the rate, and multiply the years, by the number of periods per year.",
+    "dur": 9
+   },
+   {
+    "type": "calc",
+    "step": "Example",
+    "h": "Working backward: present value",
+    "lines": [
+     "PV = FV ÷ (1 + r)ⁿ",
+     "Goal: $5,000 in 5 years at 12%, compounded quarterly",
+     "PV = $5,000 ÷ 1.03²⁰",
+     "PV = $5,000 ÷ 1.806111"
+    ],
+    "result": "PV ≈ $2,768",
+    "cap": "To find what to deposit today, divide instead of multiply.",
+    "dur": 11
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "Common wrong answers",
+    "items": [
+     [
+      "$1,240.00",
+      "Simple interest: $80 × 3 years, no compounding"
+     ],
+     [
+      "$1,080.00",
+      "Only one year of interest"
+     ],
+     [
+      "$2,837",
+      "Compounded once a year instead of quarterly"
+     ]
+    ],
+    "cap": "Check whether the answer should be larger (future value) or smaller (present value).",
+    "dur": 11
+   }
+  ]
+ },
+ "FI:274": {
+  "title": "Sources of securities information",
+  "pt": "Describe sources of securities information",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Securities information",
+    "sub": "Where investors find reliable facts about a public company",
+    "cap": "Before anyone buys a stock, they need trustworthy information. Here is where it comes from.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Securities information",
+    "text": "The facts investors use to judge a company’s stocks and bonds: its financial results, its plans and its major news.",
+    "keys": [
+     "financial results",
+     "plans",
+     "major news"
+    ],
+    "cap": "Public companies must report this information to the Securities and Exchange Commission (SEC) and to their shareholders.",
+    "dur": 12
+   },
+   {
+    "type": "parts",
+    "step": "Explain",
+    "h": "What public companies report",
+    "items": [
+     {
+      "t": "Annual report",
+      "d": "Yearly document for shareholders: audited statements, a review of the year and future plans"
+     },
+     {
+      "t": "Form 10-K",
+      "d": "The detailed annual report filed with the SEC"
+     },
+     {
+      "t": "Form 10-Q",
+      "d": "Quarterly report for the first three quarters, with unaudited statements"
+     },
+     {
+      "t": "Form 8-K",
+      "d": "Current report on major unscheduled events, such as a CEO resigning or a merger"
+     }
+    ],
+    "cap": "Match the form to the timing: once a year, once a quarter, or right after big news.",
+    "dur": 18
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Two statements, two questions",
+    "a": {
+     "t": "Balance sheet",
+     "d": "What the company owns and owes, and the owners’ claim, on one specific date"
+    },
+    "b": {
+     "t": "Income statement",
+     "d": "Revenues and expenses over a period, such as a year, ending in net income or net loss"
+    },
+    "cap": "A date points to the balance sheet. A period, and the question “was it profitable?”, points to the income statement.",
+    "dur": 16
+   },
+   {
+    "type": "example",
+    "step": "Example",
+    "h": "Where to look",
+    "rows": [
+     [
+      "Investor relations",
+      "The section of a company’s website with annual reports, filings and earnings releases"
+     ],
+     [
+      "SEC’s EDGAR",
+      "The free online database of every public company’s filings"
+     ],
+     [
+      "Financial news",
+      "Stock prices, tables and reporting on company news"
+     ],
+     [
+      "Brokers and analysts",
+      "Research reports and recommendations"
+     ]
+    ],
+    "cap": "For a company’s own documents, start with its investor relations page.",
+    "dur": 15
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "Match the clue to the source",
+    "items": [
+     [
+      "The CEO resigns unexpectedly",
+      "Form 8-K"
+     ],
+     [
+      "Results for the second quarter",
+      "Form 10-Q"
+     ],
+     [
+      "Audited statements and a review of the year, for shareholders",
+      "Annual report"
+     ],
+     [
+      "Download the last five annual reports",
+      "Investor relations"
+     ]
+    ],
+    "cap": "Watch the timing words in the question: unexpected, quarterly or yearly.",
+    "dur": 13
+   }
+  ]
+ },
+ "PR:002": {
+  "title": "Types of promotion",
+  "pt": "Explain the types of promotion (i.e., institutional, product)",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Types of promotion",
+    "sub": "Selling a product, or building the business’s image",
+    "cap": "Every ad has a job. The question is whether that job is to sell something specific.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Promotion",
+    "text": "Any communication a business uses to inform, persuade or remind people about its products or about the business itself.",
+    "keys": [
+     "inform, persuade or remind",
+     "the business itself"
+    ],
+    "cap": "That last part is the key: some promotion is about the business, not a product.",
+    "dur": 12
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Two types",
+    "a": {
+     "t": "Product promotion",
+     "d": "Sells specific goods or services by describing features, prices or sales. Example: 30% off all running shoes this weekend."
+    },
+    "b": {
+     "t": "Institutional promotion",
+     "d": "Builds the image and goodwill of the business itself, with no product or price. Example: ads about a commitment to sustainable farming."
+    },
+    "cap": "If an ad names a product or a price, it is product promotion.",
+    "dur": 16
+   },
+   {
+    "type": "flow",
+    "step": "Explain",
+    "h": "Why institutional promotion pays off",
+    "steps": [
+     "Promote the business, not a product",
+     "Goodwill and a favorable image",
+     "Sales over the long term"
+    ],
+    "cap": "Its main goal is a favorable image of the company. The sales come later.",
+    "dur": 10
+   },
+   {
+    "type": "parts",
+    "step": "Explain",
+    "h": "Two forms of institutional promotion",
+    "items": [
+     {
+      "t": "Public relations",
+      "d": "Shapes how the public feels about the business, often through news coverage"
+     },
+     {
+      "t": "Public-service promotion",
+      "d": "Addresses community issues such as hunger, safety or health, without selling anything"
+     }
+    ],
+    "cap": "Both are institutional: neither one tries to sell a product.",
+    "dur": 12
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "Which type is it?",
+    "items": [
+     [
+      "Employees volunteering at a food pantry; no products or prices",
+      "Institutional"
+     ],
+     [
+      "Asking people to donate to a food bank",
+      "Public-service"
+     ],
+     [
+      "Shaping the public’s attitudes toward the business",
+      "Public relations"
+     ],
+     [
+      "A weekend sale on running shoes",
+      "Product"
+     ]
+    ],
+    "cap": "Look for what the ad is selling. Nothing specific means institutional.",
+    "dur": 14
+   }
+  ]
+ },
+ "PR:089": {
+  "title": "Direct marketing",
+  "pt": "Explain the nature of direct marketing channels",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Direct marketing",
+    "sub": "Reaching the right people, one at a time, and counting the results",
+    "cap": "Direct marketing skips the middle and goes straight to the customer.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Direct marketing",
+    "text": "Promotion sent straight to chosen individuals, with no intermediaries, that asks for a response the business can measure.",
+    "keys": [
+     "chosen individuals",
+     "no intermediaries",
+     "measure"
+    ],
+    "cap": "Three ideas to hold onto: targeted, direct and measurable.",
+    "dur": 10
+   },
+   {
+    "type": "select",
+    "step": "Explain",
+    "h": "Targeted, not broadcast",
+    "text": "Messages go only to people picked from customer lists or databases: the ones most likely to buy.",
+    "n": 40,
+    "pick": [
+     2,
+     7,
+     11,
+     15,
+     18,
+     24,
+     29,
+     31,
+     36,
+     38
+    ],
+    "cap": "Because each message goes to a qualified prospect, less money is wasted on people who will never buy.",
+    "dur": 11
+   },
+   {
+    "type": "parts",
+    "step": "Explain",
+    "h": "Direct marketing channels",
+    "items": [
+     {
+      "t": "Direct mail",
+      "d": "Postcards, catalogs and letters sent to chosen addresses"
+     },
+     {
+      "t": "Email and social media",
+      "d": "Targeted messages that cost little and are easy to measure"
+     },
+     {
+      "t": "Telemarketing",
+      "d": "Calls to consumers, which must honor the National Do Not Call Registry"
+     },
+     {
+      "t": "Direct-response ads",
+      "d": "Ads that ask people to call, text, scan or order right now"
+     }
+    ],
+    "cap": "Every channel asks for an action the business can count.",
+    "dur": 17
+   },
+   {
+    "type": "flow",
+    "step": "Explain",
+    "h": "How a mailing is measured",
+    "steps": [
+     "Print a unique code on each postcard",
+     "Customers order using the code",
+     "Count the orders the mailing produced"
+    ],
+    "cap": "This is why startups like email and targeted social media: they are affordable and easy to measure.",
+    "dur": 11
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Cost per customer",
+    "a": {
+     "t": "Personal selling",
+     "d": "More personal, and questions get answered on the spot, but it costs much more per customer"
+    },
+    "b": {
+     "t": "Direct mail",
+     "d": "Reaches many targeted customers for the cost of printing and postage: less expensive per customer reached"
+    },
+    "cap": "Personal selling wins on attention. Direct mail wins on cost.",
+    "dur": 13
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "Main advantage of direct advertising for a small business",
+      "Reaches the people most likely to buy"
+     ],
+     [
+      "Checking numbers against the Do Not Call Registry",
+      "Complying with telemarketing rules"
+     ],
+     [
+      "Magazine ad: text a code for a free sample",
+      "Direct-response advertising"
+     ]
+    ],
+    "cap": "If the response can be traced to the message, think direct marketing.",
+    "dur": 14
+   }
+  ]
+ },
+ "IM:289": {
+  "title": "Data-collection methods",
+  "pt": "Describe data-collection methods (e.g., observations, mail, diaries, phone, internet, discussion groups, interviews, scanners, tracking tools)",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Collecting data",
+    "sub": "Asking people, or watching what they do",
+    "cap": "Marketing research is only as good as the way the data were collected.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Data collection",
+    "text": "Gathering information for a research question, either by asking people questions or by observing what they actually do.",
+    "keys": [
+     "asking people questions",
+     "observing"
+    ],
+    "cap": "Nearly every method falls into one of those two families.",
+    "dur": 10
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Two families of methods",
+    "a": {
+     "t": "Asking",
+     "d": "Surveys and interviews by mail, phone, internet or in person, including focus groups. Shows what people say."
+    },
+    "b": {
+     "t": "Observing",
+     "d": "Watching behavior in person or recording it with devices. Shows what people actually do."
+    },
+    "cap": "People don’t always do what they say, which is why observation is valuable.",
+    "dur": 13
+   },
+   {
+    "type": "parts",
+    "step": "Explain",
+    "h": "Methods to know",
+    "items": [
+     {
+      "t": "Focus group",
+      "d": "A moderator leads a small group discussion. It is a type of interview."
+     },
+     {
+      "t": "Consumer diary",
+      "d": "Respondents record their purchases or media use over weeks"
+     },
+     {
+      "t": "Mechanical observation",
+      "d": "Scanners, cameras or tracking tools record behavior"
+     },
+     {
+      "t": "Survey",
+      "d": "The same set questions asked by mail, phone, internet or in person"
+     }
+    ],
+    "cap": "Know which family each method belongs to.",
+    "dur": 15
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Depth or breadth",
+    "a": {
+     "t": "Qualitative",
+     "d": "Focus groups and in-depth interviews: rich reasons and reactions, but from a small part of the market"
+    },
+    "b": {
+     "t": "Quantitative",
+     "d": "Large surveys and scanner data: numbers that can represent a whole market"
+    },
+    "cap": "Three focus groups of eight teens is 24 people. They can’t speak for every customer.",
+    "dur": 13
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "Name the method",
+    "items": [
+     [
+      "A moderator guides eight people through a discussion",
+      "Interview (focus group)"
+     ],
+     [
+      "Checkout scanners record items bought together",
+      "Mechanical observation"
+     ],
+     [
+      "Households log every snack purchase for four weeks",
+      "Consumer diaries"
+     ],
+     [
+      "The limitation of focus group findings",
+      "A small part of the market"
+     ]
+    ],
+    "cap": "Ask: did people tell us, or did we watch them? Then narrow it down.",
+    "dur": 15
+   }
+  ]
+ },
+ "FI:085": {
+  "title": "The concept of accounting",
+  "pt": "Explain the concept of accounting",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Accounting",
+    "sub": "The language of business, and the equation underneath it",
+    "cap": "Every financial statement starts with the same idea.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Accounting",
+    "text": "Recording, sorting, summarizing and interpreting a business’s financial transactions so people can make decisions.",
+    "keys": [
+     "Recording",
+     "summarizing",
+     "interpreting"
+    ],
+    "cap": "Owners, lenders and investors all rely on it.",
+    "dur": 8
+   },
+   {
+    "type": "parts",
+    "step": "Explain",
+    "h": "The building blocks",
+    "items": [
+     {
+      "t": "Assets",
+      "d": "What the business owns or is owed: cash, accounts receivable, inventory, equipment"
+     },
+     {
+      "t": "Liabilities",
+      "d": "What the business owes others: accounts payable, notes payable"
+     },
+     {
+      "t": "Owner’s equity",
+      "d": "The owner’s claim on the business: assets minus liabilities"
+     }
+    ],
+    "cap": "Assets = Liabilities + Owner’s equity. The two sides always balance.",
+    "dur": 13
+   },
+   {
+    "type": "calc",
+    "step": "Example",
+    "h": "Example: total assets",
+    "lines": [
+     "Cash  $12,400",
+     "+ Accounts receivable  $8,750",
+     "+ Inventory  $21,300",
+     "+ Equipment  $36,000"
+    ],
+    "result": "Assets = $78,450",
+    "cap": "Accounts payable and notes payable are liabilities, so they stay out of the asset total.",
+    "dur": 11
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "When is revenue recorded?",
+    "a": {
+     "t": "Cash basis",
+     "d": "Revenue is recorded when the money comes in, and expenses when they are paid"
+    },
+    "b": {
+     "t": "Accrual basis",
+     "d": "Revenue is recorded when it is earned, and expenses when they are incurred, whenever the cash moves"
+    },
+    "cap": "A landscaper who records revenue on the day it bills the customer is using the accrual basis.",
+    "dur": 15
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "Billed today, paid next month, recorded today",
+      "Accrual basis"
+     ],
+     [
+      "Accounts payable or a note payable",
+      "Liability"
+     ],
+     [
+      "Money customers owe the business",
+      "Asset (accounts receivable)"
+     ]
+    ],
+    "cap": "Before adding, sort every item: owned, or owed?",
+    "dur": 10
+   }
+  ]
+ },
+ "FI:062": {
+  "title": "Time value of money",
+  "pt": "Explain the time value of money",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Time value of money",
+    "sub": "Why a dollar today beats a dollar next year",
+    "cap": "This idea sits underneath interest, loans, savings and investing.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Time value of money",
+    "text": "A dollar today is worth more than a dollar in the future, because money you have now can be invested and grow.",
+    "keys": [
+     "today",
+     "future",
+     "invested and grow"
+    ],
+    "cap": "The key word is invested. Time only matters because money can earn interest.",
+    "dur": 12
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "$5,000 now or $5,000 next year?",
+    "a": {
+     "t": "$5,000 in one year",
+     "d": "Still $5,000 when it arrives. The year of interest is lost."
+    },
+    "b": {
+     "t": "$5,000 today",
+     "d": "Can be invested right away. At 4%, it grows to $5,200 by next year."
+    },
+    "cap": "Same amount, different value: the payment today is worth more.",
+    "dur": 13
+   },
+   {
+    "type": "bars",
+    "step": "Explain",
+    "h": "Compounding: $2,500 at 4% a year",
+    "bars": [
+     {
+      "l": "Today",
+      "v": 2500,
+      "lab": "$2,500.00",
+      "note": ""
+     },
+     {
+      "l": "Year 1",
+      "v": 2600,
+      "lab": "$2,600.00",
+      "note": "+$100.00"
+     },
+     {
+      "l": "Year 2",
+      "v": 2704,
+      "lab": "$2,704.00",
+      "note": "+$104.00"
+     },
+     {
+      "l": "Year 3",
+      "v": 2812.16,
+      "lab": "$2,812.16",
+      "note": "+$108.16"
+     }
+    ],
+    "cap": "Each year’s interest is added to the balance and then earns interest itself.",
+    "dur": 10
+   },
+   {
+    "type": "calc",
+    "step": "Example",
+    "h": "Future value",
+    "lines": [
+     "FV = PV × (1 + r)ⁿ",
+     "FV = $2,500 × 1.04³",
+     "FV = $2,500 × 1.124864"
+    ],
+    "result": "FV = $2,812.16",
+    "cap": "PV is the amount today, r is the interest rate and n is the number of years.",
+    "dur": 11
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "Common wrong answers",
+    "items": [
+     [
+      "$2,800.00",
+      "Simple interest: $100 × 3, with no interest on interest"
+     ],
+     [
+      "$2,600.00",
+      "Only one year of interest"
+     ],
+     [
+      "Why money today is worth more",
+      "It can be invested to earn interest"
+     ]
+    ],
+    "cap": "If an answer looks like simple interest, the question probably wants compounding.",
+    "dur": 12
+   }
+  ]
+ },
+ "FI:560": {
+  "title": "Writing checks",
+  "pt": "Write checks",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Writing checks",
+    "sub": "The parts of a check, and how to keep it safe",
+    "cap": "Checks are still used for rent, deposits and payroll. Here’s how they work.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Check",
+    "text": "A written order telling a bank to pay a stated amount from the writer’s account to a named person or business, the payee.",
+    "keys": [
+     "written order",
+     "payee"
+    ],
+    "cap": "Three people are involved: the writer, the bank and the payee.",
+    "dur": 11
+   },
+   {
+    "type": "parts",
+    "step": "Explain",
+    "h": "Parts of a check",
+    "items": [
+     {
+      "t": "Date",
+      "d": "The day the check is written"
+     },
+     {
+      "t": "Pay to the order of",
+      "d": "The payee: the person or business receiving the money"
+     },
+     {
+      "t": "Amount",
+      "d": "Written twice: in numbers in the box and in words on the line"
+     },
+     {
+      "t": "Signature and memo",
+      "d": "The signature authorizes payment. The memo line is an optional note."
+     }
+    ],
+    "cap": "A check needs the date, the payee, the amount and the signature to be complete.",
+    "dur": 18
+   },
+   {
+    "type": "flow",
+    "step": "Explain",
+    "h": "Protecting the amount",
+    "steps": [
+     "Start the words at the far left of the line",
+     "Draw a line through any space that remains",
+     "No room is left to change the amount"
+    ],
+    "cap": "This simple habit keeps anyone from adding words or numbers to raise the amount.",
+    "dur": 12
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Endorse or void?",
+    "a": {
+     "t": "Voiding",
+     "d": "Writing VOID across the front so the check can’t be used"
+    },
+    "b": {
+     "t": "Endorsing",
+     "d": "Signing the back so the bank can deposit or cash it"
+    },
+    "cap": "Keisha signs the back of her paycheck before depositing it: she is endorsing it.",
+    "dur": 11
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "Signing the back of a check before depositing it",
+      "Endorsing"
+     ],
+     [
+      "Where the payee’s name goes",
+      "Pay to the order of line"
+     ],
+     [
+      "Line drawn through the leftover space",
+      "Prevents changing the amount"
+     ]
+    ],
+    "cap": "Front of the check: writing it. Back of the check: endorsing it.",
+    "dur": 12
+   }
+  ]
+ },
+ "PR:099": {
+  "title": "Ethics in promotion",
+  "pt": "Describe the use of business ethics in promotion",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Ethics in promotion",
+    "sub": "Honest messages, and the practices that cross the line",
+    "cap": "Promotion only works if customers can trust it.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Ethical promotion",
+    "text": "Promotion that is honest, fair and respectful, so customers can trust what a business tells them.",
+    "keys": [
+     "honest",
+     "fair",
+     "respectful"
+    ],
+    "cap": "Some unethical practices are also illegal. All of them cost trust.",
+    "dur": 9
+   },
+   {
+    "type": "parts",
+    "step": "Explain",
+    "h": "Practices to recognize",
+    "items": [
+     {
+      "t": "Bait and switch",
+      "d": "Advertise a bargain, then push customers toward a pricier item"
+     },
+     {
+      "t": "Sugging",
+      "d": "Selling under the guise of research: a “survey” that turns into a sales pitch"
+     },
+     {
+      "t": "Stereotyping",
+      "d": "Portraying a whole group in an oversimplified, unfair way"
+     },
+     {
+      "t": "Hidden advertising",
+      "d": "Paid product placement that audiences, especially children, may not recognize as an ad"
+     }
+    ],
+    "cap": "Each one deceives or disrespects the audience.",
+    "dur": 17
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Exaggeration or deception?",
+    "a": {
+     "t": "Puffery",
+     "d": "Exaggerated, subjective praise that no one takes literally, such as “the most delicious pizza on the planet.” Generally legal."
+    },
+    "b": {
+     "t": "Deceptive claim",
+     "d": "A factual statement that is false or misleading, such as a fake “regular” price. Illegal."
+    },
+    "cap": "Puffery can’t be proven true or false. A deceptive claim can be checked, and it fails.",
+    "dur": 15
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "Name the practice",
+    "items": [
+     [
+      "A “survey” call turns into an alarm pitch",
+      "Sugging"
+     ],
+     [
+      "Cheap laptop advertised, pricier one pushed",
+      "Bait and switch"
+     ],
+     [
+      "Every older adult shown confused by phones",
+      "Stereotype"
+     ],
+     [
+      "Why product placement worries critics",
+      "Viewers may not know it’s an ad"
+     ]
+    ],
+    "cap": "Ask who is being misled, and about what.",
+    "dur": 13
+   }
+  ]
+ },
+ "SE:062": {
+  "title": "Gathering product information",
+  "pt": "Acquire product information for use in selling",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Product knowledge",
+    "sub": "Where salespeople learn what they need to know",
+    "cap": "Customers can tell when a salesperson really knows the product.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Product information",
+    "text": "What a salesperson needs to know about a product, such as its features, uses, origins, prices and policies, to answer customers accurately.",
+    "keys": [
+     "features, uses, origins, prices and policies",
+     "accurately"
+    ],
+    "cap": "Today’s customers often ask where and how a product was made, too.",
+    "dur": 12
+   },
+   {
+    "type": "parts",
+    "step": "Explain",
+    "h": "Sources of product information",
+    "items": [
+     {
+      "t": "Personal experience",
+      "d": "Using or trying the product yourself: the most firsthand source"
+     },
+     {
+      "t": "Product materials",
+      "d": "Spec sheets, manuals, labels and brochures: best for exact details"
+     },
+     {
+      "t": "Customers",
+      "d": "People who bought it can share real uses, likes and problems"
+     },
+     {
+      "t": "Company training",
+      "d": "Sales meetings, product training and supplier representatives"
+     }
+    ],
+    "cap": "Each source answers a different kind of question.",
+    "dur": 15
+   },
+   {
+    "type": "example",
+    "step": "Example",
+    "h": "Match the need to the source",
+    "rows": [
+     [
+      "Exact differences between two laptops",
+      "The manufacturers’ published specifications"
+     ],
+     [
+      "How the shoes feel on a run",
+      "Wearing them on your own runs"
+     ],
+     [
+      "Where the restaurant’s beef comes from",
+      "How and where menu items are produced"
+     ],
+     [
+      "How people really use a blender",
+      "Customers who bought one"
+     ]
+    ],
+    "cap": "For exact facts, use the manufacturer’s materials, not opinions.",
+    "dur": 16
+   },
+   {
+    "type": "flow",
+    "step": "Explain",
+    "h": "Why it matters",
+    "steps": [
+     "Know the product",
+     "Answer questions accurately",
+     "Customers trust your recommendation"
+    ],
+    "cap": "A cruise salesperson studies the brochures so every answer is right.",
+    "dur": 8
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "A concierge dines at a new restaurant before recommending it",
+      "Personal experience"
+     ],
+     [
+      "Using brochures and ads during a sale",
+      "Answer questions accurately"
+     ],
+     [
+      "Most firsthand knowledge of how shoes perform",
+      "Personal use"
+     ]
+    ],
+    "cap": "Firsthand means you experienced it yourself.",
+    "dur": 11
+   }
+  ]
+ },
+ "CM:003": {
+  "title": "Channels of distribution",
+  "pt": "Explain the nature of channels of distribution",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Channels of distribution",
+    "sub": "How products, and ownership, get from maker to user",
+    "cap": "Every product you buy traveled a path to reach you.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Channel of distribution",
+    "text": "The path a product and its ownership follow from the producer to the final user.",
+    "keys": [
+     "producer",
+     "final user"
+    ],
+    "cap": "Every channel starts with the producer and ends with the final user.",
+    "dur": 9
+   },
+   {
+    "type": "flow",
+    "step": "Explain",
+    "h": "A common indirect channel",
+    "steps": [
+     "Producer",
+     "Wholesaler",
+     "Retailer",
+     "Consumer"
+    ],
+    "cap": "Wholesalers and retailers in the middle are called intermediaries.",
+    "dur": 10
+   },
+   {
+    "type": "parts",
+    "step": "Explain",
+    "h": "Intermediaries",
+    "items": [
+     {
+      "t": "Wholesaler",
+      "d": "Buys in large quantities, takes ownership and resells to retailers or businesses"
+     },
+     {
+      "t": "Retailer",
+      "d": "Buys from producers or wholesalers and sells to final consumers"
+     },
+     {
+      "t": "Agent",
+      "d": "Helps buy or sell for a commission, but never owns the goods"
+     }
+    ],
+    "cap": "The big difference: wholesalers and retailers take title. Agents don’t.",
+    "dur": 13
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Direct or indirect?",
+    "a": {
+     "t": "Indirect channel",
+     "d": "One or more intermediaries between the producer and the final user"
+    },
+    "b": {
+     "t": "Direct channel",
+     "d": "The producer sells straight to the final user, like handmade soap sold only on the maker’s website"
+    },
+    "cap": "No middle step means direct.",
+    "dur": 11
+   },
+   {
+    "type": "compare",
+    "step": "Example",
+    "h": "Who is the final user?",
+    "a": {
+     "t": "Ultimate consumer",
+     "d": "Buys for personal or household use"
+    },
+    "b": {
+     "t": "Industrial user",
+     "d": "Buys to run a business or make other products, like a landscaper buying mulch for clients’ yards"
+    },
+    "cap": "The same mulch can go to either one. What matters is why it’s bought.",
+    "dur": 12
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "Finds stores for furniture makers, earns a commission, never owns it",
+      "Agent"
+     ],
+     [
+      "Buys school supplies in bulk and resells them to stores",
+      "Wholesaler"
+     ],
+     [
+      "Large orders through wholesalers help producers…",
+      "Lower per-unit costs"
+     ]
+    ],
+    "cap": "Ask two questions: does it take ownership, and whom does it sell to?",
+    "dur": 13
+   }
+  ]
+ },
+ "BL:133": {
+  "title": "Legal issues in finance",
+  "pt": "Discuss legal considerations in the finance industry",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Finance and the law",
+    "sub": "Fraud schemes, insider trading and the duty to put clients first",
+    "cap": "These questions describe a scheme. Your job is to name it.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Securities fraud",
+    "text": "Deceiving investors to get their money, for example by lying about an investment or trading on secret information.",
+    "keys": [
+     "Deceiving investors",
+     "secret information"
+    ],
+    "cap": "The Securities and Exchange Commission (SEC) enforces the federal laws against it.",
+    "dur": 10
+   },
+   {
+    "type": "parts",
+    "step": "Explain",
+    "h": "Schemes to recognize",
+    "items": [
+     {
+      "t": "Ponzi scheme",
+      "d": "Pays earlier investors with newer investors’ money instead of real profits"
+     },
+     {
+      "t": "Pump and dump",
+      "d": "Hype a cheap, thinly traded stock with false claims, then sell at the high price"
+     },
+     {
+      "t": "Insider trading",
+      "d": "Buying or selling based on important company news that isn’t public yet"
+     },
+     {
+      "t": "Affinity fraud",
+      "d": "Targets a close-knit group, such as a church, using members’ trust in each other"
+     }
+    ],
+    "cap": "Promised high returns with almost no risk is the classic warning sign.",
+    "dur": 18
+   },
+   {
+    "type": "define",
+    "step": "Explain",
+    "term": "Fiduciary",
+    "text": "Someone legally required to act in the client’s best interest, even when another choice would pay him or her more.",
+    "keys": [
+     "client’s best interest"
+    ],
+    "cap": "An advisor who recommends the low-fee fund over the higher-commission one is meeting this duty.",
+    "dur": 11
+   },
+   {
+    "type": "example",
+    "step": "Example",
+    "h": "Who does what",
+    "rows": [
+     [
+      "SEC",
+      "Enforces securities laws, requires accurate disclosure and investigates fraud"
+     ],
+     [
+      "FDIC",
+      "Insures deposits at banks"
+     ],
+     [
+      "Federal Reserve",
+      "Sets monetary policy and supervises banks"
+     ]
+    ],
+    "cap": "Misleading investors about earnings is an SEC matter.",
+    "dur": 10
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "Name the scheme",
+    "items": [
+     [
+      "18% a year, almost no risk, paid with new money",
+      "Ponzi scheme"
+     ],
+     [
+      "False buyout rumors, then selling the shares",
+      "Pump and dump"
+     ],
+     [
+      "Sold shares before the loss was announced",
+      "Insider trading"
+     ],
+     [
+      "Few investors checked because they share his faith",
+      "Affinity fraud"
+     ]
+    ],
+    "cap": "Find the deception, then find whom it targets.",
+    "dur": 14
+   }
+  ]
+ },
+ "FI:630": {
+  "title": "Statement of changes in equity",
+  "pt": "Explain the nature of statements of changes in equity",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Changes in equity",
+    "sub": "Tracking what the owners’ stake did this year",
+    "cap": "This statement connects the income statement to the balance sheet.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Statement of changes in equity",
+    "text": "A financial statement showing how each owners’ equity account changed during the period, from its beginning balance to its ending balance.",
+    "keys": [
+     "each owners’ equity account",
+     "beginning balance",
+     "ending balance"
+    ],
+    "cap": "Think of it as a story about the owners’ stake: where it started, what changed and where it ended.",
+    "dur": 14
+   },
+   {
+    "type": "parts",
+    "step": "Explain",
+    "h": "The two main accounts",
+    "items": [
+     {
+      "t": "Capital stock",
+      "d": "Money shareholders invested by buying shares. Changes when shares are issued or repurchased."
+     },
+     {
+      "t": "Retained earnings",
+      "d": "Profits kept in the business. Goes up with net income and down with dividends."
+     }
+    ],
+    "cap": "A corporation’s equity comes mainly from these two places.",
+    "dur": 12
+   },
+   {
+    "type": "flow",
+    "step": "Explain",
+    "h": "Retained earnings",
+    "steps": [
+     "Beginning balance",
+     "+ Net income",
+     "− Dividends",
+     "= Ending balance"
+    ],
+    "cap": "Dividends are profits paid out to shareholders, so they are subtracted.",
+    "dur": 10
+   },
+   {
+    "type": "calc",
+    "step": "Example",
+    "h": "Example: Ashworth Financial",
+    "lines": [
+     "Beginning retained earnings  $420,000",
+     "+ Net income  $95,000",
+     "− Dividends declared  $35,000"
+    ],
+    "result": "Ending = $480,000",
+    "cap": "Add the profit, subtract what was paid out.",
+    "dur": 10
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "$385,000",
+      "Forgot to add net income"
+     ],
+     [
+      "Cash dividends declared",
+      "Subtracted from retained earnings"
+     ],
+     [
+      "Who benefits most from this statement",
+      "Investors tracking their ownership stake"
+     ]
+    ],
+    "cap": "Dividends reduce retained earnings. They are not an expense on the income statement.",
+    "dur": 11
+   }
+  ]
+ },
+ "FI:275": {
+  "title": "Reading a stock table",
+  "pt": "Interpret securities table",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Reading a stock table",
+    "sub": "What each column tells an investor",
+    "cap": "A stock table packs a whole day into one row.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Stock table",
+    "text": "A table of each stock’s trading results for the day, listed by ticker symbol: prices, volume, dividend and key ratios.",
+    "keys": [
+     "ticker symbol",
+     "prices, volume, dividend and key ratios"
+    ],
+    "cap": "Learn the columns, and the math questions follow.",
+    "dur": 11
+   },
+   {
+    "type": "example",
+    "step": "Explain",
+    "h": "The columns",
+    "rows": [
+     [
+      "Ticker symbol",
+      "Short letters that identify the stock, such as TRVB"
+     ],
+     [
+      "Open",
+      "The price of the first trade of the day"
+     ],
+     [
+      "High / Low",
+      "The highest and lowest prices of the day"
+     ],
+     [
+      "Close",
+      "The price of the last trade of the day"
+     ],
+     [
+      "Volume",
+      "The number of shares traded"
+     ],
+     [
+      "Dividend",
+      "The annual dividend per share. Blank means no cash dividend."
+     ]
+    ],
+    "cap": "Comparing open and close shows how the price moved during the day.",
+    "dur": 18
+   },
+   {
+    "type": "calc",
+    "step": "Example",
+    "h": "Dividend yield",
+    "lines": [
+     "Yield = Annual dividend ÷ Price",
+     "$1.44 ÷ $48.00 = 0.03"
+    ],
+    "result": "Yield = 3.0%",
+    "cap": "Yield is the return from dividends alone, at today’s price.",
+    "dur": 8
+   },
+   {
+    "type": "calc",
+    "step": "Example",
+    "h": "Price-earnings (P/E) ratio",
+    "lines": [
+     "P/E = Price ÷ Earnings per share",
+     "$36.00 ÷ $2.40"
+    ],
+    "result": "P/E = 15",
+    "cap": "Investors are paying $15 for every $1 of the company’s yearly earnings.",
+    "dur": 8
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "The dividend column is blank",
+      "No cash dividend right now"
+     ],
+     [
+      "Volume five times normal on a quiet day",
+      "Investors reacting to company news"
+     ],
+     [
+      "A yield of 1.4%",
+      "Just the $1.44 dividend, not divided by price"
+     ]
+    ],
+    "cap": "Both ratios divide by something. Check that the answer actually did.",
+    "dur": 13
+   }
+  ]
+ },
+ "FI:094": {
+  "title": "The income statement",
+  "pt": "Describe the nature of income statements",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "The income statement",
+    "sub": "Did the business make money this period?",
+    "cap": "This is the statement that answers the profit question.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Income statement",
+    "text": "A summary of a business’s revenues and expenses over a period of time, ending in net income or net loss.",
+    "keys": [
+     "revenues and expenses",
+     "period of time",
+     "net income or net loss"
+    ],
+    "cap": "When expenses are greater than revenues, the result is a net loss.",
+    "dur": 12
+   },
+   {
+    "type": "flow",
+    "step": "Explain",
+    "h": "From sales to net income",
+    "steps": [
+     "Net sales",
+     "− Cost of goods sold = Gross profit",
+     "− Operating expenses = Net income"
+    ],
+    "cap": "There are two subtractions. Gross profit comes first, net income second.",
+    "dur": 9
+   },
+   {
+    "type": "calc",
+    "step": "Example",
+    "h": "Example: a retailer",
+    "lines": [
+     "Net sales  $184,000",
+     "− Cost of goods sold  $112,500",
+     "= Gross profit  $71,500",
+     "− Operating expenses  $49,300"
+    ],
+    "result": "Net income = $22,200",
+    "cap": "Stopping at $71,500 gives gross profit, not net income.",
+    "dur": 11
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Period or point in time?",
+    "a": {
+     "t": "Balance sheet",
+     "d": "A snapshot on one date: assets, liabilities and owners’ equity"
+    },
+    "b": {
+     "t": "Income statement",
+     "d": "Covers a period: revenues, expenses and the resulting profit or loss"
+    },
+    "cap": "A loan officer reviews three years of income statements to judge whether profits can cover loan payments.",
+    "dur": 13
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "$71,500",
+      "Gross profit, before operating expenses"
+     ],
+     [
+      "Why a lender reviews past income statements",
+      "To judge whether profits can cover payments"
+     ],
+     [
+      "Expenses greater than revenues",
+      "Net loss"
+     ]
+    ],
+    "cap": "Read to the bottom line: net income is what’s left after every expense.",
+    "dur": 12
+   }
+  ]
+ },
+ "IM:428": {
+  "title": "Choosing the right research",
+  "pt": "Assess appropriateness of marketing research for the problem/issue (e.g., research methods, sources of information, timeliness of information, etc.)",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Choosing the right research",
+    "sub": "Matching the method to the problem",
+    "cap": "Good research answers the question asked, in time, at a cost that makes sense.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Appropriate research",
+    "text": "Research that fits the problem: the right method, a suitable source, current information and a cost the decision can justify.",
+    "keys": [
+     "right method",
+     "suitable source",
+     "current information",
+     "cost"
+    ],
+    "cap": "Four checks: method, source, timeliness and cost.",
+    "dur": 10
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Primary or secondary data?",
+    "a": {
+     "t": "Secondary data",
+     "d": "Already gathered for another purpose: quick and cheap, but may be out of date"
+    },
+    "b": {
+     "t": "Primary data",
+     "d": "Collected now for this problem: relates directly to it, but takes time and money"
+    },
+    "cap": "An old published study may no longer reflect today’s customers.",
+    "dur": 12
+   },
+   {
+    "type": "select",
+    "step": "Explain",
+    "h": "Measuring a whole market",
+    "text": "A large random sample can stand in for the whole population, so its percentages can be trusted.",
+    "n": 40,
+    "pick": [
+     1,
+     6,
+     9,
+     13,
+     17,
+     22,
+     26,
+     30,
+     34,
+     38
+    ],
+    "cap": "To estimate what percentage of households would buy, use quantitative research with a large random sample.",
+    "dur": 10
+   },
+   {
+    "type": "tip",
+    "step": "Example",
+    "h": "Match the problem to the research",
+    "items": [
+     [
+      "In-depth reactions to a moisturizer’s scent",
+      "Focus groups"
+     ],
+     [
+      "Percent of households that would buy a meal kit",
+      "Large random sample survey"
+     ],
+     [
+      "Decide in two weeks; modest profit at stake",
+      "Existing sales data"
+     ],
+     [
+      "Interviews with 15, then a survey of 2,000",
+      "Mixed methods"
+     ]
+    ],
+    "cap": "When time is short and stakes are low, use the data you already have.",
+    "dur": 16
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "Main risk of an old published study",
+      "The data may be out of date"
+     ],
+     [
+      "Key strength of focus groups for a new product",
+      "Findings relate directly to it"
+     ],
+     [
+      "Qualitative and quantitative in one study",
+      "Mixed methods"
+     ]
+    ],
+    "cap": "Read the problem for clues about time, money and the kind of answer needed.",
+    "dur": 14
+   }
+  ]
+ },
+ "OP:015": {
+  "title": "The nature of purchasing",
+  "pt": "Explain the nature and scope of purchasing",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Purchasing",
+    "sub": "Buying what the business needs to operate",
+    "cap": "Every business buys before it sells.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Purchasing",
+    "text": "Buying the goods and services a business needs to make its products, run its operations or resell to customers.",
+    "keys": [
+     "make its products",
+     "run its operations",
+     "resell"
+    ],
+    "cap": "What is bought, and who does the buying, varies by business.",
+    "dur": 11
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "What is being bought?",
+    "a": {
+     "t": "Buying for resale",
+     "d": "Merchandise a retailer or wholesaler sells to its own customers"
+    },
+    "b": {
+     "t": "Industrial purchasing",
+     "d": "Raw materials, parts and supplies used to make products or run the business"
+    },
+    "cap": "A bicycle maker buying steel tubing, paint and tires is doing industrial purchasing.",
+    "dur": 12
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Who does the buying?",
+    "a": {
+     "t": "Centralized purchasing",
+     "d": "One central office buys for every location: bigger orders and more consistency"
+    },
+    "b": {
+     "t": "Decentralized purchasing",
+     "d": "Each store, department or region buys for itself, matching local customers’ needs"
+    },
+    "cap": "A national chain that lets each regional manager choose merchandise is decentralized.",
+    "dur": 12
+   },
+   {
+    "type": "flow",
+    "step": "Explain",
+    "h": "The purchasing process",
+    "steps": [
+     "Identify the need",
+     "Choose a supplier",
+     "Place the order",
+     "Receive and check it"
+    ],
+    "cap": "Purchasing doesn’t end with the order: what arrives has to be checked.",
+    "dur": 10
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "Regional managers buy for their own stores",
+      "Decentralized"
+     ],
+     [
+      "A bike maker buys tubing, paint and tires",
+      "Industrial purchasing"
+     ],
+     [
+      "One office buys for every store",
+      "Centralized"
+     ]
+    ],
+    "cap": "Find who decides, and what the purchase will be used for.",
+    "dur": 11
+   }
+  ]
+ },
+ "PI:002": {
+  "title": "Factors affecting pricing",
+  "pt": "Explain factors affecting pricing decisions",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "What affects price",
+    "sub": "The forces behind every price tag",
+    "cap": "A price is a decision, and several forces shape it.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Pricing decision",
+    "text": "Choosing what to charge, based on costs, demand, competition, the business’s objectives and common industry practice.",
+    "keys": [
+     "costs",
+     "demand",
+     "competition",
+     "objectives"
+    ],
+    "cap": "Most exam questions describe one of these forces in action.",
+    "dur": 9
+   },
+   {
+    "type": "hub",
+    "step": "Explain",
+    "h": "The forces around a price",
+    "center": "Price",
+    "items": [
+     "Demand",
+     "Costs",
+     "Competitors",
+     "Objectives"
+    ],
+    "cap": "Change any one of them, and the right price may change too.",
+    "dur": 7
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Supply and demand",
+    "a": {
+     "t": "Shortage",
+     "d": "Supply falls short while demand stays high, so prices rise. A frost destroys the strawberry crop at peak season."
+    },
+    "b": {
+     "t": "Surplus",
+     "d": "Supply is greater than demand, so prices fall. Too many snow shovels after a mild winter."
+    },
+    "cap": "When there’s too much stock, lowering the price helps turn it into cash.",
+    "dur": 14
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Elasticity of demand",
+    "a": {
+     "t": "Inelastic",
+     "d": "Buying barely changes when the price changes, often for necessities with few substitutes"
+    },
+    "b": {
+     "t": "Elastic",
+     "d": "A small price change causes a big change in buying. Raise the car wash price $1, and customers go down the street."
+    },
+    "cap": "Close substitutes make demand elastic.",
+    "dur": 12
+   },
+   {
+    "type": "calc",
+    "step": "Example",
+    "h": "Markup on cost",
+    "lines": [
+     "Price = Cost + (Cost × Markup %)",
+     "$12.00 × 0.40 = $4.80",
+     "$12.00 + $4.80"
+    ],
+    "result": "Price = $16.80",
+    "cap": "Using the markup that’s standard for gift shops means pricing by industry standards.",
+    "dur": 10
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "Earning a 20% return on investment",
+      "Profit-oriented objective"
+     ],
+     [
+      "Raising market share or unit sales",
+      "Sales-oriented objective"
+     ],
+     [
+      "$4.80",
+      "The markup only, not the selling price"
+     ]
+    ],
+    "cap": "For markup problems, the price is always more than the cost.",
+    "dur": 11
+   }
+  ]
+ },
+ "EI:127": {
+  "title": "Demonstrating fairness",
+  "pt": "Demonstrate fairness",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Fairness",
+    "sub": "Making decisions people can trust",
+    "cap": "Fairness is a skill leaders practice every day.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Fairness",
+    "text": "Treating people by the same standards and basing decisions on facts rather than personal feelings or relationships.",
+    "keys": [
+     "same standards",
+     "facts"
+    ],
+    "cap": "Being fair doesn’t mean everyone gets the same outcome. It means everyone is judged the same way.",
+    "dur": 11
+   },
+   {
+    "type": "parts",
+    "step": "Explain",
+    "h": "What fairness looks like",
+    "items": [
+     {
+      "t": "Impartial",
+      "d": "Judges everyone by the same objective measure"
+     },
+     {
+      "t": "Consistent",
+      "d": "Applies rules the same way every time, to everyone"
+     },
+     {
+      "t": "Open",
+      "d": "Hears all sides before deciding"
+     },
+     {
+      "t": "Transparent",
+      "d": "Explains the reason for a decision"
+     }
+    ],
+    "cap": "Impartial is the word exams use most.",
+    "dur": 12
+   },
+   {
+    "type": "compare",
+    "step": "Example",
+    "h": "One training seat, two employees",
+    "a": {
+     "t": "Biased",
+     "d": "Picking the person you like more, or a friend, regardless of performance"
+    },
+    "b": {
+     "t": "Impartial",
+     "d": "Alana chooses the worker with the stronger performance record"
+    },
+    "cap": "Same measure for both candidates: that is impartial.",
+    "dur": 10
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "Decision based on facts and the same standard",
+      "Impartial"
+     ],
+     [
+      "Choosing a friend over a stronger candidate",
+      "Favoritism"
+     ]
+    ],
+    "cap": "Ask what the decision was based on.",
+    "dur": 8
+   }
+  ]
+ },
+ "PI:017": {
+  "title": "Pricing and the law",
+  "pt": "Explain legal considerations for pricing",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Pricing and the law",
+    "sub": "The rules that keep prices competitive and honest",
+    "cap": "Businesses set their own prices, within limits.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Pricing laws",
+    "text": "Federal and state laws that keep businesses competing fairly on price and keep customers from being misled.",
+    "keys": [
+     "competing fairly",
+     "misled"
+    ],
+    "cap": "Some laws protect competitors. Others protect customers.",
+    "dur": 8
+   },
+   {
+    "type": "parts",
+    "step": "Explain",
+    "h": "Illegal pricing practices",
+    "items": [
+     {
+      "t": "Price fixing",
+      "d": "Competitors agree on the prices they’ll charge instead of competing"
+     },
+     {
+      "t": "Price discrimination",
+      "d": "Charging competing business buyers different prices for the same goods without a cost reason"
+     },
+     {
+      "t": "Deceptive pricing",
+      "d": "Misleading customers about value, such as a fake “regular” price"
+     },
+     {
+      "t": "Predatory pricing",
+      "d": "Pricing below cost to drive competitors out of the market"
+     }
+    ],
+    "cap": "Each one either removes competition or misleads buyers.",
+    "dur": 17
+   },
+   {
+    "type": "example",
+    "step": "Explain",
+    "h": "The laws behind them",
+    "rows": [
+     [
+      "Sherman Antitrust Act",
+      "Bans price fixing and other agreements that limit competition"
+     ],
+     [
+      "Robinson-Patman Act",
+      "Limits price discrimination between competing business buyers"
+     ],
+     [
+      "Federal Trade Commission",
+      "Acts against deceptive pricing and advertising"
+     ]
+    ],
+    "cap": "Price fixing: Sherman. Price discrimination: Robinson-Patman.",
+    "dur": 11
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "Name the practice",
+    "items": [
+     [
+      "Three concrete suppliers secretly agree on quotes",
+      "Price fixing"
+     ],
+     [
+      "Same goods, two competing retailers, different prices",
+      "Price discrimination"
+     ],
+     [
+      "Why deceptive pricing is illegal",
+      "It misleads customers about value"
+     ]
+    ],
+    "cap": "Agreement among competitors is the giveaway for price fixing.",
+    "dur": 11
+   }
+  ]
+ },
+ "BL:163": {
+  "title": "The spirit of the law",
+  "pt": "Comply with the spirit and intent of laws and regulations",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "The letter and the spirit",
+    "sub": "Following the law’s words, and its purpose",
+    "cap": "A business can be legal and still be wrong.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Spirit of the law",
+    "text": "The purpose a law was written to achieve, such as keeping a river clean.",
+    "keys": [
+     "purpose"
+    ],
+    "cap": "Every law has words and a reason for those words.",
+    "dur": 8
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Two ways to follow a law",
+    "a": {
+     "t": "Letter of the law",
+     "d": "The exact wording. A loophole can follow the words while defeating the purpose."
+    },
+    "b": {
+     "t": "Spirit of the law",
+     "d": "The intent behind the words. Responsible businesses honor both."
+    },
+    "cap": "Compliance with the letter alone isn’t enough.",
+    "dur": 12
+   },
+   {
+    "type": "example",
+    "step": "Example",
+    "h": "A loophole in action",
+    "rows": [
+     [
+      "The law",
+      "Limits what can be dumped into waterways"
+     ],
+     [
+      "The loophole",
+      "A method the law’s wording doesn’t cover"
+     ],
+     [
+      "The result",
+      "Legal, but the river is still harmed"
+     ],
+     [
+      "The verdict",
+      "Follows the letter, violates the spirit"
+     ]
+    ],
+    "cap": "If the law’s purpose is defeated, the spirit is violated.",
+    "dur": 13
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "Legal dumping that still harms a river",
+      "Violates the spirit"
+     ],
+     [
+      "Following only the exact wording",
+      "The letter of the law"
+     ]
+    ],
+    "cap": "Spirit means purpose. Letter means wording.",
+    "dur": 8
+   }
+  ]
+ },
+ "OP:517": {
+  "title": "Protecting digital assets",
+  "pt": "Comply with strategies for protecting business' digital assets (e.g., website, social media, email, etc.)",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Digital assets",
+    "sub": "What a business has online, and how to protect it",
+    "cap": "A business’s most valuable property may not be something you can touch.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Digital assets",
+    "text": "A business’s valuable electronic resources: its website, social media accounts and posts, email lists, logos, apps, domain names and files.",
+    "keys": [
+     "electronic resources"
+    ],
+    "cap": "If it lives on a screen and has value, it’s a digital asset.",
+    "dur": 10
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Digital or physical?",
+    "a": {
+     "t": "Physical assets",
+     "d": "Trucks, forklifts, shelving and other equipment you can touch"
+    },
+    "b": {
+     "t": "Digital assets",
+     "d": "Logo files, a mobile app, a customer email list, the posts on a hotel’s social media accounts"
+    },
+    "cap": "The exam often hides one digital answer among physical ones.",
+    "dur": 12
+   },
+   {
+    "type": "parts",
+    "step": "Explain",
+    "h": "Protection strategies",
+    "items": [
+     {
+      "t": "Inventory",
+      "d": "List every digital asset and where it’s stored. This is the first step."
+     },
+     {
+      "t": "Backups",
+      "d": "Copies kept on a separate, secure system so data can be restored"
+     },
+     {
+      "t": "Multi-factor authentication",
+      "d": "A password plus a second proof, such as a code sent to a phone"
+     },
+     {
+      "t": "Security policies",
+      "d": "Written rules, such as for laptops, that hold employees accountable"
+     }
+    ],
+    "cap": "You can’t protect what you don’t know you have.",
+    "dur": 17
+   },
+   {
+    "type": "flow",
+    "step": "Example",
+    "h": "Why backups matter",
+    "steps": [
+     "Ransomware locks the files",
+     "Restore from copies on a separate system",
+     "Working again within hours"
+    ],
+    "cap": "The attack fails because the business still has its data.",
+    "dur": 8
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "First step in protecting digital assets",
+      "Inventory them"
+     ],
+     [
+      "Password plus a code sent to a phone",
+      "Multi-factor authentication"
+     ],
+     [
+      "Reps take client files home on laptops",
+      "Laptop security policy"
+     ]
+    ],
+    "cap": "Match the threat to the strategy that stops it.",
+    "dur": 11
+   }
+  ]
+ },
+ "NF:014": {
+  "title": "Monitoring internal records",
+  "pt": "Monitor internal records for business information",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Internal records",
+    "sub": "The business information you already have",
+    "cap": "Some of the best information a business has is its own.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Internal records",
+    "text": "Information created by a business’s own operations, such as sales reports, inventory records, customer files and financial statements.",
+    "keys": [
+     "business’s own operations"
+    ],
+    "cap": "They are accurate, current and free to use.",
+    "dur": 9
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Inside or outside?",
+    "a": {
+     "t": "External sources",
+     "d": "Information from outside the business: government data, trade publications, research firms"
+    },
+    "b": {
+     "t": "Internal records",
+     "d": "Information the business creates itself: point-of-sale reports, inventory counts, customer files"
+    },
+    "cap": "If the business’s own system produced it, it’s an internal record.",
+    "dur": 11
+   },
+   {
+    "type": "flow",
+    "step": "Example",
+    "h": "From records to a decision",
+    "steps": [
+     "Review point-of-sale reports",
+     "Spot a trend: cookbook sales have doubled",
+     "Order more cookbooks"
+    ],
+    "cap": "Regular monitoring turns everyday data into purchasing, staffing and pricing decisions.",
+    "dur": 8
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "A manager reviews point-of-sale reports for trends",
+      "Monitoring internal records"
+     ],
+     [
+      "Sales reports and inventory records",
+      "Internal records"
+     ]
+    ],
+    "cap": "Monitoring means checking regularly, not once.",
+    "dur": 8
+   }
+  ]
+ },
+ "EC:001": {
+  "title": "Economics and economic activities",
+  "pt": "Describe the concepts of economics and economic activities",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Economics",
+    "sub": "Scarce resources, endless wants and the choices in between",
+    "cap": "Economics starts with one problem: we can’t have everything.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Economics",
+    "text": "The study of how people choose to use scarce resources to satisfy their wants.",
+    "keys": [
+     "choose",
+     "scarce resources",
+     "wants"
+    ],
+    "cap": "Because resources are scarce, every choice involves a trade-off.",
+    "dur": 8
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Two kinds of wants",
+    "a": {
+     "t": "Noneconomic wants",
+     "d": "Desires money can’t satisfy, such as friendship or fresh air"
+    },
+    "b": {
+     "t": "Economic wants",
+     "d": "Desires satisfied by goods and services that cost money: food, a haircut, a car"
+    },
+    "cap": "Economics focuses on economic wants, because meeting them uses scarce resources.",
+    "dur": 12
+   },
+   {
+    "type": "example",
+    "step": "Example",
+    "h": "Opportunity cost",
+    "rows": [
+     [
+      "Budget",
+      "$60"
+     ],
+     [
+      "Options",
+      "A concert ticket or new running shoes"
+     ],
+     [
+      "Choice",
+      "The concert ticket"
+     ],
+     [
+      "Opportunity cost",
+      "The running shoes he gave up"
+     ]
+    ],
+    "cap": "Opportunity cost is the value of the next-best alternative you give up.",
+    "dur": 10
+   },
+   {
+    "type": "flow",
+    "step": "Explain",
+    "h": "Economic activities",
+    "steps": [
+     "Production: a farmer grows wheat and a bakery makes bread",
+     "Distribution: a truck hauls it to market",
+     "Consumption: a family eats the bread"
+    ],
+    "cap": "Consumption is the final goal. Every other activity exists so someone can use the product.",
+    "dur": 11
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "Value of the next-best choice given up",
+      "Opportunity cost"
+     ],
+     [
+      "The family’s use of the bread",
+      "Consumption"
+     ],
+     [
+      "Desires met by things with a monetary value",
+      "Economic wants"
+     ]
+    ],
+    "cap": "Find the choice, and you’ll usually find the opportunity cost.",
+    "dur": 11
+   }
+  ]
+ },
+ "FI:575": {
+  "title": "Financial globalization",
+  "pt": "Explain the nature and scope of financial globalization",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Financial globalization",
+    "sub": "One connected world of money",
+    "cap": "Money now moves across borders in seconds. That brings opportunity and risk.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Financial globalization",
+    "text": "The linking of financial markets around the world, so money and investments move across borders quickly and easily.",
+    "keys": [
+     "linking of financial markets",
+     "across borders"
+    ],
+    "cap": "Two forces drove it: governments opened up, and technology sped up.",
+    "dur": 10
+   },
+   {
+    "type": "parts",
+    "step": "Explain",
+    "h": "What drove it",
+    "items": [
+     {
+      "t": "Liberalization",
+      "d": "Governments remove limits on foreign investment and on moving money in and out"
+     },
+     {
+      "t": "Electronic trading",
+      "d": "Internet-based systems move money and trade securities across borders instantly and cheaply"
+     }
+    ],
+    "cap": "Electronic trading has done the most to speed it up in recent decades.",
+    "dur": 12
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Opportunity and risk",
+    "a": {
+     "t": "Diversification",
+     "d": "Investing in several countries reduces exposure to any one country’s business cycle"
+    },
+    "b": {
+     "t": "Contagion",
+     "d": "Trouble in one country’s markets spreads quickly to others"
+    },
+    "cap": "Because markets are linked, a crisis in one country can pull down its neighbors.",
+    "dur": 11
+   },
+   {
+    "type": "example",
+    "step": "Example",
+    "h": "Emerging markets",
+    "rows": [
+     [
+      "What they are",
+      "Developing economies with newer financial markets"
+     ],
+     [
+      "The appeal",
+      "Fast growth and high potential returns"
+     ],
+     [
+      "The main risk",
+      "Markets and governments that may be unstable"
+     ]
+    ],
+    "cap": "Higher potential return usually comes with higher risk.",
+    "dur": 10
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "Removing limits on foreign investment",
+      "Liberalization"
+     ],
+     [
+      "A currency crisis spreads to neighboring markets",
+      "Financial contagion"
+     ],
+     [
+      "Biggest driver in recent decades",
+      "Internet-based electronic trading"
+     ]
+    ],
+    "cap": "Spreading out reduces risk. Being linked spreads risk.",
+    "dur": 10
+   }
+  ]
+ },
+ "EC:017": {
+  "title": "Gross Domestic Product",
+  "pt": "Explain the concept of Gross Domestic Product (GDP)",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Gross Domestic Product",
+    "sub": "The scoreboard for a country’s economy",
+    "cap": "GDP is the most widely used measure of a nation’s output.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "GDP",
+    "text": "The total market value of all final goods and services produced within a country in a year.",
+    "keys": [
+     "market value",
+     "final goods and services",
+     "within a country",
+     "in a year"
+    ],
+    "cap": "Every phrase in that definition matters on the exam.",
+    "dur": 11
+   },
+   {
+    "type": "parts",
+    "step": "Explain",
+    "h": "Read it word by word",
+    "items": [
+     {
+      "t": "Market value",
+      "d": "Measured in dollars, at the prices things sell for"
+     },
+     {
+      "t": "Final goods and services",
+      "d": "Only what’s sold to the end user, so nothing is counted twice"
+     },
+     {
+      "t": "Within a country",
+      "d": "Production inside the borders, no matter who owns the business"
+     },
+     {
+      "t": "In a year",
+      "d": "A set period of time"
+     }
+    ],
+    "cap": "Final is the word students miss most.",
+    "dur": 16
+   },
+   {
+    "type": "example",
+    "step": "Example",
+    "h": "Counted in U.S. GDP?",
+    "rows": [
+     [
+      "A new car sold to a family",
+      "Counted"
+     ],
+     [
+      "Tires sold to the carmaker",
+      "Not separately: their value is already in the car’s price"
+     ],
+     [
+      "A car built in Michigan by a foreign-owned company",
+      "Counted: it was made in the U.S."
+     ],
+     [
+      "A used car resold this year",
+      "The car isn’t counted: it was produced in an earlier year"
+     ]
+    ],
+    "cap": "Intermediate goods are counted once, inside the final product.",
+    "dur": 18
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "Why only final goods and services?",
+      "To avoid counting production twice"
+     ],
+     [
+      "Production inside the borders, any owner",
+      "Within a country"
+     ]
+    ],
+    "cap": "Check each word of the definition against the answer choices.",
+    "dur": 9
+   }
+  ]
+ },
+ "PR:007": {
+  "title": "Advertising media",
+  "pt": "Explain types of advertising media",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "Advertising media",
+    "sub": "Choosing the channel that carries the message",
+    "cap": "The right message in the wrong medium reaches the wrong people.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Promotional media",
+    "text": "The channels that carry advertising messages to a target audience, such as print, broadcast, direct mail, out-of-home and online media.",
+    "keys": [
+     "channels",
+     "target audience"
+    ],
+    "cap": "Each medium differs in cost, reach and how precisely it targets.",
+    "dur": 10
+   },
+   {
+    "type": "parts",
+    "step": "Explain",
+    "h": "Main types",
+    "items": [
+     {
+      "t": "Broadcast",
+      "d": "Television and radio. TV’s sight, sound and motion make ads memorable, but it is expensive."
+     },
+     {
+      "t": "Print",
+      "d": "Newspapers and magazines"
+     },
+     {
+      "t": "Out-of-home",
+      "d": "Billboards and transit ads on buses and in train stations"
+     },
+     {
+      "t": "Online",
+      "d": "Websites, social media and email. Ad blockers and spam filters can stop them."
+     }
+    ],
+    "cap": "Specialty media adds one more: useful items printed with the business’s name.",
+    "dur": 16
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Reaching a special interest on TV",
+    "a": {
+     "t": "Network television",
+     "d": "National reach to a broad, general audience"
+    },
+    "b": {
+     "t": "Cable television",
+     "d": "Specialized channels reach groups with shared interests, such as cooking fans"
+    },
+    "cap": "A gourmet cooking-tools startup should choose cable.",
+    "dur": 10
+   },
+   {
+    "type": "example",
+    "step": "Example",
+    "h": "Name the medium",
+    "rows": [
+     [
+      "Ads on city buses and inside train stations",
+      "Transit media"
+     ],
+     [
+      "Free leashes printed with the store’s name and number",
+      "Specialty media"
+     ],
+     [
+      "All the channels that carry ads to an audience",
+      "Promotional media"
+     ]
+    ],
+    "cap": "Specialty items get used again and again, so the message is seen again and again.",
+    "dur": 13
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "Main advantage of television",
+      "Sight, sound and motion"
+     ],
+     [
+      "The challenge ad blockers create",
+      "Digital ads never appear"
+     ],
+     [
+      "Ads on and inside public transportation",
+      "Transit media"
+     ]
+    ],
+    "cap": "Look for where the ad appears. That usually names the medium.",
+    "dur": 11
+   }
+  ]
+ },
+ "FI:782": {
+  "title": "The cost of credit",
+  "pt": "Calculate the cost of credit",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "The cost of credit",
+    "sub": "What borrowing really costs",
+    "cap": "Borrowing is never free. Here’s how to find the price.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Finance charge",
+    "text": "The total cost of credit: everything paid back above the amount borrowed, including interest and fees.",
+    "keys": [
+     "total cost of credit",
+     "above the amount borrowed"
+    ],
+    "cap": "Lenders must also state the yearly cost as a percentage, the annual percentage rate (APR).",
+    "dur": 11
+   },
+   {
+    "type": "calc",
+    "step": "Example",
+    "h": "Example: a motorcycle loan",
+    "lines": [
+     "Total paid: 24 × $268.50 = $6,444.00",
+     "Amount borrowed: $6,000.00",
+     "Finance charge: $6,444.00 − $6,000.00"
+    ],
+    "result": "Finance charge = $444.00",
+    "cap": "Multiply the payment by the number of payments, then subtract what was borrowed.",
+    "dur": 10
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Don’t stop too early",
+    "a": {
+     "t": "Total amount repaid",
+     "d": "$6,444.00: everything Jasmine pays back over the 24 months"
+    },
+    "b": {
+     "t": "Finance charge",
+     "d": "$444.00: only the part above the $6,000 she borrowed"
+    },
+    "cap": "The total repaid is a trap answer. The cost of credit is the extra.",
+    "dur": 11
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "On the exam",
+    "items": [
+     [
+      "$6,444.00",
+      "Total repaid, not the cost of credit"
+     ],
+     [
+      "APR",
+      "The yearly cost of credit as a percentage"
+     ]
+    ],
+    "cap": "Always subtract the amount borrowed.",
+    "dur": 7
+   }
+  ]
+ },
+ "MP:007": {
+  "title": "The marketing plan",
+  "pt": "Explain the nature of marketing plans",
+  "scenes": [
+   {
+    "type": "title",
+    "step": "Intro",
+    "h": "The marketing plan",
+    "sub": "From where we are to where we want to be",
+    "cap": "A marketing plan turns ideas into a set of coordinated actions.",
+    "dur": 5
+   },
+   {
+    "type": "define",
+    "step": "Define",
+    "term": "Marketing plan",
+    "text": "A written document that guides a business’s marketing activities toward specific objectives for a set period of time.",
+    "keys": [
+     "written document",
+     "specific objectives"
+    ],
+    "cap": "Its main purpose: everyone works toward the same objectives.",
+    "dur": 9
+   },
+   {
+    "type": "example",
+    "step": "Explain",
+    "h": "Main sections",
+    "rows": [
+     [
+      "Situation analysis",
+      "Where the business stands now: strengths, weaknesses, opportunities, threats"
+     ],
+     [
+      "Objectives",
+      "What it wants to achieve, in measurable terms"
+     ],
+     [
+      "Strategies",
+      "The target market and marketing mix"
+     ],
+     [
+      "Implementation",
+      "Action steps, schedule, people responsible and budget"
+     ],
+     [
+      "Evaluation and control",
+      "Measure results against objectives and adjust"
+     ]
+    ],
+    "cap": "The sections move from analysis to action to measurement.",
+    "dur": 15
+   },
+   {
+    "type": "compare",
+    "step": "Explain",
+    "h": "Easy to confuse",
+    "a": {
+     "t": "Implementation",
+     "d": "Turns strategies into action: who does what, by when, with what budget"
+    },
+    "b": {
+     "t": "Evaluation and control",
+     "d": "Tracks results, compares them with the objectives and makes adjustments"
+    },
+    "cap": "Without implementation, a plan stays on paper.",
+    "dur": 10
+   },
+   {
+    "type": "tip",
+    "step": "On the exam",
+    "h": "Name the section",
+    "items": [
+     [
+      "Action steps, schedule, people and budget",
+      "Implementation"
+     ],
+     [
+      "Comparing results with objectives",
+      "Evaluation and control"
+     ],
+     [
+      "Current strengths and weaknesses",
+      "Situation analysis"
+     ],
+     [
+      "Main purpose of a written plan",
+      "Guide activities toward objectives"
+     ]
+    ],
+    "cap": "Match the verbs: analyze, set, choose, act, measure.",
+    "dur": 11
+   }
+  ]
+ }
 }

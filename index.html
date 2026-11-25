@@ -270,7 +270,7 @@ ol.lb{list-style:none;margin:0;padding:0}
 .s-end p{font-size:2.4cqw;color:var(--muted);max-width:70cqw;line-height:1.45}
 @media (max-width:640px){.mvsteps span{display:none}.mvsteps{gap:3px}.mvstage{aspect-ratio:4/5}.mvsc{padding:7cqw 6cqw;gap:3.4cqw}.mvsc h3{font-size:6.4cqw}.s-title h3{font-size:10cqw}.s-title p{font-size:4.4cqw;max-width:none}
   .s-define .term{font-size:8cqw}.s-define .txt{font-size:5.2cqw;max-width:none}.s-select .sel{flex-direction:column;align-items:flex-start;gap:4cqw}.dots{width:84cqw}.s-select .txt{font-size:4.6cqw;max-width:none}
-  .grid4{grid-template-columns:1fr}.grid4 b{font-size:4.6cqw}.grid4 span{font-size:3.6cqw}.hub{width:86cqw;height:70cqw}.hub .c{font-size:4.6cqw}.hub .n{font-size:4cqw}
+  .grid4{grid-template-columns:1fr}.grid4 b{font-size:4.6cqw}.grid4 span{font-size:3.6cqw}.hub{width:86cqw;height:70cqw}.hub .c{font-size:4.6cqw;white-space:normal;max-width:30cqw;text-align:center;line-height:1.2}.hub .n{font-size:4cqw}
   .rows div{grid-template-columns:1fr;gap:.4cqw}.rows b{font-size:3.6cqw}.rows span{font-size:4.2cqw}.cmp{grid-template-columns:1fr}.cmp em{justify-self:center}.cmp b{font-size:4.8cqw}.cmp span{font-size:3.9cqw}
   .bars{height:56cqw}.bars b{font-size:3.4cqw}.bars small{font-size:3.2cqw}.barl span{font-size:3.2cqw}.calc div{font-size:4.6cqw}.calc .res{font-size:6.4cqw}
   .flow{flex-direction:column}.flow div{font-size:4.4cqw}.flow em{transform:rotate(90deg)}.tips div{grid-template-columns:1fr}.tips span,.tips b{font-size:4.2cqw;max-width:none;text-align:left;justify-self:start}.s-end h3{font-size:7cqw}.s-end p{font-size:4.4cqw}}
@@ -390,7 +390,7 @@ function mergeS(a,b){
   const ex={}; for(const e of a.exams.concat(b.exams))ex[e.at]=e; m.exams=Object.values(ex).sort((x,y)=>x.at-y.at);
   m.reports=[...new Set(a.reports.concat(b.reports))].sort((x,y)=>x-y);
   m.boost=Object.assign({},b.boost||{},a.boost||{});
-  const p=a.newToday||{d:'',n:0},q=b.newToday||{d:'',n:0}; m.newToday=p.d===q.d?{d:p.d,n:Math.max(p.n,q.n)}:dkeyT(q.d)>dkeyT(p.d)?q:p;
+  const p=a.newToday||{d:'',n:0},q=b.newToday||{d:'',n:0}; m.newToday=p.d===q.d?{d:p.d,n:Math.max(p.n,q.n),x:Math.max(p.x||0,q.x||0)}:dkeyT(q.d)>dkeyT(p.d)?q:p;
   m.v=3; m.upd=Math.max(a.upd||0,b.upd||0); return m}
 const richer=(m,r)=>!r||m.log.length>r.log.length||m.exams.length>r.exams.length||Object.keys(m.cards).length>Object.keys(r.cards).length;
 
@@ -478,7 +478,16 @@ function counts(){
 }
 function newPerDay(){const un=DATA.q.filter(x=>!S.cards[x.id]).length+(S.mode!=='q'?DATA.k.filter(x=>!S.cards[x.id]).length:0);
   const d=Math.max(1,daysTo(FIRST_PASS)); return Math.min(80,Math.max(10,Math.ceil(un/d)))}
-function newLeft(){if(S.newToday.d!==dkey(Date.now()))S.newToday={d:dkey(Date.now()),n:0};return Math.max(0,newPerDay()-S.newToday.n)}
+function newLeft(){if(S.newToday.d!==dkey(Date.now()))S.newToday={d:dkey(Date.now()),n:0,x:0};return Math.max(0,newPerDay()+(S.newToday.x||0)-S.newToday.n)}
+/* Keep going: lets a student take on more new cards today than the daily pace. */
+const MORE=20;
+function moreCount(){return Math.min(MORE,counts().unseen)}
+function keepGoing(){const k=moreCount(); if(!k)return home(); S.newToday.x=(S.newToday.x||0)+Math.max(0,k-newLeft()); save();
+  session=buildSession(); if(session.queue.length)next(); else home()}
+/* Deck progress counts questions only: the exam is questions. */
+function deckStats(){const n=DATA.q.length, seen=DATA.q.filter(x=>{const c=S.cards[x.id];return c&&(c.ok+c.bad)}).length, d=daysTo(EXAM);
+  return{n,seen,left:n-seen,pct:n?seen/n:0,days:d,perDay:d?Math.ceil((n-seen)/d):n-seen}}
+function weakest(){const L=iaStats().filter(x=>x.tries>=5&&x.acc!=null).sort((a,b)=>a.acc-b.acc||b.n-a.n); return L.length&&L[0].acc<.8?L[0]:null}
 function iaStats(){
   const m={}; for(const q of DATA.q){(m[q.ia]=m[q.ia]||{n:0,seen:0,ok:0,tries:0}).n++;
     const c=S.cards[q.id]; if(c&&(c.ok+c.bad)){m[q.ia].seen++; m[q.ia].ok+=c.cok||0; m[q.ia].tries+=c.ctr||0}}
@@ -562,6 +571,7 @@ function home(){
   const nextB=BENCH.find(b=>b.d>Date.now());
   const qb={missed:0,right:0,new:0}; for(const x of DATA.q){const t=status(x.id); qb[t==='fixing'?'missed':t]++}
   const qs={seen:DATA.q.filter(x=>S.cards[x.id]).length,mature:DATA.q.filter(x=>S.cards[x.id]&&S.cards[x.id].ivl>=Math.min(7,capDays())).length};
+  const dk=deckStats(), wk=weakest(), mc=moreCount();
   app.innerHTML=`
   ${storageOK?'':'<div class="notice">This browser is blocking storage (private window or blocked site data). Your progress still saves to your account, but keep this tab open until it says “Saved to your account.”</div>'}
   ${FLASH?`<div class="notice">${esc(FLASH)}</div>`:''}
@@ -584,7 +594,11 @@ function home(){
       <div class="stat"><b>${Math.min(nl,c.unseen)}</b><span>new today (pace: ${newPerDay()}/day)</span></div>
       <div class="stat"><b>${st}</b><span>day streak</span></div>
     </div>
-    <div class="row"><button class="btn" id="go" ${queued?'':'disabled'}>${queued?'Start today’s session':'All caught up for today'}</button>
+    <div class="deck" style="display:grid;gap:6px">
+      <div class="row" style="justify-content:space-between"><b>Whole deck: ${dk.seen} of ${dk.n} questions</b><span class="muted" style="font-size:13px">${Math.round(dk.pct*100)}%</span></div>
+      <div class="bar"><i style="width:${(dk.pct*100).toFixed(1)}%"></i></div>
+      <span class="muted" style="font-size:13px">${!dk.left?'You’ve seen every question in your deck. Keep up with your reviews.':dk.days?`${dk.left} to go. About ${dk.perDay} new a day gets you through the whole deck before ${fmt(EXAM)}.${dk.perDay>newPerDay()?' Use Keep going after your session to stay on pace.':''}`:`${dk.left} still to go.`}</span></div>
+    <div class="row"><button class="btn" id="go" ${queued?'':'disabled'}>${queued?'Start today’s session':'All caught up for today'}</button>${!queued&&mc?`<button class="btn" id="more">Keep going: ${mc} more new</button>`:''}
       <button class="btn ghost" id="exam">Timed practice set (25 Q)</button><button class="btn ghost" id="mock">Full mock exam (100 Q, 90 min)</button></div>
     ${S.mode!=='q'?`<div class="row" style="gap:10px"><span class="muted" style="font-size:13px">Key terms show</span>${frontSeg()}</div>`:''}
   </section>
@@ -606,6 +620,7 @@ function home(){
     <div class="row"><button class="btn ghost" id="bank">Browse by instructional area</button><button class="btn ghost" id="bmiss" ${qb.missed?'':'disabled'}>Practice my missed questions${qb.missed?' ('+qb.missed+')':''}</button></div>
   </section>
   <section class="card"><div class="row" style="justify-content:space-between;margin-bottom:8px"><h2>By instructional area</h2><span class="muted" style="font-size:13px">Select an area to practice it in the bank</span></div>
+    ${wk?`<div class="row" style="justify-content:space-between;border-left:3px solid var(--red);padding:4px 0 4px 12px;margin-bottom:10px"><span style="font-size:14px">Your weakest area right now is <b>${esc(wk.ia)}</b> at ${Math.round(wk.acc*100)}%.</span><button class="btn ghost" id="weak">Practice ${esc(wk.ia)}</button></div>`:''}
     ${iaStats().map(x=>`<div class="ia" data-ia="${esc(x.ia)}" role="button" tabindex="0"><span>${esc(x.ia)} <span class="muted">· ${x.seen}/${x.n}</span></span><div class="bar"><i style="width:${x.acc==null?0:x.acc*100}%"></i><span class="mk" style="left:80%"></span></div><span class="n">${x.acc==null?'—':Math.round(x.acc*100)+'%'}</span></div>`).join('')}
   </section>
   <section class="card" style="display:grid;gap:12px">
@@ -622,6 +637,8 @@ function home(){
   document.getElementById('bmiss').onclick=()=>{openBank({type:'q',ia:'',st:'missed',rt:'any'},true)};
   app.querySelectorAll('.ia[data-ia]').forEach(r=>{const go=()=>openBank({type:'q',ia:r.dataset.ia,st:'all',rt:'any'}); r.onclick=go; r.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();go()}}});
   document.getElementById('exam').onclick=()=>startExam(false); document.getElementById('mock').onclick=()=>startExam(true);
+  const mo=document.getElementById('more'); if(mo)mo.onclick=keepGoing;
+  const wb=document.getElementById('weak'); if(wb)wb.onclick=()=>openBank({type:'q',ia:wk.ia,st:'all',rt:'any'},true);
   document.getElementById('imp').onclick=importPanel;
   const sg=document.getElementById('signin2'); if(sg)sg.onclick=()=>{P.cur='';saveProfile();MODE='cloud';signin()};
   const ad=document.getElementById('adv'); if(ad)ad.onclick=()=>advisor();
@@ -727,9 +744,10 @@ function done(){
   const pct=session.done?Math.round(session.right/session.done*100):0;
   app.innerHTML=`<section class="card" style="display:grid;gap:14px"><h1>Session complete</h1>
    <div class="grid"><div class="stat red"><b>${session.done}</b><span>cards reviewed</span></div><div class="stat"><b>${pct}%</b><span>answered right</span></div><div class="stat"><b>${streak()}</b><span>day streak</span></div></div>
-   <p class="muted" style="margin:0">Missed cards come back tomorrow. Cards you knew come back in a few days. Come back tomorrow for your next session.</p>
-   <div class="row"><button class="btn" id="h">Back to today’s plan</button>${MODE==='cloud'?'<button class="btn ghost" id="lbd">See the leaderboard</button>':''}<span class="muted" style="font-size:13px" data-sync>${syncText()}</span></div></section>`;
-  document.getElementById('h').onclick=home; const lbd=document.getElementById('lbd'); if(lbd)lbd.onclick=async()=>{if(dirty){try{await push()}catch(e){}} leaderboard(true)}; if(dirty)push();
+   <p class="muted" style="margin:0">Missed cards come back tomorrow. Cards you knew come back in a few days.${moreCount()?' Have time left? Keep going with more new cards to work through the whole deck.':' Come back tomorrow for your next session.'}</p>
+   ${(()=>{const d=deckStats(); return `<div style="display:grid;gap:6px"><div class="row" style="justify-content:space-between"><b>Whole deck: ${d.seen} of ${d.n} questions</b><span class="muted" style="font-size:13px">${Math.round(d.pct*100)}%</span></div><div class="bar"><i style="width:${(d.pct*100).toFixed(1)}%"></i></div></div>`})()}
+   <div class="row">${moreCount()?`<button class="btn" id="kg">Keep going: ${moreCount()} more new</button>`:''}<button class="btn ${moreCount()?'ghost':''}" id="h">Back to today’s plan</button>${MODE==='cloud'?'<button class="btn ghost" id="lbd">See the leaderboard</button>':''}<span class="muted" style="font-size:13px" data-sync>${syncText()}</span></div></section>`;
+  document.getElementById('h').onclick=home; const kg=document.getElementById('kg'); if(kg)kg.onclick=keepGoing; const lbd=document.getElementById('lbd'); if(lbd)lbd.onclick=async()=>{if(dirty){try{await push()}catch(e){}} leaderboard(true)}; if(dirty)push();
 }
 
 /* ---------- timed practice set ---------- */
