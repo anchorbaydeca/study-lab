@@ -323,6 +323,53 @@ table.dt{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numer
 .dt td.nm{white-space:normal;min-width:180px}
 .dt tr:last-child td{border-bottom:0}
 .dt .lo,.dt .old{color:var(--bad)}.dt .hi{color:var(--good)}
+
+/* ── Concept lesson library ── */
+.modbtn .wd{flex:none;font-family:"Montserrat",Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--good)}
+.modbtn.seen{border-left-color:var(--good)}
+.modbtn.seen .pl{background:var(--good)}
+/* ── Light / dark mode (Nov 25) ── */
+:root{--field:#ffffff;--soft:#f3f5f9;--soft-hover:#e7eaf1;--shade:rgba(0,0,0,.2)}
+:root[data-theme="dark"]{--bg:#141416;--surface:#1c1c1f;--surface2:#2a2a2e;--fg:#f4f4f5;--body:#c9c9cf;--muted:#9c9ca3;--rule:#34343a;
+  --red:#e02020;--red-hover:#f03a3a;--red-press:#c00000;--red-tint:#3b1517;--on-red:#ffffff;
+  --good:#3fbf78;--good-tint:#14301f;--bad:#ff5c5c;--bad-tint:#3b1517;--grey:#8a8a8f;
+  --field:#1c1c1f;--soft:#2a2a2e;--soft-hover:#35353a;--shade:rgba(0,0,0,.55);color-scheme:dark}
+.chip,.opt,.xo,.tool,.modbtn,#calc,#calc .ck button,.signin input,.signin select,.fl select,textarea,input[type=text]{background:var(--field)}
+.top select option{color:var(--fg);background:var(--bg)}
+#calc{border-color:var(--rule);box-shadow:0 14px 36px var(--shade)}
+.mvp{background:var(--bg)}
+/* lessons stay on a white stage in both modes, like chapter slides */
+.mvstage{--bg:#ffffff;--surface:#ffffff;--surface2:#f5f5f5;--fg:#000000;--body:#4d4d4d;--muted:#7a7a7a;--rule:#e0e0e0;
+  --red:#cc0000;--red-tint:#fbe6e6;--good:#127c3f;--good-tint:#e7f3ec;color:var(--body)}
+.thm{display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid rgba(255,255,255,.7);color:#fff;font-family:"Montserrat",Arial,sans-serif;font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;min-height:32px;cursor:pointer}
+.thm:hover{background:rgba(255,255,255,.14)}
+.thm svg{width:15px;height:15px;fill:currentColor;stroke:currentColor}
+.thm circle{stroke:none}
+@media (max-width:520px){.thm span{display:none}.thm{padding:6px 8px}}
+/* ── Softer buttons, after DECA+ (Nov 25): rounded corners, filled secondary buttons ── */
+.btn,.thm,.who,.top select,.tool,.xo,.chip,.signin input,.signin select,.fl select,textarea,input[type=text],kbd{border-radius:7px!important}
+.btn{letter-spacing:.08em;padding:12px 22px}
+.btn.sm{border-radius:6px!important}
+.btn.ghost{background:var(--soft);color:var(--fg);border-color:transparent}
+.btn.ghost:hover{background:var(--soft-hover)}.btn.ghost:active{background:var(--soft-hover);color:var(--fg)}
+.seg{border:0;background:var(--soft);padding:3px;gap:3px;border-radius:9px!important}
+.seg button{border-radius:6px!important;color:var(--fg)}
+.seg button[aria-pressed="true"]{background:var(--red);color:#fff}
+.opt,.modbtn,.miss,.notice{border-radius:9px!important}
+.opt .l{border-radius:50%!important}
+.modbtn .pl{border-radius:7px!important}
+.card,.tblwrap,.mvp{border-radius:12px!important}
+.mvp{overflow:hidden}
+.mvstage{border-radius:8px!important}
+#calc{border-radius:12px!important;overflow:hidden}
+#calc .ck{gap:6px;padding:8px;background:var(--field)}
+#calc .ck button{border-radius:7px!important;background:var(--soft)}
+#calc .ck button:hover{background:var(--soft-hover)}
+#calc .ck .fn,#calc .ck .op{background:var(--soft-hover)}
+#calc .ck .eq{background:var(--red)}#calc .ck .eq:hover{background:var(--red-hover)}
+.bar,.bar i,.mvsteps button i{border-radius:99px!important}
+.lbr.me{border-radius:8px!important}
+@media (max-width:640px){#calc{border-radius:14px 14px 0 0!important}}
 </style>
 
 <div class="sample">Progress saves to your Study Lab account · sign in with the same email and password on any device</div>
@@ -331,11 +378,12 @@ table.dt{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numer
   <label class="row" style="gap:8px;font-size:13px">Cluster
     <select id="cluster"></select>
   </label>
-  <button class="who" id="who" hidden></button>
+  <div class="row" style="gap:8px"><button class="thm" id="thm" type="button"></button><button class="who" id="who" hidden></button></div>
 </div></header>
 <main id="app"><p class="muted">Loading questions…</p></main>
 <footer class="foot"><span>Anchor Bay High School DECA · Study Lab</span><span>Chapter-written questions</span></footer>
 
+<script>try{if(localStorage.getItem("abdeca-theme")==="dark")document.documentElement.dataset.theme="dark"}catch(e){}</script>
 <script type="module" src="cloud.js" onerror="window.dispatchEvent(new Event('cloud-fail'))"></script>
 <script>
 (()=>{
@@ -352,7 +400,7 @@ let DATA=null, S=null, P=null, storageOK=true, session=null, KEY='';
    Each student's progress is kept on this device (localStorage) and in their Study Lab
    account (Cloud Firestore, through cloud.js). Records are keyed by the student's scrambled ID. */
 const SKEY='abdeca-study-v3';
-function blank(){return{v:3,boost:{},name:'',cards:{},log:[],days:{},exams:[],mode:'q',newToday:{d:'',n:0},reports:[],bank:null,upd:0}}
+function blank(){return{v:3,boost:{},name:'',cards:{},log:[],days:{},exams:[],mode:'q',newToday:{d:'',n:0},reports:[],bank:null,upd:0,seenL:{}}}
 function loadProfile(){try{const p=JSON.parse(localStorage.getItem(PKEY))||{};return p.v===3?{v:3,users:p.users||{},cur:p.cur||''}:{v:3,users:{},cur:''}}catch(e){storageOK=false;return{v:3,users:{},cur:''}}}
 function saveProfile(){try{localStorage.setItem(PKEY,JSON.stringify(P))}catch(e){storageOK=false}}
 const me=()=>P.users[P.cur];
@@ -390,6 +438,7 @@ function mergeS(a,b){
   const ex={}; for(const e of a.exams.concat(b.exams))ex[e.at]=e; m.exams=Object.values(ex).sort((x,y)=>x.at-y.at);
   m.reports=[...new Set(a.reports.concat(b.reports))].sort((x,y)=>x-y);
   m.boost=Object.assign({},b.boost||{},a.boost||{});
+  m.seenL=Object.assign({},a.seenL||{},b.seenL||{});
   const p=a.newToday||{d:'',n:0},q=b.newToday||{d:'',n:0}; m.newToday=p.d===q.d?{d:p.d,n:Math.max(p.n,q.n),x:Math.max(p.x||0,q.x||0)}:dkeyT(q.d)>dkeyT(p.d)?q:p;
   m.v=3; m.upd=Math.max(a.upd||0,b.upd||0); return m}
 const richer=(m,r)=>!r||m.log.length>r.log.length||m.exams.length>r.exams.length||Object.keys(m.cards).length>Object.keys(r.cards).length;
@@ -619,6 +668,7 @@ function home(){
     <div class="grid"><div class="stat red"><b>${qb.missed}</b><span>missed, not yet fixed</span></div><div class="stat"><b>${qb.right}</b><span>answered correctly</span></div><div class="stat"><b>${qb.new}</b><span>not tried yet</span></div></div>
     <div class="row"><button class="btn ghost" id="bank">Browse by instructional area</button><button class="btn ghost" id="bmiss" ${qb.missed?'':'disabled'}>Practice my missed questions${qb.missed?' ('+qb.missed+')':''}</button></div>
   </section>
+  <section class="card" id="lscard">${lessonCard()}</section>
   <section class="card"><div class="row" style="justify-content:space-between;margin-bottom:8px"><h2>By instructional area</h2><span class="muted" style="font-size:13px">Select an area to practice it in the bank</span></div>
     ${wk?`<div class="row" style="justify-content:space-between;border-left:3px solid var(--red);padding:4px 0 4px 12px;margin-bottom:10px"><span style="font-size:14px">Your weakest area right now is <b>${esc(wk.ia)}</b> at ${Math.round(wk.acc*100)}%.</span><button class="btn ghost" id="weak">Practice ${esc(wk.ia)}</button></div>`:''}
     ${iaStats().map(x=>`<div class="ia" data-ia="${esc(x.ia)}" role="button" tabindex="0"><span>${esc(x.ia)} <span class="muted">· ${x.seen}/${x.n}</span></span><div class="bar"><i style="width:${x.acc==null?0:x.acc*100}%"></i><span class="mk" style="left:80%"></span></div><span class="n">${x.acc==null?'—':Math.round(x.acc*100)+'%'}</span></div>`).join('')}
@@ -626,8 +676,7 @@ function home(){
   <section class="card" style="display:grid;gap:12px">
     <h2>Your account</h2>
     <p class="muted" style="margin:0;font-size:14px">${MODE==='cloud'?'Signed in as '+esc(me().email||'your school email')+'. ':''}<span data-sync>${syncText()}</span></p>
-    <div class="row">${MODE==='local'?'<button class="btn" id="signin2">Sign in</button>':''}<button class="btn ghost" id="imp">Bring in progress from the old Study Lab</button>${ADV?'<button class="btn ghost" id="adv">Advisor dashboard</button>':''}</div>
-    <div id="panel"></div>
+    ${MODE==='local'||ADV?`<div class="row">${MODE==='local'?'<button class="btn" id="signin2">Sign in</button>':''}${ADV?'<button class="btn ghost" id="adv">Advisor dashboard</button>':''}</div>`:''}
   </section>`;
   FLASH='';
   app.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{S.mode=b.dataset.mode;save();home()});
@@ -639,7 +688,6 @@ function home(){
   document.getElementById('exam').onclick=()=>startExam(false); document.getElementById('mock').onclick=()=>startExam(true);
   const mo=document.getElementById('more'); if(mo)mo.onclick=keepGoing;
   const wb=document.getElementById('weak'); if(wb)wb.onclick=()=>openBank({type:'q',ia:wk.ia,st:'all',rt:'any'},true);
-  document.getElementById('imp').onclick=importPanel;
   const sg=document.getElementById('signin2'); if(sg)sg.onclick=()=>{P.cur='';saveProfile();MODE='cloud';signin()};
   const ad=document.getElementById('adv'); if(ad)ad.onclick=()=>advisor();
   const lg=document.getElementById('lbgo'); if(lg)lg.onclick=()=>leaderboard();
@@ -648,33 +696,6 @@ function home(){
 }
 function lastOf(m){for(let i=S.exams.length-1;i>=0;i--)if(!!S.exams[i].mock===m)return S.exams[i]; return null}
 function lastEx(m){const e=lastOf(m); return e?`${Math.round(e.right/e.n*100)}% on ${fmt(new Date(e.at))}${m&&e.unseen!=null?` (${e.unseen} of ${e.n} unseen)`:''}`:''}
-function dec(s){return JSON.parse(decodeURIComponent(escape(atob(s.trim()))))}
-/* ---------- moving progress in from the old (claude.ai) Study Lab ----------
-   Accepts an old "Backup code", or a move code (SLM1.) that carries every cluster at once. */
-async function unpackMove(code){const b=code.trim().slice(5).replace(/-/g,'+').replace(/_/g,'/'), bin=Uint8Array.from(atob(b),c=>c.charCodeAt(0));
-  return JSON.parse(await new Response(new Blob([bin]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).text())}
-async function importCode(raw){
-  raw=String(raw||'').trim(); if(!raw)throw new Error('empty');
-  let pack; if(raw.startsWith('SLM1.'))pack=await unpackMove(raw); else{const o=dec(raw); pack={email:o.email,clusters:{[o.cluster||me().cluster]:o}}}
-  if(!pack||!pack.clusters)throw new Error('bad');
-  if(pack.email&&(await sidFor(pack.email))!==me().sid)return{err:'That code belongs to '+pack.email+'. Sign in as that student to bring it in.'};
-  const added=[];
-  for(const[cl,o]of Object.entries(pack.clusters)){
-    if(!CLUSTERS.some(c=>c[0]===cl)||!o||!o.cards||!Object.keys(o.cards).length)continue;
-    const st=Object.assign(blank(),o); delete st.email; delete st.cluster; st.upd=st.upd||1;
-    if(cl===me().cluster){applyState(mergeS(JSON.parse(JSON.stringify(S)),st)); S.upd=Date.now(); localSave(); dirty+=10; markDirty()}
-    else{const k=keyFor(me().sid,cl), m=mergeS(readLocal(k),st); try{localStorage.setItem(k,JSON.stringify(m))}catch(e){}
-      if(MODE==='cloud'&&CLOUD){try{await CLOUD.syncState(me().sid,cl,m,mergeS,null)}catch(e){console.warn(e)}}}
-    added.push(cname(cl))}
-  return{added}}
-function importPanel(){const p=document.getElementById('panel');
-  p.innerHTML=`<div style="display:grid;gap:8px"><span style="font-size:14px">In the old Study Lab, press <b>Backup code</b> (or <b>Move to the new Study Lab</b>), copy the code and paste it here. Your old answers are added to this account; nothing here is lost.</span><textarea id="rc" placeholder="Paste the code"></textarea><div class="row"><button class="btn" id="rgo">Bring it in</button><span id="rmsg" class="muted" style="font-size:13px"></span></div></div>`;
-  document.getElementById('rgo').onclick=async()=>{const msg=document.getElementById('rmsg'); msg.textContent='Working…';
-    try{const r=await importCode(document.getElementById('rc').value); if(r.err){msg.textContent=r.err;return}
-      if(!r.added.length){msg.textContent='That code has no answers in it yet.';return}
-      FLASH='Brought in your progress for '+r.added.join(', ')+'.'; home()}
-    catch(e){console.warn(e); msg.textContent='That code didn’t work. Copy the whole code and try again.'}}}
-
 /* ---------- study loop ---------- */
 function next(){
   if(!session.queue.length)return done();
@@ -967,8 +988,29 @@ function lbRender(edit){
    answer, so the Study Lab still asks before it teaches. Scenes advance on their own; the
    viewer can pause, go back, skip ahead or jump to any step. */
 let MODS={}, MV=null;
-fetch('data/modules.json').then(r=>r.ok?r.json():{}).then(m=>{MODS=m||{}}).catch(()=>{});
+fetch('data/modules.json').then(r=>r.ok?r.json():{}).then(m=>{MODS=m||{}; const c=document.getElementById('lscard'); if(c&&DATA)c.innerHTML=lessonCard()}).catch(()=>{});
 const PLAY='<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l7 4-7 4z"/></svg>';
+/* ---------- concept lesson library ----------
+   Every lesson whose concept appears in this cluster's questions, grouped by instructional area. */
+function lessonList(){const by={}; for(const q of (DATA&&DATA.q)||[]){if(!MODS[q.pi])continue; const e=by[q.pi]||(by[q.pi]={pi:q.pi,ia:q.ia,n:0,m:MODS[q.pi]}); e.n++}
+  return Object.values(by).sort((a,b)=>a.ia.localeCompare(b.ia)||a.m.title.localeCompare(b.m.title))}
+function watched(pi){return !!(S&&S.seenL&&S.seenL[pi])}
+function lessonCard(){const L=lessonList(), w=L.filter(x=>watched(x.pi)).length;
+  if(!L.length)return `<h2 style="margin-bottom:8px">Concept lessons</h2><p class="muted" style="margin:0;font-size:14px">Short animated lessons that explain the concepts behind the questions. Lessons for ${esc(cname(DATAKEY))} are on the way.</p>`;
+  return `<div class="row" style="justify-content:space-between;margin-bottom:8px"><h2>Concept lessons</h2><span class="muted" style="font-size:13px">${w} of ${L.length} watched</span></div>
+    <p class="muted" style="margin:0 0 12px;font-size:14px">Short silent animations, about a minute each, that explain the concepts behind the questions and support what we covered in lecture. Each one ends with practice on every question for that concept. More are added each week.</p>
+    <div class="bar" style="margin-bottom:14px"><i style="width:${(w/L.length*100).toFixed(1)}%"></i></div>
+    <div class="row"><button class="btn ghost" id="lsgo">Browse ${L.length} concept lesson${L.length===1?'':'s'}</button></div>`}
+function lessons(){const L=lessonList(), w=L.filter(x=>watched(x.pi)).length, groups={};
+  for(const x of L)(groups[x.ia]=groups[x.ia]||[]).push(x);
+  app.innerHTML=`<div id="lsview" style="display:grid;gap:18px">
+    <div style="display:grid;gap:8px"><h1>Concept lessons</h1>
+      <p class="muted" style="margin:0">${L.length?`${L.length} lesson${L.length===1?'':'s'} for ${esc(cname(DATAKEY))}, ${w} watched. Each one explains a concept step by step in about a minute, then lets you practice every question on it.`:`Lessons for ${esc(cname(DATAKEY))} are on the way.`}</p></div>
+    <div class="row"><button class="btn ghost" id="lsback">Back to today’s plan</button></div>
+    ${Object.entries(groups).map(([ia,xs])=>`<section class="card" style="display:grid;gap:10px"><div class="row" style="justify-content:space-between"><h2>${esc(ia)}</h2><span class="muted" style="font-size:13px">${xs.filter(x=>watched(x.pi)).length} of ${xs.length} watched</span></div>
+      ${xs.map(x=>`<button type="button" class="modbtn${watched(x.pi)?' seen':''}" data-mod="${esc(x.pi)}"><span class="pl">${PLAY}</span><span style="flex:1;min-width:0"><b>${esc(x.m.title)}</b><small>${esc(x.m.pt||'')} · ${x.n} question${x.n===1?'':'s'} · ${modLen(x.m)}</small></span>${watched(x.pi)?'<span class="wd">Watched</span>':''}</button>`).join('')}</section>`).join('')}
+  </div>`;
+  document.getElementById('lsback').onclick=home; scrollTo(0,0)}
 function modLen(m){const s=m.scenes.reduce((a,x)=>a+(x.dur||8),0); return s<75?'about 1 minute':Math.round(s/60)+' minutes'}
 function modBtn(it){const m=it&&it.pi&&MODS[it.pi]; if(!m)return '';
   return `<button type="button" class="modbtn" data-mod="${esc(it.pi)}"><span class="pl">${PLAY}</span><span><b>Watch: ${esc(m.title)}</b><small>A silent animation of the concept behind this question · ${modLen(m)}</small></span></button>`}
@@ -1008,7 +1050,8 @@ function openModule(pi){const m=MODS[pi]; if(!m)return;
 function mvShow(i){const m=MV.m, st=document.getElementById('mvs'), n=m.scenes.length; MV.i=Math.min(i,n);
   document.querySelectorAll('.mvsteps button').forEach((b,k)=>{b.classList.toggle('done',k<MV.i); b.classList.toggle('cur',k===MV.i&&MV.i<n)});
   if(MV.i>=n){const L=(DATA&&DATA.q||[]).filter(q=>q.pi===MV.pi);
-    st.innerHTML=`<div class="mvsc s-end"><h3 class="a-in">That’s ${esc(m.title.toLowerCase())}.</h3><p class="a-in" ${dl(1,.2)}>${L.length?`Put it to work: ${L.length} question${L.length===1?'':'s'} in your cluster test this concept.`:'Watch it again any time from a question on this concept.'}</p>
+    if(S&&!watched(MV.pi)){S.seenL=Object.assign({},S.seenL,{[MV.pi]:Date.now()}); S.upd=Date.now(); localSave(); markDirty()}
+    st.innerHTML=`<div class="mvsc s-end"><h3 class="a-in">That’s ${esc(m.title.toLowerCase())}.</h3><p class="a-in" ${dl(1,.2)}>${L.length?`Put it to work: ${L.length} question${L.length===1?'':'s'} in your cluster test this concept.`:'Watch it again any time from Concept lessons on your home page.'}</p>
       <div class="row a-in" ${dl(2,.2)}>${L.length?`<button type="button" class="btn" data-mv="prac">Practice ${L.length===1?'this question':'these '+L.length}</button>`:''}<button type="button" class="btn ghost" data-mv="again">Watch again</button></div></div>`;
     document.getElementById('mvc').textContent=''; document.getElementById('mvpp').disabled=true; return}
   document.getElementById('mvpp').disabled=false;
@@ -1026,10 +1069,12 @@ function mvKey(e){if(!MV)return; const k=e.key;
   if(k==='ArrowLeft'){e.preventDefault();e.stopImmediatePropagation();return mvShow(Math.max(0,MV.i-1))}
   if(k!=='Tab'&&k!=='Enter')e.stopImmediatePropagation()}
 function closeModule(){const el=document.getElementById('mv'); if(el){el.hidden=true; el.innerHTML=''} document.removeEventListener('keydown',mvKey,true);
-  document.body.style.overflow=''; const r=MV&&MV.ret; MV=null; if(r&&r.focus)try{r.focus()}catch(e){}}
+  document.body.style.overflow=''; const r=MV&&MV.ret, pi=MV&&MV.pi; MV=null;
+  if(document.getElementById('lsview')){const y=scrollY; lessons(); scrollTo(0,y); const b=pi&&app.querySelector(`[data-mod="${pi}"]`); if(b)try{b.focus({preventScroll:true})}catch(e){} return}
+  if(r&&r.focus)try{r.focus()}catch(e){}}
 function mvPractice(){const pi=MV.pi, L=DATA.q.filter(q=>q.pi===pi); closeModule(); if(!L.length)return;
   BF={type:'q',ia:'',st:'all',rt:'any',shuffle:false,shown:60}; startRun(L.slice().sort(()=>Math.random()-.5),0)}
-app.addEventListener('click',e=>{const b=e.target.closest('[data-mod]'); if(b)openModule(b.dataset.mod)});
+app.addEventListener('click',e=>{const b=e.target.closest('[data-mod]'); if(b)return openModule(b.dataset.mod); if(e.target.closest('#lsgo'))lessons()});
 
 /* ---------- calculator ----------
    A basic four-function calculator, like the one allowed on the DECA exam. It floats over the
@@ -1264,20 +1309,26 @@ async function loadCluster(cl){
     if(!me()||me().cluster!==cl)return;
     DATA=d; DATAKEY=cl; home(); if(dirty)markDirty();
     if(MODE==='cloud'&&ADVP)ADVP.then(v=>{if(!v&&me()&&me().cluster===cl&&DATAKEY===cl)boardPut(me().sid,cl,S).catch(e=>console.warn('Study Lab board',e))});
-    if(PMOVE){const code=PMOVE; PMOVE=''; importCode(code).then(r=>{FLASH=r.err||(r.added.length?'Brought in your progress for '+r.added.join(', ')+'.':'')}).catch(e=>{console.warn(e);FLASH='The move link didn’t work. Use “Bring in progress from the old Study Lab” instead.'}).then(()=>{if(document.getElementById('bmiss'))home()})}
-    else if(location.hash==='#advisor'&&ADV)advisor()}
+    if(location.hash==='#advisor'&&ADV)advisor()}
   catch(e){console.error('Study Lab load error',e);app.innerHTML='<div class="notice">The question set could not load. Check your connection and refresh the page.</div>'}}
 function showWho(){if(P.cur&&me()){whoB.hidden=false;whoB.textContent=who()+(MODE==='cloud'?' · sign out':' · switch');sel.disabled=false}else{whoB.hidden=true;sel.disabled=true}}
 whoB.onclick=async()=>{
   if(MODE==='cloud'&&CLOUD&&CLOUD.currentSid()){whoB.textContent='Saving…'; try{if(dirty)await push()}catch(e){} P.cur=''; saveProfile(); await CLOUD.signOut()}
   else{P.cur=''; saveProfile(); MODE='cloud'; signin()}};
 sel.onchange=()=>{if(P.cur)loadCluster(sel.value)};
+/* Light / dark mode: remembered on this device; light is the default. */
+const thmB=document.getElementById('thm');
+const SUN='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><g stroke-width="2" stroke-linecap="round"><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></g></svg>';
+const MOON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.4 8.4 0 1 0 10.8 10.8z"/></svg>';
+function paintTheme(){const dk=document.documentElement.dataset.theme==='dark';
+  thmB.innerHTML=(dk?SUN:MOON)+'<span>'+(dk?'Light':'Dark')+'</span>'; thmB.setAttribute('aria-label',dk?'Switch to light mode':'Switch to dark mode'); thmB.title=thmB.getAttribute('aria-label')}
+thmB.onclick=()=>{const dk=document.documentElement.dataset.theme!=='dark';
+  if(dk)document.documentElement.dataset.theme='dark'; else delete document.documentElement.dataset.theme;
+  try{localStorage.setItem('abdeca-theme',dk?'dark':'light')}catch(e){} paintTheme()};
+paintTheme();
 function waitCloud(){return new Promise(res=>{if(window.Cloud)return res(window.Cloud); const t=setTimeout(()=>res(window.Cloud||null),10000);
   addEventListener('cloud-ready',()=>{clearTimeout(t);res(window.Cloud)},{once:true}); addEventListener('cloud-fail',()=>{clearTimeout(t);res(null)},{once:true})})}
 P=loadProfile();
-let PMOVE=location.hash.startsWith('#move=')?decodeURIComponent(location.hash.slice(6)):'';
-if(PMOVE)history.replaceState(null,'',location.pathname+location.search);
-addEventListener('hashchange',()=>{if(location.hash.startsWith('#move='))location.reload()});
 app.innerHTML='<p class="muted">Loading…</p>';
 waitCloud().then(c=>{
   if(!c){MODE='local'; if(P.cur&&me()){showWho();loadCluster(me().cluster)}else signin(); return}
