@@ -50,6 +50,27 @@ service cloud.firestore {
       }
     }
 
+    // Leaderboard: card counts per cluster for every student, and the display
+    // name (first name and last initial) each student enters.
+    // Any signed-in account can read it. Students write only their own record and
+    // can't change "hidden"; advisors can change only "hidden".
+    function boardOk() {
+      let d = request.resource.data;
+      return d.keys().hasOnly(['name', 'cl', 'upd', 'hidden'])
+        && (!('name' in d) || (d.name is string && (d.name.size() == 0 || (d.name.size() >= 2 && d.name.size() <= 30))))
+        && (!('cl' in d) || (d.cl is map && d.cl.keys().hasOnly(['marketing', 'finance', 'hospitality', 'bma', 'entrepreneurship', 'pfl', 'bacore'])))
+        && (!('upd' in d) || d.upd is number);
+    }
+    match /board/{sid} {
+      allow read: if authed();
+      allow create: if owns(sid) && boardOk() && !('hidden' in request.resource.data);
+      allow update: if (owns(sid) && boardOk()
+          && request.resource.data.get('hidden', false) == resource.data.get('hidden', false))
+        || (advisor() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['hidden'])
+          && request.resource.data.hidden is bool);
+      allow delete: if false;
+    }
+
     // Live coach tracker pages (trip/<trip id>/ on the site). Anyone with the
     // link can read a trip's position, schedule and announcements; only
     // advisors can change them.

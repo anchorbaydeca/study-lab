@@ -75,6 +75,19 @@ const Cloud = {
     }), 20000);
   },
 
+  // Leaderboard: one record per student under /board, holding card counts per cluster and,
+  // only if the student joins the leaderboard, a display name they chose.
+  async getBoard(sid) {
+    const s = await withTimeout(getDoc(doc(db, 'board', sid)), 10000);
+    return s.exists() ? s.data() : null;
+  },
+  putBoard(sid, patch) { return withTimeout(setDoc(doc(db, 'board', sid), patch, { merge: true }), 15000); },
+  async listBoard() {
+    const q = await withTimeout(getDocs(collection(db, 'board')), 20000);
+    return q.docs.map(d => Object.assign({ sid: d.id }, d.data()));
+  },
+  setHidden(sid, hidden) { return withTimeout(setDoc(doc(db, 'board', sid), { hidden: !!hidden }, { merge: true }), 15000); },
+
   async isAdvisor(sid) {
     try { return (await withTimeout(getDoc(doc(db, 'advisors', sid)), 10000)).exists(); } catch (e) { return false; }
   },

@@ -158,6 +158,23 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 .foot{max-width:880px;margin:0 auto;padding:18px 16px 36px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:"Montserrat",Arial,sans-serif;font-weight:700;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
 @media (max-width:520px){h1{font-size:21px}.brand img{height:24px}.brand small{padding-left:10px}}
 main.wide{max-width:1240px}
+/* ── Leaderboard ── */
+ol.lb{list-style:none;margin:0;padding:0}
+.lbr{display:grid;grid-template-columns:40px minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--rule)}
+.lb>li:last-child{border-bottom:0}
+.lbr .rk{font-family:"Montserrat",Arial,sans-serif;font-weight:700;font-size:20px;color:var(--fg);text-align:center;font-variant-numeric:tabular-nums}
+.lbr.p3 .rk{color:var(--red)}
+.lbr .nm{display:grid;gap:1px;min-width:0}
+.lbr .nm b{color:var(--fg);font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lbr .nm small{font-size:12px;color:var(--muted)}
+.lbr .nm b.un{color:var(--muted);font-weight:500;font-style:italic}
+.lbr .you{font-family:"Montserrat",Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-left:8px}
+.lbr .ct{text-align:right;color:var(--muted);font-size:13px;white-space:nowrap}
+.lbr .ct b{font-size:18px;color:var(--fg);font-variant-numeric:tabular-nums;margin-right:4px}
+.lbr.me{background:var(--red-tint);margin:0 -16px;padding-left:16px;padding-right:16px}
+.lbr.hid{opacity:.45}
+.lb .gap{text-align:center;color:var(--muted);padding:2px 0;border-bottom:1px solid var(--rule);letter-spacing:.3em}
+.btn.sm{min-height:34px;padding:6px 12px;font-size:11px}
 /* ── Cross out answer choices ── */
 .orow{display:flex;gap:8px;align-items:stretch}
 .orow .opt{flex:1 1 auto;min-width:0}
@@ -281,7 +298,7 @@ const richer=(m,r)=>!r||m.log.length>r.log.length||m.exams.length>r.exams.length
    Answers save on this device at once and reach the account a few seconds later (sooner after
    10 answers, at the end of a session and when the page is hidden). Each save merges with what
    the account already has, so a phone and a school computer never overwrite each other. */
-let CLOUD=null, MODE='cloud', dirty=0, pushT=null, syncing=null, lastSync=0, syncErr='', ADV=false, DATAKEY='', FLASH='', PENDING=null;
+let ADVP=null, CLOUD=null, MODE='cloud', dirty=0, pushT=null, syncing=null, lastSync=0, syncErr='', ADV=false, DATAKEY='', FLASH='', PENDING=null;
 function markDirty(){if(MODE!=='cloud'||!CLOUD)return; dirty++; clearTimeout(pushT); pushT=setTimeout(push,dirty>=10?300:12000); paintSync()}
 function applyState(m){for(const k of Object.keys(m))S[k]=m[k]}
 function push(){
@@ -291,6 +308,7 @@ function push(){
     const m=await CLOUD.syncState(sid,cl,snap,mergeS,{cluster:cl,front:front(),upd:Date.now(),sum:{[cl]:summary()}});
     if(me()&&me().sid===sid&&me().cluster===cl&&richer(m,snap)){applyState(mergeS(JSON.parse(JSON.stringify(S)),m)); localSave(); CLOUD.putStudent(sid,{sum:{[cl]:summary()}}).catch(()=>{})}
     dirty=Math.max(0,dirty-n); lastSync=Date.now(); syncErr='';
+    boardPut(sid,cl,m).catch(e=>console.warn('Study Lab board',e));
   }catch(e){syncErr=e.code||'error'; console.warn('Study Lab sync',e); clearTimeout(pushT); pushT=setTimeout(push,45000)}
   finally{syncing=null; paintSync(); if(dirty&&!syncErr){clearTimeout(pushT); pushT=setTimeout(push,12000)}}})();
   return syncing}
@@ -447,6 +465,11 @@ function home(){
   app.innerHTML=`
   ${storageOK?'':'<div class="notice">This browser is blocking storage (private window or blocked site data). Your progress still saves to your account, but keep this tab open until it says “Saved to your account.”</div>'}
   ${FLASH?`<div class="notice">${esc(FLASH)}</div>`:''}
+  ${MODE==='cloud'&&me().lb===''&&!ADV?`<section class="card" style="display:grid;gap:12px;border-left:3px solid var(--red)">
+    <h2>Add your name to the leaderboard</h2>
+    <p class="muted" style="margin:0;font-size:14px">Every Study Lab student is on the chapter leaderboard. Enter your first name and last initial so your cards show under your name.</p>
+    <div class="row"><input type="text" id="hn" maxlength="30" placeholder="Jordan S." autocomplete="off" style="max-width:240px"><button class="btn" id="hns">Save name</button></div>
+    <div class="err" id="hne"></div></section>`:''}
   ${MODE==='local'?'<div class="notice">You’re studying without signing in because the sign-in service couldn’t be reached. Progress saves on this device and moves into your account the next time you sign in here.</div>':''}
   <section class="row" style="justify-content:space-between;align-items:flex-end">
     <div style="display:grid;gap:6px"><h1>Today’s ${esc(cname(me().cluster))} plan</h1>
@@ -474,6 +497,9 @@ function home(){
     ${lastEx(true)||lastEx(false)?`<div class="prog" style="font-size:13.5px">${lastEx(true)?`<span>Last mock exam: <b style="color:var(--fg)">${lastEx(true)}</b></span>`:''}${lastEx(false)?`<span>Last timed set: <b style="color:var(--fg)">${lastEx(false)}</b></span>`:''}</div>`:''}
     <p class="muted" style="margin:0;font-size:13px">Retries right after you see an answer don’t count here, so this tracks what you’d know on exam day. A mock exam on questions you haven’t seen is the best check before a benchmark.</p>
   </section>
+  ${MODE==='cloud'?`<section class="card row" style="justify-content:space-between">
+    <div style="display:grid;gap:4px"><h2>Leaderboard</h2><span class="muted" style="font-size:13px">See how many cards every student has completed this week, and the chapter’s total.</span></div>
+    <button class="btn ghost" id="lbgo">See the leaderboard</button></section>`:''}
   <section class="card" style="display:grid;gap:12px">
     <div class="row" style="justify-content:space-between"><h2>Question bank</h2><span class="muted" style="font-size:13px">Practice by instructional area, outside the daily schedule</span></div>
     <div class="grid"><div class="stat red"><b>${qb.missed}</b><span>missed, not yet fixed</span></div><div class="stat"><b>${qb.right}</b><span>answered correctly</span></div><div class="stat"><b>${qb.new}</b><span>not tried yet</span></div></div>
@@ -499,6 +525,8 @@ function home(){
   document.getElementById('imp').onclick=importPanel;
   const sg=document.getElementById('signin2'); if(sg)sg.onclick=()=>{P.cur='';saveProfile();MODE='cloud';signin()};
   const ad=document.getElementById('adv'); if(ad)ad.onclick=()=>advisor();
+  const lg=document.getElementById('lbgo'); if(lg)lg.onclick=()=>leaderboard();
+  const hn=document.getElementById('hn'); if(hn)bindNameForm(hn,document.getElementById('hns'),document.getElementById('hne'),nm=>{FLASH='You’re on the leaderboard as '+nm+'.'; home()});
   if(dirty&&!syncing)push();
 }
 function lastOf(m){for(let i=S.exams.length-1;i>=0;i--)if(!!S.exams[i].mock===m)return S.exams[i]; return null}
@@ -599,8 +627,8 @@ function done(){
   app.innerHTML=`<section class="card" style="display:grid;gap:14px"><h1>Session complete</h1>
    <div class="grid"><div class="stat red"><b>${session.done}</b><span>cards reviewed</span></div><div class="stat"><b>${pct}%</b><span>answered right</span></div><div class="stat"><b>${streak()}</b><span>day streak</span></div></div>
    <p class="muted" style="margin:0">Missed cards come back tomorrow. Cards you knew come back in a few days. Come back tomorrow for your next session.</p>
-   <div class="row"><button class="btn" id="h">Back to today’s plan</button><span class="muted" style="font-size:13px" data-sync>${syncText()}</span></div></section>`;
-  document.getElementById('h').onclick=home; if(dirty)push();
+   <div class="row"><button class="btn" id="h">Back to today’s plan</button>${MODE==='cloud'?'<button class="btn ghost" id="lbd">See the leaderboard</button>':''}<span class="muted" style="font-size:13px" data-sync>${syncText()}</span></div></section>`;
+  document.getElementById('h').onclick=home; const lbd=document.getElementById('lbd'); if(lbd)lbd.onclick=async()=>{if(dirty){try{await push()}catch(e){}} leaderboard(true)}; if(dirty)push();
 }
 
 /* ---------- timed practice set ---------- */
@@ -740,6 +768,78 @@ function runDone(){
    <div class="row">${missed.length?`<button class="btn" id="again">Practice the ${missed.length} I missed</button>`:''}<button class="btn ${missed.length?'ghost':''}" id="bk">Back to the bank</button><button class="btn ghost" id="h">Back to today’s plan</button></div></section>`;
   const ag=document.getElementById('again'); if(ag)ag.onclick=()=>startRun(missed,0);
   document.getElementById('bk').onclick=()=>{window.scrollTo(0,0);bank()}; document.getElementById('h').onclick=home;
+}
+
+/* ---------- leaderboard ----------
+   Every student is on the chapter leaderboard. Their card counts go to /board/<scrambled ID>
+   whenever they open the Study Lab or their progress saves, and the app asks each student
+   once for a display name (first name and last initial), since the Study Lab stores no names.
+   Every question and key term answered counts as a card. "This week" starts Monday.
+   Everyone sees the full list; advisors aren't listed and can hide a name. */
+const NAME_RE=/^[A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ'’. -]{1,29}$/;
+function weekStart(t=Date.now()){const d=new Date(t); d.setHours(0,0,0,0); d.setDate(d.getDate()-((d.getDay()+6)%7)); return d.getTime()}
+function boardCounts(st){const ws=weekStart(); let n=0; for(const c of Object.values(st.cards||{}))n+=(c.ok||0)+(c.bad||0);
+  return {n,w:dkey(ws),wn:(st.log||[]).filter(x=>x.at>=ws).length}}
+function boardPut(sid,cl,st){if(MODE!=='cloud'||!CLOUD||!st||ADV)return Promise.resolve(); return CLOUD.putBoard(sid,{upd:Date.now(),cl:{[cl]:boardCounts(st)}})}
+function lbTotals(r){const wk=dkey(weekStart()); let all=0, week=0; for(const v of Object.values(r.cl||{})){all+=v.n||0; if(v.w===wk)week+=v.wn||0}
+  const top=Object.entries(r.cl||{}).sort((a,b)=>(b[1].n||0)-(a[1].n||0))[0]; return {all,week,main:top?top[0]:''}}
+// Saves the student's display name; used by the home-screen prompt and the leaderboard.
+async function saveBoardName(nm){nm=String(nm||'').trim().replace(/\s+/g,' ');
+  if(!NAME_RE.test(nm))throw Object.assign(new Error('name'),{msg:'Use your first name and last initial, like Jordan S.'});
+  try{await CLOUD.putBoard(me().sid,{name:nm,upd:Date.now(),cl:{[me().cluster]:boardCounts(S)}})}
+  catch(e){console.warn(e); throw Object.assign(new Error('save'),{msg:'That didn’t save. Check your connection and try again.'})}
+  me().lb=nm; saveProfile(); return nm}
+function bindNameForm(inp,btn,err,done){const go=async()=>{err.textContent=''; btn.disabled=true;
+    try{done(await saveBoardName(inp.value))}catch(e){err.textContent=e.msg||'That didn’t save.'; btn.disabled=false}};
+  btn.onclick=go; inp.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();go()}}}
+let LBC=null, LBV='week', LBT=0;
+async function leaderboard(force){
+  document.querySelector('main').classList.remove('wide'); session=null; window.scrollTo(0,0);
+  if(MODE!=='cloud'||!CLOUD||!me()){
+    app.innerHTML=`<section class="card" style="display:grid;gap:12px"><h1>Leaderboard</h1><p style="margin:0">Sign in to see the leaderboard. You’re studying on this device only right now.</p><div class="row"><button class="btn ghost" id="back">Back to today’s plan</button></div></section>`;
+    document.getElementById('back').onclick=home; return}
+  if(force||!LBC||LBC.sid!==me().sid||Date.now()-LBC.at>120000){
+    const tok=++LBT, sid=me().sid; app.innerHTML='<p class="muted" id="lbload">Loading the leaderboard…</p>';
+    try{await boardPut(sid,me().cluster,S).catch(e=>console.warn('Study Lab board',e));
+      const rows=await CLOUD.listBoard(); if(tok!==LBT||!document.getElementById('lbload')||!me()||me().sid!==sid)return;
+      LBC={at:Date.now(),sid,rows}; if(!ADV){const mine=rows.find(r=>r.sid===sid); me().lb=mine&&mine.name||''; saveProfile()}}
+    catch(e){console.warn('Study Lab leaderboard',e); if(tok!==LBT||!document.getElementById('lbload'))return;
+      app.innerHTML=`<section class="card" style="display:grid;gap:12px"><h1>Leaderboard</h1><p style="margin:0">The leaderboard couldn’t load. Check your connection and try again.</p><div class="row"><button class="btn" id="re">Try again</button><button class="btn ghost" id="back">Back to today’s plan</button></div></section>`;
+      document.getElementById('re').onclick=()=>leaderboard(true); document.getElementById('back').onclick=home; return}}
+  lbRender()}
+function lbRender(edit){
+  const mine=me().sid, wk=LBV==='week', lb=me().lb||'';
+  const rows=LBC.rows.map(r=>{const t=lbTotals(r); return Object.assign({},r,t,{v:wk?t.week:t.all})});
+  const active=rows.filter(r=>r.v>0), cards=active.reduce((a,r)=>a+r.v,0);
+  const list=rows.filter(r=>ADV||!r.hidden||r.sid===mine).sort((a,b)=>b.v-a.v||(a.name?0:1)-(b.name?0:1)||String(a.name||'').localeCompare(b.name||''));
+  let rank=0, prev=null; list.forEach((r,i)=>{if(r.v!==prev){rank=i+1;prev=r.v} r.rk=r.v>0?rank:'–'});
+  const myRow=rows.find(r=>r.sid===mine);
+  const row=r=>`<li class="lbr${r.v>0&&r.rk<=3?' p3':''}${r.sid===mine?' me':''}${r.hidden?' hid':''}"><span class="rk">${r.rk}</span>
+    <span class="nm"><b${r.name?'':' class="un"'}>${r.name?esc(r.name):'Name not added yet'}${r.sid===mine?'<span class="you">You</span>':''}</b><small>${esc(cname(r.main))}${r.hidden&&ADV?' · hidden from students':''}</small></span>
+    <span class="ct"><b>${r.v.toLocaleString()}</b>card${r.v===1?'':'s'}</span>${ADV?`<button class="btn ghost sm" data-hide="${r.sid}" data-h="${r.hidden?0:1}">${r.hidden?'Show':'Hide'}</button>`:'<span></span>'}</li>`;
+  const meBox=ADV?'':(!lb||edit)?`<section class="card" style="display:grid;gap:12px"><h2>${lb?'Change your leaderboard name':'Add your name to the leaderboard'}</h2>
+      <p class="muted" style="margin:0;font-size:14px">Use your first name and last initial.</p>
+      <div class="row"><input type="text" id="lbn" maxlength="30" placeholder="Jordan S." value="${esc(lb)}" autocomplete="off" style="max-width:240px"><button class="btn" id="lbj">Save name</button>${edit?'<button class="btn ghost" id="lbx">Cancel</button>':''}</div>
+      <div class="err" id="lbe"></div></section>`
+    :`<section class="card row" style="justify-content:space-between"><span class="muted" style="font-size:14px">You appear as <b style="color:var(--fg)">${esc(lb)}</b>.${myRow&&myRow.hidden?' Your name is hidden from other students right now. Message Mr. Yono if you have questions.':''}</span><button class="btn ghost" id="lbc">Change name</button></section>`;
+  app.innerHTML=`
+  <section class="row" style="justify-content:space-between;align-items:flex-end">
+    <div style="display:grid;gap:6px"><h1>Leaderboard</h1><span class="muted">${wk?'Cards completed this week, since '+fmt(new Date(weekStart())):'Cards completed since the Study Lab opened'}. Every question and key term counts.</span></div>
+    <div class="row"><div class="seg" role="group" aria-label="Leaderboard period"><button data-lbv="week" aria-pressed="${wk}">This week</button><button data-lbv="all" aria-pressed="${!wk}">All time</button></div><button class="btn ghost" id="back">Back to today’s plan</button></div>
+  </section>
+  <section class="card"><div class="grid"><div class="stat red"><b>${cards.toLocaleString()}</b><span>cards completed by the chapter ${wk?'this week':'so far'}</span></div><div class="stat"><b>${active.length} of ${rows.length}</b><span>students studied ${wk?'this week':'so far'}</span></div></div></section>
+  ${meBox}
+  <section class="card" style="padding:4px 16px">${list.length?`<ol class="lb">${list.map(row).join('')}</ol>`:'<p class="muted" style="padding:12px 0;margin:0">No one is on the leaderboard yet.</p>'}</section>
+  <div class="row" style="justify-content:space-between"><span class="muted" style="font-size:13px">${ADV?'Advisors aren’t listed. Students see this same list, without hidden names. ':''}Students appear once they open the Study Lab after this update. Updated ${new Date(LBC.at).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}.</span><button class="btn ghost" id="lbre">Refresh</button></div>`;
+  app.querySelectorAll('[data-lbv]').forEach(b=>b.onclick=()=>{LBV=b.dataset.lbv;lbRender()});
+  document.getElementById('back').onclick=home; document.getElementById('lbre').onclick=()=>leaderboard(true);
+  const q=x=>document.getElementById(x);
+  if(q('lbj'))bindNameForm(q('lbn'),q('lbj'),q('lbe'),()=>leaderboard(true));
+  if(q('lbx'))q('lbx').onclick=()=>lbRender();
+  if(q('lbc'))q('lbc').onclick=()=>{lbRender(true); q('lbn').focus()};
+  app.querySelectorAll('[data-hide]').forEach(b=>b.onclick=async()=>{b.disabled=true; const h=b.dataset.h==='1';
+    try{await CLOUD.setHidden(b.dataset.hide,h); const r=LBC.rows.find(x=>x.sid===b.dataset.hide); if(r)r.hidden=h; lbRender()}
+    catch(e){console.warn(e); b.disabled=false}});
 }
 
 /* ---------- calculator ----------
@@ -954,7 +1054,9 @@ async function bootUser(sid){
   if(pend&&pend.signup){u.cluster=pend.cluster||u.cluster; CLOUD.putStudent(sid,{cluster:u.cluster,front:u.front||'t',created:Date.now(),upd:Date.now()}).catch(e=>console.warn(e))}
   else{try{const st=await CLOUD.getStudent(sid); if(st){if(st.cluster)u.cluster=st.cluster; if(st.front)u.front=st.front}}catch(e){syncErr=e.code||'error'}}
   if(P.cur!==sid)return; saveProfile();
-  CLOUD.isAdvisor(sid).then(v=>{ADV=v; if(!v||P.cur!==sid)return; if(location.hash==='#advisor'&&DATA)advisor(); else if(document.getElementById('bmiss'))home()});
+  CLOUD.getBoard(sid).then(e=>{const was=u.lb; u.lb=e&&e.name||''; saveProfile(); if(P.cur===sid&&u.lb!==was&&!ADV&&document.getElementById('bmiss')&&!(document.activeElement&&document.activeElement.id==='hn'))home()}).catch(e=>console.warn('Study Lab board',e));
+  ADVP=CLOUD.isAdvisor(sid);
+  ADVP.then(v=>{ADV=v; if(!v||P.cur!==sid)return; if(location.hash==='#advisor'&&DATA)advisor(); else if(document.getElementById('bmiss'))home()});
   loadCluster(u.cluster)}
 
 /* ---------- boot ---------- */
@@ -971,6 +1073,7 @@ async function loadCluster(cl){
   try{const d=cache[cl]||await fetch('data/'+cl+'.json').then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}); cache[cl]=d;
     if(!me()||me().cluster!==cl)return;
     DATA=d; DATAKEY=cl; home(); if(dirty)markDirty();
+    if(MODE==='cloud'&&ADVP)ADVP.then(v=>{if(!v&&me()&&me().cluster===cl&&DATAKEY===cl)boardPut(me().sid,cl,S).catch(e=>console.warn('Study Lab board',e))});
     if(PMOVE){const code=PMOVE; PMOVE=''; importCode(code).then(r=>{FLASH=r.err||(r.added.length?'Brought in your progress for '+r.added.join(', ')+'.':'')}).catch(e=>{console.warn(e);FLASH='The move link didn’t work. Use “Bring in progress from the old Study Lab” instead.'}).then(()=>{if(document.getElementById('bmiss'))home()})}
     else if(location.hash==='#advisor'&&ADV)advisor()}
   catch(e){console.error('Study Lab load error',e);app.innerHTML='<div class="notice">The question set could not load. Check your connection and refresh the page.</div>'}}
