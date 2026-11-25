@@ -175,6 +175,106 @@ ol.lb{list-style:none;margin:0;padding:0}
 .lbr.hid{opacity:.45}
 .lb .gap{text-align:center;color:var(--muted);padding:2px 0;border-bottom:1px solid var(--rule);letter-spacing:.3em}
 .btn.sm{min-height:34px;padding:6px 12px;font-size:11px}
+/* ── Concept modules (silent animated lessons) ── */
+.modbtn{display:flex;align-items:center;gap:12px;width:100%;text-align:left;font:inherit;background:#fff;border:1px solid var(--rule);border-left:3px solid var(--red);padding:12px 14px;cursor:pointer;color:var(--fg)}
+.modbtn:hover{border-color:var(--red)}
+.modbtn .pl{flex:none;width:34px;height:34px;background:var(--red);display:grid;place-items:center}
+.modbtn .pl svg{width:14px;height:14px;fill:#fff}
+.modbtn b{display:block;font-family:"Montserrat",Arial,sans-serif;font-weight:700}
+.modbtn small{color:var(--muted);font-size:12.5px}
+#mv{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.72);display:grid;place-items:center;padding:16px}
+#mv[hidden]{display:none}
+.mvp{width:min(960px,100%);max-height:100%;overflow:auto;background:#fff;display:grid}
+.mvh{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--red);color:#fff;padding:6px 6px 6px 16px}
+.mvh b{font-family:"Montserrat",Arial,sans-serif;font-weight:700;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mvh button{background:transparent;border:0;color:#fff;font-size:22px;width:40px;height:40px;cursor:pointer}
+.mvsteps{display:flex;gap:4px;padding:10px 16px 0}
+.mvsteps button{flex:1;min-width:0;border:0;background:transparent;padding:6px 0 0;cursor:pointer;text-align:left;font-family:"Montserrat",Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.mvsteps button i{display:block;height:4px;background:var(--surface2);margin-bottom:5px;position:relative;overflow:hidden}
+.mvsteps button i em{position:absolute;inset:0;width:0;background:var(--red)}
+.mvsteps button.done i em{width:100%}
+.mvsteps button.cur{color:var(--red)}
+.mvsteps button.cur i em{animation:mvbar var(--dur) linear forwards}
+.mvsteps button span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@keyframes mvbar{to{width:100%}}
+.mvstage{container-type:inline-size;position:relative;aspect-ratio:16/9;background:#fff;overflow:hidden;margin:10px 16px 0;border:1px solid var(--rule)}
+.mvsc{position:absolute;inset:0;padding:5cqw 6cqw;display:flex;flex-direction:column;justify-content:center;gap:2.2cqw;font-family:"Montserrat",Arial,sans-serif;color:var(--fg)}
+.mvsc h3{font-size:3.6cqw;line-height:1.15;margin:0;font-weight:700;text-transform:none;letter-spacing:-.01em}
+.mvsc p{margin:0}
+.mvpaused *,.mvpaused *::before,.mvpaused *::after{animation-play-state:paused!important}
+.mvcap{margin:0 16px;padding:12px 2px;min-height:3em;font-size:15px;line-height:1.45;color:var(--fg);border-bottom:1px solid var(--rule)}
+.mvctl{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px 16px;flex-wrap:wrap}
+.mvctl .row{gap:8px}
+.mvctl .btn{min-height:40px;padding:8px 14px}
+.a-in{opacity:0;transform:translateY(1.6cqw);animation:aIn .6s cubic-bezier(.2,0,.2,1) forwards;animation-delay:var(--d,0s)}
+.a-pop{opacity:0;transform:scale(.8);animation:aPop .5s cubic-bezier(.2,.9,.3,1.3) forwards;animation-delay:var(--d,0s)}
+.a-fade{opacity:0;animation:aFade .6s forwards;animation-delay:var(--d,0s)}
+@keyframes aIn{to{opacity:1;transform:none}}@keyframes aPop{to{opacity:1;transform:none}}@keyframes aFade{to{opacity:1}}
+.s-title{background:var(--red);color:#fff;justify-content:flex-end}
+.s-title h3{font-size:7cqw;color:#fff;text-transform:uppercase}
+.s-title p{font-size:2.4cqw;max-width:70cqw;line-height:1.4}
+.s-title .bar{width:12cqw;height:.8cqw;background:#fff;transform-origin:left;transform:scaleX(0);animation:aGrow .7s forwards;animation-delay:.2s}
+@keyframes aGrow{to{transform:scaleX(1)}}
+.s-define .term{font-size:5.2cqw;font-weight:700;color:var(--red)}
+.s-define .txt{font-size:3cqw;line-height:1.5;max-width:80cqw;font-weight:500}
+.hl{background:linear-gradient(var(--red-tint),var(--red-tint)) no-repeat 0 85%/0% 40%;animation:aHl .6s forwards;animation-delay:var(--d,0s);font-weight:700}
+@keyframes aHl{to{background-size:100% 40%}}
+.dots{display:grid;grid-template-columns:repeat(10,1fr);gap:1.6cqw;width:52cqw}
+.dots i{aspect-ratio:1;border-radius:50%!important;background:#bdbdbd;animation:dDim .5s forwards;animation-delay:var(--d)}
+.dots i.pk{animation:dPick .5s forwards;animation-delay:var(--d)}
+@keyframes dDim{to{opacity:.25}}@keyframes dPick{to{background:var(--red);transform:scale(1.25)}}
+.s-select .sel{display:flex;gap:5cqw;align-items:center}
+.s-select .txt{font-size:2.6cqw;line-height:1.45;max-width:30cqw;font-weight:500}
+.grid4{display:grid;grid-template-columns:1fr 1fr;gap:1.6cqw}
+.grid4 div{border:1px solid var(--rule);border-left:.6cqw solid var(--red);padding:1.6cqw 2cqw}
+.grid4 b{display:block;font-size:2.8cqw;margin-bottom:.4cqw}
+.grid4 span{font-size:2cqw;color:var(--body);line-height:1.35;display:block;font-family:Arial,sans-serif}
+.hub{position:relative;width:80cqw;height:36cqw;align-self:center}
+.hub .c{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--red);color:#fff;font-weight:700;font-size:2.8cqw;padding:2cqw 3cqw;z-index:2;white-space:nowrap}
+.hub .c.a-pop{transform:translate(-50%,-50%) scale(.8)}
+@keyframes aPopC{to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+.hub .c.a-pop{animation-name:aPopC}
+.hub .n{position:absolute;border:2px solid var(--fg);background:#fff;font-weight:700;font-size:2.5cqw;padding:1.2cqw 2.2cqw;z-index:2;white-space:nowrap}
+.hub .n0{left:50%;top:0;translate:-50% 0}.hub .n1{right:0;top:50%;translate:0 -50%}.hub .n2{left:50%;bottom:0;translate:-50% 0}.hub .n3{left:0;top:50%;translate:0 -50%}
+.hub svg{position:absolute;inset:0;width:100%;height:100%}
+.hub line{stroke:var(--red);stroke-width:3;stroke-dasharray:400;stroke-dashoffset:400;animation:aDraw .6s forwards;animation-delay:var(--d)}
+@keyframes aDraw{to{stroke-dashoffset:0}}
+.rows{display:grid;gap:.9cqw}
+.rows div{display:grid;grid-template-columns:22cqw 1fr;gap:2cqw;align-items:baseline;border-bottom:1px solid var(--rule);padding-bottom:.9cqw}
+.rows b{font-size:2.2cqw;color:var(--red)}.rows span{font-size:2.4cqw;font-weight:500;font-family:Arial,sans-serif}
+.cmp{display:grid;grid-template-columns:1fr auto 1fr;gap:2.4cqw;align-items:stretch}
+.cmp div{border:1px solid var(--rule);padding:2.4cqw}
+.cmp div.r{border:2px solid var(--red)}
+.cmp b{display:block;font-size:2.9cqw;margin-bottom:1cqw}.cmp span{font-size:2.3cqw;line-height:1.4;display:block;font-family:Arial,sans-serif}
+.cmp em{align-self:center;font-style:normal;font-weight:700;font-size:2.4cqw;color:var(--muted)}
+.bars{display:flex;align-items:flex-end;gap:4cqw;height:24cqw;border-bottom:2px solid var(--fg);padding:0 2cqw}
+.bars div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:.6cqw}
+.bars i{display:block;width:100%;background:var(--red);transform-origin:bottom;transform:scaleY(0);animation:aRise .8s cubic-bezier(.2,0,.2,1) forwards;animation-delay:var(--d)}
+.bars div:first-child i{background:#9e9e9e}
+@keyframes aRise{to{transform:scaleY(1)}}
+.bars b{font-size:2.3cqw}.bars small{font-size:2cqw;color:var(--red);font-weight:700;min-height:2.4cqw}
+.barl{display:flex;gap:4cqw;padding:0 2cqw}.barl span{flex:1;text-align:center;font-size:2cqw;color:var(--muted);font-weight:700}
+.calc{display:grid;gap:1.1cqw;font-family:"Montserrat",Arial,sans-serif}
+.calc div{font-size:3cqw;font-variant-numeric:tabular-nums;font-weight:500}
+.calc div:first-child{font-weight:700}
+.calc .res{font-size:4.4cqw;font-weight:700;color:#fff;background:var(--red);padding:1cqw 2cqw;justify-self:start}
+.flow{display:flex;align-items:stretch;gap:1.4cqw}
+.flow div{flex:1;border:2px solid var(--fg);padding:2cqw;font-size:2.4cqw;font-weight:700;line-height:1.35;display:flex;align-items:center}
+.flow div:last-child{border-color:var(--red);color:var(--red)}
+.flow em{align-self:center;font-style:normal;font-size:3.2cqw;color:var(--red);font-weight:700}
+.tips{display:grid;gap:1.2cqw}
+.tips div{display:grid;grid-template-columns:1fr auto;gap:2cqw;align-items:center;border:1px solid var(--rule);padding:1.4cqw 2cqw}
+.tips span{font-size:2.4cqw;font-family:Arial,sans-serif}.tips b{font-size:2.4cqw;color:#fff;background:var(--red);padding:.6cqw 1.6cqw;max-width:36cqw;text-align:right}
+.s-end{justify-content:center;align-items:flex-start}
+.s-end h3{font-size:4.4cqw}
+.s-end p{font-size:2.4cqw;color:var(--muted);max-width:70cqw;line-height:1.45}
+@media (max-width:640px){.mvsteps span{display:none}.mvsteps{gap:3px}.mvstage{aspect-ratio:4/5}.mvsc{padding:7cqw 6cqw;gap:3.4cqw}.mvsc h3{font-size:6.4cqw}.s-title h3{font-size:10cqw}.s-title p{font-size:4.4cqw;max-width:none}
+  .s-define .term{font-size:8cqw}.s-define .txt{font-size:5.2cqw;max-width:none}.s-select .sel{flex-direction:column;align-items:flex-start;gap:4cqw}.dots{width:84cqw}.s-select .txt{font-size:4.6cqw;max-width:none}
+  .grid4{grid-template-columns:1fr}.grid4 b{font-size:4.6cqw}.grid4 span{font-size:3.6cqw}.hub{width:86cqw;height:70cqw}.hub .c{font-size:4.6cqw}.hub .n{font-size:4cqw}
+  .rows div{grid-template-columns:1fr;gap:.4cqw}.rows b{font-size:3.6cqw}.rows span{font-size:4.2cqw}.cmp{grid-template-columns:1fr}.cmp em{justify-self:center}.cmp b{font-size:4.8cqw}.cmp span{font-size:3.9cqw}
+  .bars{height:56cqw}.bars b{font-size:3.4cqw}.bars small{font-size:3.2cqw}.barl span{font-size:3.2cqw}.calc div{font-size:4.6cqw}.calc .res{font-size:6.4cqw}
+  .flow{flex-direction:column}.flow div{font-size:4.4cqw}.flow em{transform:rotate(90deg)}.tips div{grid-template-columns:1fr}.tips span,.tips b{font-size:4.2cqw;max-width:none;text-align:left;justify-self:start}.s-end h3{font-size:7cqw}.s-end p{font-size:4.4cqw}}
+@media (prefers-reduced-motion:reduce){.mvsc *{animation-duration:.01s!important;animation-delay:0s!important}}
 /* ── Cross out answer choices ── */
 .orow{display:flex;gap:8px;align-items:stretch}
 .orow .opt{flex:1 1 auto;min-width:0}
@@ -594,7 +694,8 @@ function why(it){const o=it.o[it.a].replace(/[.?!]$/,''),r=it.r;return r.toLower
 function plain(s){return String(s).replace(/[.?!]$/,'')}
 /* On a miss: why the chosen option doesn't fit first, then the right answer and its rationale.
    The right answer is also highlighted in the options, so it is visible immediately. */
-function feedback(it,i,p){
+function feedback(it,i,p){return feedback0(it,i,p)+modBtn(it)}
+function feedback0(it,i,p){
   if(i===it.a)return `<div class="why ok"><b>Correct.</b> <span>${esc(why(it))}</span></div>`;
   const L='ABCD'[(p||[0,1,2,3]).indexOf(it.a)];
   const w=it.w&&it.w[i];
@@ -842,6 +943,76 @@ function lbRender(edit){
     catch(e){console.warn(e); b.disabled=false}});
 }
 
+/* ---------- concept modules ----------
+   Short, silent, captioned animations that explain the concept behind a question, keyed by
+   performance indicator (data/modules.json). Students see the "Watch" button only after they
+   answer, so the Study Lab still asks before it teaches. Scenes advance on their own; the
+   viewer can pause, go back, skip ahead or jump to any step. */
+let MODS={}, MV=null;
+fetch('data/modules.json').then(r=>r.ok?r.json():{}).then(m=>{MODS=m||{}}).catch(()=>{});
+const PLAY='<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l7 4-7 4z"/></svg>';
+function modLen(m){const s=m.scenes.reduce((a,x)=>a+(x.dur||8),0); return s<75?'about 1 minute':Math.round(s/60)+' minutes'}
+function modBtn(it){const m=it&&it.pi&&MODS[it.pi]; if(!m)return '';
+  return `<button type="button" class="modbtn" data-mod="${esc(it.pi)}"><span class="pl">${PLAY}</span><span><b>Watch: ${esc(m.title)}</b><small>A silent animation of the concept behind this question · ${modLen(m)}</small></span></button>`}
+const dl=(i,base=.3,step=.45)=>`style="--d:${(base+i*step).toFixed(2)}s"`;
+function hlText(t,keys){let h=esc(t); (keys||[]).forEach((k,i)=>{h=h.replace(esc(k),`<span class="hl" ${dl(i,1.2,.9)}>${esc(k)}</span>`)}); return h}
+const SCN={
+  title:s=>`<div class="mvsc s-title"><div class="bar"></div><h3 class="a-in" ${dl(0,.3)}>${esc(s.h)}</h3><p class="a-in" ${dl(1,.5)}>${esc(s.sub||'')}</p></div>`,
+  define:s=>`<div class="mvsc s-define"><div class="term a-in" ${dl(0,.2)}>${esc(s.term)}</div><p class="txt a-in" ${dl(1,.3)}>${hlText(s.text,s.keys)}</p></div>`,
+  select:s=>`<div class="mvsc s-select"><h3 class="a-in">${esc(s.h)}</h3><div class="sel"><div class="dots">${Array.from({length:s.n||40},(_,i)=>`<i class="${(s.pick||[]).includes(i)?'pk':''}" style="--d:${(1.2+((i*7)%10)*.08).toFixed(2)}s"></i>`).join('')}</div><p class="txt a-in" ${dl(0,2.2)}>${esc(s.text)}</p></div></div>`,
+  parts:s=>`<div class="mvsc"><h3 class="a-in">${esc(s.h)}</h3><div class="grid4">${s.items.map((x,i)=>`<div class="a-in" ${dl(i,.8,1.6)}><b>${esc(x.t)}</b><span>${esc(x.d)}</span></div>`).join('')}</div></div>`,
+  hub:s=>{const pts=[[50,12],[88,50],[50,88],[12,50]];
+    return `<div class="mvsc">${s.h?`<h3 class="a-in">${esc(s.h)}</h3>`:''}<div class="hub"><svg viewBox="0 0 100 100" preserveAspectRatio="none">${pts.map((p,i)=>`<line x1="50" y1="50" x2="${p[0]}" y2="${p[1]}" vector-effect="non-scaling-stroke" ${dl(i,1.6,.5)}/>`).join('')}</svg>
+      <div class="c a-pop" ${dl(0,.3)}>${esc(s.center)}</div>${s.items.map((x,i)=>`<div class="n n${i} a-pop" ${dl(i,.9,.5)}>${esc(x)}</div>`).join('')}</div></div>`},
+  example:s=>`<div class="mvsc"><h3 class="a-in">${esc(s.h)}</h3><div class="rows">${s.rows.map((r,i)=>`<div class="a-in" ${dl(i,.8,1.5)}><b>${esc(r[0])}</b><span>${esc(r[1])}</span></div>`).join('')}</div></div>`,
+  compare:s=>`<div class="mvsc"><h3 class="a-in">${esc(s.h)}</h3><div class="cmp"><div class="a-in" ${dl(0,.8)}><b>${esc(s.a.t)}</b><span>${esc(s.a.d)}</span></div><em class="a-fade" ${dl(0,2.2)}>vs.</em><div class="r a-in" ${dl(0,3)}><b>${esc(s.b.t)}</b><span>${esc(s.b.d)}</span></div></div></div>`,
+  tip:s=>`<div class="mvsc"><h3 class="a-in">${esc(s.h||'On the exam')}</h3>${s.items?`<div class="tips">${s.items.map((x,i)=>`<div class="a-in" ${dl(i,.8,1.5)}><span>${esc(x[0])}</span><b>${esc(x[1])}</b></div>`).join('')}</div>`:`<p class="a-in" style="font-size:3cqw;line-height:1.5">${esc(s.text)}</p>`}</div>`,
+  bars:s=>{const mx=Math.max(...s.bars.map(b=>b.v));
+    return `<div class="mvsc"><h3 class="a-in">${esc(s.h)}</h3><div class="bars">${s.bars.map((b,i)=>`<div><small class="a-fade" ${dl(i,1.4,1.4)}>${esc(b.note||'')}</small><b class="a-fade" ${dl(i,1.2,1.4)}>${esc(b.lab)}</b><i style="height:${(b.v/mx*78).toFixed(1)}%;--d:${(.6+i*1.4).toFixed(2)}s"></i></div>`).join('')}</div><div class="barl">${s.bars.map(b=>`<span>${esc(b.l)}</span>`).join('')}</div></div>`},
+  calc:s=>`<div class="mvsc"><h3 class="a-in">${esc(s.h)}</h3><div class="calc">${s.lines.map((l,i)=>`<div class="a-in" ${dl(i,.8,1.6)}>${esc(l)}</div>`).join('')}<div class="res a-pop" ${dl(s.lines.length,.8,1.6)}>${esc(s.result)}</div></div></div>`,
+  flow:s=>`<div class="mvsc"><h3 class="a-in">${esc(s.h)}</h3><div class="flow">${s.steps.map((x,i)=>`${i?`<em class="a-fade" ${dl(i,.4,1.8)}>→</em>`:''}<div class="a-in" ${dl(i,.8,1.8)}>${esc(x)}</div>`).join('')}</div></div>`
+};
+function openModule(pi){const m=MODS[pi]; if(!m)return;
+  let el=document.getElementById('mv'); if(!el){el=document.createElement('div'); el.id='mv'; document.body.appendChild(el)}
+  MV={pi,m,i:0,paused:false,ret:document.activeElement};
+  el.innerHTML=`<div class="mvp" role="dialog" aria-modal="true" aria-label="${esc(m.title)}">
+    <div class="mvh"><b>${esc(m.title)}</b><button type="button" data-mv="x" aria-label="Close">×</button></div>
+    <div class="mvsteps">${m.scenes.map((s,i)=>`<button type="button" data-mv-go="${i}" aria-label="Step ${i+1}: ${esc(s.step||'')}"><i><em></em></i><span>${esc(s.step||'')}</span></button>`).join('')}<button type="button" data-mv-go="${m.scenes.length}" aria-label="Finish"><i><em></em></i><span>Practice</span></button></div>
+    <div class="mvstage" id="mvs"></div><p class="mvcap" id="mvc" aria-live="polite"></p>
+    <div class="mvctl"><div class="row"><button type="button" class="btn ghost" data-mv="b">Back</button><button type="button" class="btn" data-mv="p" id="mvpp">Pause</button><button type="button" class="btn ghost" data-mv="n">Next</button></div>
+      <span class="muted" style="font-size:12.5px">${esc(m.pt||'')}</span></div></div>`;
+  el.hidden=false; document.body.style.overflow='hidden';
+  el.onclick=e=>{const b=e.target.closest('[data-mv],[data-mv-go]'); if(e.target===el)return closeModule(); if(!b)return;
+    if(b.dataset.mvGo!=null)return mvShow(+b.dataset.mvGo);
+    const a=b.dataset.mv; if(a==='x')closeModule(); else if(a==='p')mvPause(!MV.paused); else if(a==='b')mvShow(Math.max(0,MV.i-1)); else if(a==='n')mvShow(MV.i+1);
+    else if(a==='again')mvShow(0); else if(a==='prac')mvPractice()};
+  document.addEventListener('keydown',mvKey,true); mvShow(0); el.querySelector('[data-mv="p"]').focus()}
+function mvShow(i){const m=MV.m, st=document.getElementById('mvs'), n=m.scenes.length; MV.i=Math.min(i,n);
+  document.querySelectorAll('.mvsteps button').forEach((b,k)=>{b.classList.toggle('done',k<MV.i); b.classList.toggle('cur',k===MV.i&&MV.i<n)});
+  if(MV.i>=n){const L=(DATA&&DATA.q||[]).filter(q=>q.pi===MV.pi);
+    st.innerHTML=`<div class="mvsc s-end"><h3 class="a-in">That’s ${esc(m.title.toLowerCase())}.</h3><p class="a-in" ${dl(1,.2)}>${L.length?`Put it to work: ${L.length} question${L.length===1?'':'s'} in your cluster test this concept.`:'Watch it again any time from a question on this concept.'}</p>
+      <div class="row a-in" ${dl(2,.2)}>${L.length?`<button type="button" class="btn" data-mv="prac">Practice ${L.length===1?'this question':'these '+L.length}</button>`:''}<button type="button" class="btn ghost" data-mv="again">Watch again</button></div></div>`;
+    document.getElementById('mvc').textContent=''; document.getElementById('mvpp').disabled=true; return}
+  document.getElementById('mvpp').disabled=false;
+  const s=m.scenes[MV.i], dur=(s.dur||8)+'s', cur=document.querySelectorAll('.mvsteps button')[MV.i];
+  cur.style.setProperty('--dur',dur); const em=cur.querySelector('em'); em.style.animation='none'; void em.offsetWidth; em.style.animation='';
+  em.onanimationend=()=>{if(MV&&MV.i===i)mvShow(MV.i+1)};
+  st.innerHTML=(SCN[s.type]||SCN.tip)(s); document.getElementById('mvc').textContent=s.cap||'';
+  mvPause(MV.paused)}
+function mvPause(p){MV.paused=p; const pp=document.getElementById('mvpp'); pp.textContent=p?'Play':'Pause';
+  document.querySelector('.mvp').classList.toggle('mvpaused',p)}
+function mvKey(e){if(!MV)return; const k=e.key;
+  if(k==='Escape'){e.preventDefault();e.stopImmediatePropagation();return closeModule()}
+  if(k===' '&&!e.target.closest('button')){e.preventDefault();e.stopImmediatePropagation();return mvPause(!MV.paused)}
+  if(k==='ArrowRight'){e.preventDefault();e.stopImmediatePropagation();return mvShow(MV.i+1)}
+  if(k==='ArrowLeft'){e.preventDefault();e.stopImmediatePropagation();return mvShow(Math.max(0,MV.i-1))}
+  if(k!=='Tab'&&k!=='Enter')e.stopImmediatePropagation()}
+function closeModule(){const el=document.getElementById('mv'); if(el){el.hidden=true; el.innerHTML=''} document.removeEventListener('keydown',mvKey,true);
+  document.body.style.overflow=''; const r=MV&&MV.ret; MV=null; if(r&&r.focus)try{r.focus()}catch(e){}}
+function mvPractice(){const pi=MV.pi, L=DATA.q.filter(q=>q.pi===pi); closeModule(); if(!L.length)return;
+  BF={type:'q',ia:'',st:'all',rt:'any',shuffle:false,shown:60}; startRun(L.slice().sort(()=>Math.random()-.5),0)}
+app.addEventListener('click',e=>{const b=e.target.closest('[data-mod]'); if(b)openModule(b.dataset.mod)});
+
 /* ---------- calculator ----------
    A basic four-function calculator, like the one allowed on the DECA exam. It floats over the
    page (a bottom panel on phones), keeps its display while you move between questions, and
@@ -908,6 +1079,7 @@ new MutationObserver(()=>{if(app.querySelector('[data-calc]'))app.querySelectorA
 document.addEventListener('keydown',e=>{
   if(e.target.matches('input,textarea,select'))return;
   if(e.metaKey||e.ctrlKey||e.altKey)return; // leave Cmd/Ctrl shortcuts (copy, find) alone
+  if(MV)return; // an open concept module handles its own keys
   if(calcKey(e))return;
   const k=e.key.toLowerCase();
   const li=k.length===1?'abcd'.indexOf(k):-1;

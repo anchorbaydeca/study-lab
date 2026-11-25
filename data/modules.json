@@ -1,0 +1,42 @@
+{
+  "MP:001": {
+    "title": "Marketing strategy",
+    "pt": "Explain the concept of marketing strategies",
+    "scenes": [
+      {"type": "title", "step": "Intro", "h": "Marketing strategy", "sub": "What it is, the two parts it’s built from, and how it shows up on the exam", "cap": "A one-minute look at a concept that runs through the Marketing exam.", "dur": 5},
+      {"type": "define", "step": "Define", "term": "Marketing strategy", "text": "A business’s plan for reaching its marketing goals by choosing a target market and building a marketing mix to satisfy it.", "keys": ["plan", "target market", "marketing mix"], "cap": "Define it first: a strategy is a plan, and it has two parts.", "dur": 8},
+      {"type": "select", "step": "Explain", "h": "Part 1: Target market", "text": "The specific group of customers the business decides to serve.", "n": 40, "pick": [3, 4, 5, 13, 14, 23, 24, 25, 33, 34], "cap": "No business can serve everyone well, so it chooses whom to focus on.", "dur": 8},
+      {"type": "parts", "step": "Explain", "h": "Part 2: Marketing mix", "items": [
+        {"t": "Product", "d": "What is sold: features, brand name, packaging and services"},
+        {"t": "Price", "d": "What customers pay, including discounts and payment terms"},
+        {"t": "Place", "d": "Where and how customers get it: stores, websites, delivery"},
+        {"t": "Promotion", "d": "How customers learn about it: ads, social media, personal selling"}], "cap": "These four Ps are the tools the business controls.", "dur": 11},
+      {"type": "hub", "step": "Explain", "center": "Target market", "items": ["Product", "Price", "Place", "Promotion"], "cap": "Every P is chosen to fit the target market, and the four work together: change one, and the others may need to change too.", "dur": 9},
+      {"type": "example", "step": "Example", "h": "Example: N42° Café & Shop", "rows": [
+        ["Target market", "Students who want a quick breakfast before class"],
+        ["Product", "Grab-and-go breakfast items and drinks"],
+        ["Price", "Priced for a student budget"],
+        ["Place", "Next to E117, on the way to class"],
+        ["Promotion", "Teams posts and morning announcements"]], "cap": "Every decision points back to the same group of customers.", "dur": 12},
+      {"type": "compare", "step": "On the exam", "h": "Goal or strategy?", "a": {"t": "Business goal", "d": "What the business wants to achieve, such as growing its market share from 12% to 15%"}, "b": {"t": "Marketing strategy", "d": "How it will get there: the target market it serves and the marketing mix it uses"}, "cap": "When a question describes a number to reach, that target is a goal, not the strategy itself.", "dur": 10},
+      {"type": "tip", "step": "On the exam", "h": "Sorting a decision into the mix", "items": [["Brand name, features, packaging", "Product"], ["Which stores carry it", "Place"], ["An introductory discount", "Price"], ["A social media campaign", "Promotion"]], "cap": "Ask what the decision changes, and the P usually follows.", "dur": 10}
+    ]
+  },
+  "FI:238": {
+    "title": "Time value of money",
+    "pt": "Calculate the time value of money",
+    "scenes": [
+      {"type": "title", "step": "Intro", "h": "Time value of money", "sub": "Why a dollar today is worth more than a dollar later, and how to calculate it", "cap": "Have the calculator ready: this concept is mostly math.", "dur": 5},
+      {"type": "define", "step": "Define", "term": "Time value of money", "text": "The idea that money available now is worth more than the same amount later, because money on hand today can earn interest.", "keys": ["now", "later", "earn interest"], "cap": "Define it first: time plus interest changes what money is worth.", "dur": 8},
+      {"type": "bars", "step": "Explain", "h": "Compounding: $1,000 at 8% a year", "bars": [
+        {"l": "Today", "v": 1000, "lab": "$1,000.00", "note": ""},
+        {"l": "Year 1", "v": 1080, "lab": "$1,080.00", "note": "+$80.00"},
+        {"l": "Year 2", "v": 1166.4, "lab": "$1,166.40", "note": "+$86.40"},
+        {"l": "Year 3", "v": 1259.71, "lab": "$1,259.71", "note": "+$93.31"}], "cap": "Each year’s interest also earns interest, so the growth gets bigger every year.", "dur": 10},
+      {"type": "calc", "step": "Explain", "h": "Future value", "lines": ["FV = PV × (1 + r)ⁿ", "PV = $1,000   r = 8% = 0.08   n = 3", "FV = $1,000 × 1.08³", "FV = $1,000 × 1.259712"], "result": "FV = $1,259.71", "cap": "PV is the amount today, r is the rate per period and n is the number of periods.", "dur": 11},
+      {"type": "flow", "step": "Explain", "h": "Interest more than once a year", "steps": ["12% a year, compounded quarterly", "Rate per period: 12% ÷ 4 = 3%", "Periods: 5 years × 4 = 20"], "cap": "Divide the rate, and multiply the years, by the number of periods per year.", "dur": 9},
+      {"type": "calc", "step": "Example", "h": "Working backward: present value", "lines": ["PV = FV ÷ (1 + r)ⁿ", "Goal: $5,000 in 5 years at 12%, compounded quarterly", "PV = $5,000 ÷ 1.03²⁰", "PV = $5,000 ÷ 1.806111"], "result": "PV ≈ $2,768", "cap": "To find what to deposit today, divide instead of multiply.", "dur": 11},
+      {"type": "tip", "step": "On the exam", "h": "Common wrong answers", "items": [["$1,240.00", "Simple interest: $80 × 3 years, no compounding"], ["$1,080.00", "Only one year of interest"], ["$2,837", "Compounded once a year instead of quarterly"]], "cap": "Check whether the answer should be larger (future value) or smaller (present value).", "dur": 11}
+    ]
+  }
+}
