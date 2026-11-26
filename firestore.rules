@@ -53,7 +53,8 @@ service cloud.firestore {
     // Leaderboard: card counts per cluster for every student, and the display
     // name (first name and last initial) each student enters.
     // Any signed-in account can read it. Students write only their own record and
-    // can't change "hidden"; advisors can change "hidden" and fill in card counts.
+    // can't change "hidden"; advisors can change "hidden" and fill in card counts and
+    // names from the chapter roster.
     function boardOk() {
       let d = request.resource.data;
       return d.keys().hasOnly(['name', 'cl', 'upd', 'hidden'])
@@ -63,14 +64,15 @@ service cloud.firestore {
     }
     match /board/{sid} {
       allow read: if authed();
-      // Advisors may fill in card counts (cl, upd) from students' saved progress, never names.
+      // Advisors may fill in card counts (cl, upd) from students' saved progress and
+      // names (name) from the chapter roster.
       allow create: if (owns(sid) && boardOk() && !('hidden' in request.resource.data))
-        || (advisor() && boardOk() && request.resource.data.keys().hasOnly(['cl', 'upd']));
+        || (advisor() && boardOk() && request.resource.data.keys().hasOnly(['cl', 'upd', 'name']));
       allow update: if (owns(sid) && boardOk()
           && request.resource.data.get('hidden', false) == resource.data.get('hidden', false))
         || (advisor() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['hidden'])
           && request.resource.data.hidden is bool)
-        || (advisor() && boardOk() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['cl', 'upd']));
+        || (advisor() && boardOk() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['cl', 'upd', 'name']));
       allow delete: if false;
     }
 
